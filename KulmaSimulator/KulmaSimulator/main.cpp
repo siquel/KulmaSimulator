@@ -1,9 +1,7 @@
-#include <cassert>
-
-#include <GL/glew.h>
-#include <SDL\SDL.h>
-#include <iostream>
+#include "simulator.h"
 
 int main(int argc, char** argv) {
+	Simulator simulator;
+	simulator.run();
 	return 0;
 }
