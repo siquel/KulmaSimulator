@@ -24,12 +24,30 @@
     <ClCompile Include="simulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="content.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\simulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\content.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gamestates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

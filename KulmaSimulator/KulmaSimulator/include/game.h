@@ -2,8 +2,15 @@
 #define GAME_H
 #include <GL/glew.h>
 #include <SDL\SDL.h>
+#include "input.h"
+#include "content.h"
+#include "gamestates.h"
 class Game {
 private:
+	InputManager input;
+	ContentManager content;
+	GameStateManager stateManager;
+
 	SDL_Window* window;
 	SDL_GLContext context;
 	bool running;
