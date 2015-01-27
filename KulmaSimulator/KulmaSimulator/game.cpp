@@ -49,6 +49,7 @@ void Game::run() {
 	init();
 	running = true;
 	SDL_Event event;
+	input.bind("paska", new KeyTrigger());
 	while (running) {
 		while (SDL_PollEvent(&event) == 1)
 		{

@@ -14,16 +14,19 @@
     <ClCompile Include="content.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamestates.cpp" />
+    <ClCompile Include="include\triggers.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="simulator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\content.h" />
+    <ClInclude Include="include\exceptions.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\gamestates.h" />
     <ClInclude Include="include\input.h" />
     <ClInclude Include="include\simulator.h" />
+    <ClInclude Include="include\triggers.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3D7434DC-3ED3-44F4-9B30-6FDAF4323586}</ProjectGuid>
