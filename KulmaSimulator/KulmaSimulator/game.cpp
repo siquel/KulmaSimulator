@@ -49,7 +49,9 @@ void Game::run() {
 	init();
 	running = true;
 	SDL_Event event;
-	input.bind("paska", new KeyTrigger());
+	input.bind("pidgin", [](InputArgs* a) {
+
+	}, std::vector < ITrigger* > { new KeyTrigger(), new KeyTrigger(), new KeyTrigger() });
 	while (running) {
 		while (SDL_PollEvent(&event) == 1)
 		{
