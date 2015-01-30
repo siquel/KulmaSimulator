@@ -6,7 +6,7 @@
 #include "content.h"
 #include "gamestates.h"
 class Game {
-private:
+protected:
 	InputManager input;
 	ContentManager content;
 	GameStateManager stateManager;

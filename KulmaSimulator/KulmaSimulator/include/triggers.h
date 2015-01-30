@@ -2,6 +2,7 @@
 #define TRIGGERS_H
 
 #include "SDL\SDL.h"
+#include "SDL\SDL_keyboard.h"
 
 enum TriggerType {
 	KEY_TRIGGER,
@@ -16,10 +17,11 @@ public:
 };
 
 class KeyTrigger : public ITrigger {
+private:
+	SDL_Keycode key;
 public: 
-	KeyTrigger();
+	KeyTrigger(SDL_Keycode key);
 	~KeyTrigger();
 	int triggerHash();
 };
-
 #endif

@@ -50,14 +50,16 @@ void Game::run() {
 	running = true;
 	SDL_Event event;
 	input.bind("pidgin", [](InputArgs* a) {
-
-	}, std::vector < ITrigger* > { new KeyTrigger(), new KeyTrigger(), new KeyTrigger() });
+		std::cout << "pressed" << std::endl;
+	}, std::vector < ITrigger* > { new KeyTrigger(SDLK_a), new KeyTrigger(SDLK_b), new KeyTrigger(SDLK_c) });
 	while (running) {
+		
 		while (SDL_PollEvent(&event) == 1)
 		{
 			if (event.type == SDL_QUIT)
 				running = false;
 		}
+		input.update();
 		update();
 		draw();
 		SDL_GL_SwapWindow(window);
