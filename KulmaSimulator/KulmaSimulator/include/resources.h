@@ -2,6 +2,7 @@
 #define RESOURCES_H
 #include <string>
 #include <lodepng/lodepng.h>
+#include <gl/glew.h>
 
 class Resource {
 public:
@@ -14,6 +15,7 @@ class Texture : public Resource {
 private:
 	size_t width;
 	size_t height;
+	GLuint id;
 public:
 	Texture();
 	~Texture();

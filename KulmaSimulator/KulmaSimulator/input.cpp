@@ -5,7 +5,17 @@
 InputManager::InputManager() { 
 	listeners.push_back(new KeyInputListener());
 }
-InputManager::~InputManager() { }
+InputManager::~InputManager() {
+	std::for_each(listeners.begin(), listeners.end(), [](InputListener* listener) {
+		delete listener;
+	});
+	listeners.clear();
+	for (std::map<std::string, Mapping*>::iterator it = mappings.begin(); it != mappings.end(); it++) {
+		delete it->second;
+	}
+	mappings.clear();
+
+}
 
 void InputManager::bind(std::string name, InputEvent event, std::vector<ITrigger*> triggers) {
 
@@ -78,7 +88,10 @@ Mapping::Mapping(std::string name, InputEvent event) : name(name), event(event) 
 }
 
 Mapping::~Mapping() {
-
+	std::for_each(triggers.begin(), triggers.end(), [](ITrigger* t) {
+		delete t;
+	});
+	triggers.clear();
 }
 
 const std::string& Mapping::getName() const {
