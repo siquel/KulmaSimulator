@@ -14,6 +14,7 @@
     <ClCompile Include="content.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamestates.cpp" />
+    <ClCompile Include="include\lodepng\lodepng.cpp" />
     <ClCompile Include="include\triggers.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -26,6 +27,7 @@
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\gamestates.h" />
     <ClInclude Include="include\input.h" />
+    <ClInclude Include="include\lodepng\lodepng.h" />
     <ClInclude Include="include\resources.h" />
     <ClInclude Include="include\simulator.h" />
     <ClInclude Include="include\triggers.h" />

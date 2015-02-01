@@ -1,6 +1,7 @@
 #ifndef RESOURCES_H
 #define RESOURCES_H
 #include <string>
+#include <lodepng/lodepng.h>
 
 class Resource {
 public:
