@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-Game::Game() : running(false) {
+Game::Game() : running(false), content("Content") {
 
 }
 
@@ -47,11 +47,10 @@ void Game::init() {
 
 void Game::run() {
 	init();
+	initialize();
 	running = true;
 	SDL_Event event;
-	input.bind("pidgin", [](InputArgs* a) {
-		std::cout << "pressed" << std::endl;
-	}, std::vector < ITrigger* > { new KeyTrigger(SDLK_a), new KeyTrigger(SDLK_b), new KeyTrigger(SDLK_c) });
+
 	while (running) {
 		
 		while (SDL_PollEvent(&event) == 1)
@@ -68,4 +67,8 @@ void Game::run() {
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+}
+
+InputManager& Game::getInput() {
+	return input;
 }

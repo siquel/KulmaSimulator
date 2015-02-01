@@ -14,17 +14,20 @@ protected:
 	SDL_Window* window;
 	SDL_GLContext context;
 	bool running;
+	// init SDL and OpenGL
+	void init();
 public:
 	Game();
 	~Game();
-	// init SDL and OpenGL
-	void init();
+	virtual void initialize() = 0;
 	// called every frame
 	virtual void update() = 0;
 	// draw stuff
 	virtual void draw() = 0;
 	// runs the game loop
 	void run();
+
+	InputManager& getInput();
 
 	static const int WINDOW_WIDTH = 1280;
 	static const int WINDOW_HEIGHT = 720;

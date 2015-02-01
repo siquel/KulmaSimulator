@@ -9,6 +9,7 @@ public:
 	~Simulator();
 	void update();
 	void draw();
+	void initialize();
 };
 
 
