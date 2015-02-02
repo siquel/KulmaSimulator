@@ -20,6 +20,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="simulator.cpp" />
+    <ClCompile Include="spritebatch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\content.h" />
@@ -30,6 +31,7 @@
     <ClInclude Include="include\lodepng\lodepng.h" />
     <ClInclude Include="include\resources.h" />
     <ClInclude Include="include\simulator.h" />
+    <ClInclude Include="include\spritebatch.h" />
     <ClInclude Include="include\triggers.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
