@@ -2,6 +2,7 @@
 #define SIMULATOR_H
 
 #include "game.h"
+#include "spritebatch.h"
 
 class Simulator : public Game  {
 private:
@@ -10,6 +11,7 @@ private:
 	GLuint vao = 0;
 	Texture* texture;
 	GLuint IBO = 0;
+	SpriteBatch spriteBatch;
 public:
 	Simulator();
 	~Simulator();

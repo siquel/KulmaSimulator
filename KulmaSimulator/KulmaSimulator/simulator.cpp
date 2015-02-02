@@ -33,6 +33,10 @@ void Simulator::draw() {
 	glBindVertexArray(0);
 	
 	effect->unbind();
+
+	spriteBatch.begin(SpriteSortMode::Deferred);
+	spriteBatch.draw(pmath::Vec3f(0.5f, 0.5f, 0.5f), texture);
+	spriteBatch.end();
 }
 
 void Simulator::initialize() {
@@ -43,6 +47,8 @@ void Simulator::initialize() {
 	texture = content.load<Texture>("temp");
 	effect = content.load<Effect>("shader\\basic");
 	
+	spriteBatch.init();
+
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	glGenBuffers(1, &IBO);
