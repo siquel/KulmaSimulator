@@ -20,6 +20,7 @@ public:
 	Texture();
 	~Texture();
 	bool readFromFile(const std::string& path);
+	const GLuint& getId() const;
 };
 
 #endif

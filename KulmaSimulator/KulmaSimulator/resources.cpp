@@ -44,4 +44,7 @@ bool Texture::readFromFile(const std::string& path) {
 	return true;
 }
 
+const GLuint& Texture::getId() const {
+	return id;
+}
 
