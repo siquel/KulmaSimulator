@@ -19,8 +19,6 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="resources.cpp" />
-    <ClCompile Include="shader.cpp" />
-    <ClCompile Include="ShaderSource.cpp" />
     <ClCompile Include="simulator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -31,8 +29,6 @@
     <ClInclude Include="include\input.h" />
     <ClInclude Include="include\lodepng\lodepng.h" />
     <ClInclude Include="include\resources.h" />
-    <ClInclude Include="include\shader.h" />
-    <ClInclude Include="include\ShaderSource.h" />
     <ClInclude Include="include\simulator.h" />
     <ClInclude Include="include\triggers.h" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "simulator.h"
 #include <iostream>
-#include "ShaderSource.h"
+
 
 float points[] = {
 	-0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
@@ -22,7 +22,7 @@ Simulator::~Simulator() {}
 
 void Simulator::update() {}
 void Simulator::draw() { 
-	shader.bind();
+	effect->bind();
 
 	glBindVertexArray(vao);
 	
@@ -32,7 +32,7 @@ void Simulator::draw() {
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
 	glBindVertexArray(0);
 	
-	shader.unbind();
+	effect->unbind();
 }
 
 void Simulator::initialize() {
@@ -40,8 +40,7 @@ void Simulator::initialize() {
 		std::cout << "a pressed" << std::endl;
 	}, std::vector < ITrigger* > { new KeyTrigger(SDLK_a) });
 	texture = content.load<Texture>("temp");
-	shader.loadShader(ShaderSource::load("Content\\shader\\vertex.glsl").c_str(),
-		ShaderSource::load("Content\\shader\\fragment.glsl").c_str());
+	effect = content.load<Effect>("shader\\basic");
 	
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);

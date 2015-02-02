@@ -2,11 +2,10 @@
 #define SIMULATOR_H
 
 #include "game.h"
-#include "shader.h"
 
 class Simulator : public Game  {
 private:
-	Shader shader;
+	Effect* effect;
 	GLuint vbo = 0;
 	GLuint vao = 0;
 	Texture* texture;

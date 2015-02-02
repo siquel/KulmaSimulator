@@ -4,6 +4,7 @@
 #include <lodepng/lodepng.h>
 #include <gl/glew.h>
 
+
 class Resource {
 public:
 	Resource();
@@ -21,6 +22,22 @@ public:
 	~Texture();
 	bool readFromFile(const std::string& path);
 	const GLuint& getId() const;
+};
+
+class Effect : public Resource {
+private:
+	std::string readFile(const std::string& path);
+	GLuint compileShaders(const char* vertexSrc, const char* fragmentSrc);
+	GLuint program = 0;
+public:
+	Effect();
+	~Effect();
+	bool readFromFile(const std::string& path);
+	void bind() const;
+	void unbind() const;
+	GLuint getProgram() const;
+	//bool isBound() const;
+	
 };
 
 #endif
