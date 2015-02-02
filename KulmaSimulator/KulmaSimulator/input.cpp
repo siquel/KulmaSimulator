@@ -108,15 +108,26 @@ InputBuffer::~InputBuffer() { }
 
 void InputBuffer::update(InputManager* mgr, KeyInputListener* keyinput) {
 	down.clear();
+	released.clear();
+	pressed.clear();
 	// last state has all the keys which are mapped
 	for (std::map<SDL_Keycode, int>::iterator it = keyinput->lastState.begin();
 		it != keyinput->lastState.end(); it++) {
 		SDL_Keycode key = it->first;
-			// it's pressed
-			if (keyinput->state[SDL_GetScancodeFromKey(key)]) {
-				// trigger callbacks
+			
+		int state = keyinput->state[SDL_GetScancodeFromKey(key)];
+		// it's pressed
+		if (keyinput->lastState[key] == 0 && state) {
+			resolveMappings(&pressed, mgr, key);
+		}
+		 // it's down
+		else if (state) {
 				resolveMappings(&down, mgr, key);
-			}
+		// it's released
+		}
+		else if (keyinput->lastState[key] == 1 && state == 0) {
+			resolveMappings(&released, mgr, key);
+		}
 	}
 }
 
@@ -141,11 +152,23 @@ void KeyInputListener::update(InputManager* mgr) {
 		lastState[key] = state[SDL_GetScancodeFromKey(key)];		
 	}
 	SDL_PumpEvents();
-	// TODO released
-	// TODO pressed
+	
 	buffer.update(mgr, this);
 	for (auto it = buffer.down.begin(); it != buffer.down.end(); it++) {
 		InputArgs args;
-		it->second->event(&args);
+		args.state = InputState::DOWN;
+		it->second->event(args);
+	}
+
+	for (auto it = buffer.released.begin(); it != buffer.released.end(); it++) {
+		InputArgs args;
+		args.state = InputState::RELEASED;
+		it->second->event(args);
+	}
+
+	for (auto it = buffer.pressed.begin(); it != buffer.pressed.end(); it++) {
+		InputArgs args;
+		args.state = InputState::PRESSED;
+		it->second->event(args);
 	}
 }

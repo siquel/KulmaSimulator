@@ -8,14 +8,19 @@
 #include <string>
 #include <vector>
 
+enum InputState {
+	PRESSED,
+	DOWN,
+	RELEASED,
+	UP
+};
+
 // sent to callback
-class InputArgs {
-public:
-	InputArgs() {}
-	~InputArgs(){}
+struct InputArgs {
+	InputState state;
 };
 // used as callback when binding is pressed/released/down
-typedef std::function<void(InputArgs*)> InputEvent;
+typedef std::function<void(InputArgs)> InputEvent;
 
 // represents class that holds triggers which can invoke callback func
 class Mapping {
@@ -48,7 +53,7 @@ public:
 	InputManager();
 	~InputManager();
 	// creates new binding for keys, there should be at least one key
-	void bind(std::string name, std::function<void(InputArgs*)> args, std::vector<ITrigger*> triggers);
+	void bind(std::string name, InputEvent args, std::vector<ITrigger*> triggers);
 	// checks if the binding name has any mappings on it
 	bool hasMapping(std::string name);
 	
@@ -67,6 +72,8 @@ private:
 public:
 	// which bindings are currently down
 	std::map<std::string, Mapping*> down;
+	std::map<std::string, Mapping*> released;
+	std::map<std::string, Mapping*> pressed;
 	InputBuffer();
 	~InputBuffer();
 	// clears the buffer and fills it again if necessary

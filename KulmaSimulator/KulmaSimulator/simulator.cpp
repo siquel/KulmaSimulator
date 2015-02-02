@@ -36,8 +36,9 @@ void Simulator::draw() {
 }
 
 void Simulator::initialize() {
-	getInput().bind("Zaaryus", [](InputArgs* args) {
-		std::cout << "a pressed" << std::endl;
+	getInput().bind("Zaaryus", [](InputArgs args) {
+		if (args.state == InputState::PRESSED)
+			std::cout << "a pressed" << std::endl;
 	}, std::vector < ITrigger* > { new KeyTrigger(SDLK_a) });
 	texture = content.load<Texture>("temp");
 	effect = content.load<Effect>("shader\\basic");

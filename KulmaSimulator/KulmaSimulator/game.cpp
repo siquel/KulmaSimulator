@@ -52,13 +52,13 @@ void Game::run() {
 	SDL_Event event;
 
 	while (running) {
-		
+		input.update();
 		while (SDL_PollEvent(&event) == 1)
 		{
 			if (event.type == SDL_QUIT)
 				running = false;
 		}
-		input.update();
+		
 		update();
 		draw();
 		SDL_GL_SwapWindow(window);
