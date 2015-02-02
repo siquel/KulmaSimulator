@@ -1,15 +1,12 @@
 #include "simulator.h"
 #include <iostream>
 
-
-float points[] = {
-	-0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-	0.5f, 0.5f, 0.0f, 1.f, 1.f,
-	-0.5f, -0.5f, 0.0f, 0.f, 0.f,
-	0.5f, -0.5f, 0.0f, 1.f, 0.f
-	
+VertexPositionColorTexture points[] = {
+	VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),
+	VertexPositionColorTexture(0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f),
+	VertexPositionColorTexture(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f),
+	VertexPositionColorTexture(0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f)
 };
-
 GLushort indices[] = {
 	0, 1, 2,
 	1, 2, 3
@@ -63,9 +60,10 @@ void Simulator::initialize() {
 	
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, position)));
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, color)));
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, uv)));
 
 }
