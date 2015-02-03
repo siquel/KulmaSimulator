@@ -19,7 +19,7 @@ Simulator::~Simulator() {}
 
 void Simulator::update() {}
 void Simulator::draw() { 
-	effect->bind();
+	/*effect->bind();
 
 	glBindVertexArray(vao);
 	
@@ -29,7 +29,7 @@ void Simulator::draw() {
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
 	glBindVertexArray(0);
 	
-	effect->unbind();
+	effect->unbind();*/
 
 	spriteBatch.begin(SpriteSortMode::Deferred);
 	spriteBatch.draw(pmath::Vec3f(0.5f, 0.5f, 0.5f), texture);

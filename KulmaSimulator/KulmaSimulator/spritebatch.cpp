@@ -3,7 +3,7 @@
 
 
 
-SpriteBatch::SpriteBatch() : hasBegun(false), sortMode(SpriteSortMode::Deferred), VAO(0), VBO(0), IBO(0), spriteQueueCount(0), spriteQueueArraySize(0) {
+SpriteBatch::SpriteBatch() : hasBegun(false), sortMode(SpriteSortMode::Deferred), VAO(0), VBO(0), IBO(0), spriteQueueCount(0), spriteQueueArraySize(0), content("Content"), effect(nullptr) {
 
 }
 
@@ -128,10 +128,14 @@ void SpriteBatch::flushBatch() {
 		assert(texture != nullptr);
 
 		if (texture != batchTexture) {
+			
 			if (pos > batchStart) {
 				// todo convert to sorted
 				renderBatch(batchTexture, &spriteQueue[pos], pos - batchStart);
 			}
+
+			batchTexture = texture;
+			batchStart = pos;
 		}
 	}
 
@@ -143,6 +147,8 @@ void SpriteBatch::flushBatch() {
 }
 
 void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t count) {
+
+	effect->bind();
 	// loop textures
 	while (count > 0) {
 		size_t batchSize = count;
@@ -155,18 +161,34 @@ void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t coun
 			0.0, 0.0f
 		};
 
+		static const VertexPositionColorTexture points[] = {
+			VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),
+			VertexPositionColorTexture(0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f),
+			VertexPositionColorTexture(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f),
+			VertexPositionColorTexture(0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f)
+		};
+
 		// send to gpu
 		// instantiate buffer again, from loc?
-		//glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * stride, vertices.data());
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * VerticesPerSprite, (void*)points);
+		
+
+		glActiveTexture(GL_TEXTURE0 + 0);
+		glBindTexture(GL_TEXTURE_2D, texture->getId());
+
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
+
 		// advance
 		sprites += batchSize;
 		count -= batchSize;
 	}
 
+	effect->unbind();
 
 }
 
 void SpriteBatch::init() {
 	createVertexArray();
 	createIndexBuffer();
+	effect = content.load<Effect>("shader\\basic");
 }

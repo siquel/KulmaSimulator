@@ -30,7 +30,8 @@ struct VertexPositionColorTexture {
 
 class SpriteBatch {
 private:
-
+	ContentManager content;
+	Effect* effect;
 	SpriteSortMode sortMode;
 
 	GLuint VBO = 0;
@@ -75,6 +76,8 @@ public:
 	void begin(SpriteSortMode spriteSortMode);
 	void end();
 	void draw(const pmath::Vec3f& pos, Texture* texture);
+	// debug
+	void draw(const pmath::Vec4f& rect);
 };
 
 #endif
