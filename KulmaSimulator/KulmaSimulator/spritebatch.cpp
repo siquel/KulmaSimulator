@@ -149,6 +149,8 @@ void SpriteBatch::flushBatch() {
 void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t count) {
 
 	effect->bind();
+	glActiveTexture(GL_TEXTURE0 + 0);
+	glBindTexture(GL_TEXTURE_2D, texture->getId());
 	// loop textures
 	while (count > 0) {
 		size_t batchSize = count;
@@ -171,10 +173,6 @@ void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t coun
 		// send to gpu
 		// instantiate buffer again, from loc?
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * VerticesPerSprite, (void*)points);
-		
-
-		glActiveTexture(GL_TEXTURE0 + 0);
-		glBindTexture(GL_TEXTURE_2D, texture->getId());
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
 
