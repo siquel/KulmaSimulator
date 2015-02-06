@@ -1,7 +1,8 @@
 #include "spritebatch.h"
 #include <algorithm>
-
-
+// todo hax
+#define ScreenWidth 1280
+#define ScreenHeight 720
 
 SpriteBatch::SpriteBatch() : hasBegun(false), sortMode(SpriteSortMode::Deferred), VAO(0), VBO(0), IBO(0), spriteQueueCount(0), spriteQueueArraySize(0), content("Content"), effect(nullptr) {
 
@@ -41,10 +42,10 @@ void SpriteBatch::draw(const pmath::Vec2f& pos, Texture* texture) {
 	static const pmath::Vec4f color = { 1.f, 1.f, 1.f, 1.f };
 	sprite->source = source;
 	sprite->color = color;
-	sprite->topLeft = pos;
-	sprite->topRight = pmath::Vec2f(pos.x + texture->width, pos.y);
-	sprite->bottomRight = pmath::Vec2f(pos.x + texture->width, pos.y + texture->height);
-	sprite->bottomLeft = pmath::Vec2f(pos.x, pos.y + texture->height);
+	sprite->topLeft = pmath::Vec2f(pos.x / ScreenWidth, pos.y / ScreenHeight);
+	sprite->topRight = pmath::Vec2f((pos.x + texture->width)/ScreenWidth, (pos.y) / ScreenHeight);
+	sprite->bottomRight = pmath::Vec2f((pos.x + texture->width) / ScreenWidth, (pos.y + texture->height) / ScreenHeight);
+	sprite->bottomLeft = pmath::Vec2f((pos.x) / ScreenWidth, (pos.y + texture->height) / ScreenHeight);
 	
 	sprite->texture = texture;
 
@@ -167,17 +168,17 @@ void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t coun
 			0.0, 0.0f
 		};
 
-		static pmath::Vec3f asd = pmath::Vec3f(0.1f, 0.1f, 0.1f);
+		static pmath::Vec3f asd = pmath::Vec3f(1.0f, 1.0f, 1.0f);
 
 		GLuint scaleLocation = glGetUniformLocation(effect->getProgram(), "scale");
-		glUniform3f(scaleLocation, 0.1f, 0.1f, 0.1f);
+		glUniform3f(scaleLocation, 1.f, 1.f, 1.f);
 		// send to gpu
 		// instantiate buffer again, from loc?
-		
-		vertices.push_back(VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
-		vertices.push_back(VertexPositionColorTexture(0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
-		vertices.push_back(VertexPositionColorTexture(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
-		vertices.push_back(VertexPositionColorTexture(0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
+		vertices.push_back(VertexPositionColorTexture(sprites->topLeft.x, sprites->topLeft.y, 0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
+		//vertices.push_back(VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
+		vertices.push_back(VertexPositionColorTexture(sprites->topRight.x, sprites->topRight.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
+		vertices.push_back(VertexPositionColorTexture(sprites->bottomLeft.x, sprites->bottomLeft.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
+		vertices.push_back(VertexPositionColorTexture(sprites->bottomRight.x, sprites->bottomRight.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
 
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * VerticesPerSprite, (void*)vertices.data());
 
