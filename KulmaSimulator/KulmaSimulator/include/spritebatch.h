@@ -64,12 +64,12 @@ private:
 	static const size_t InitialQueueSize = 64;
 	static const size_t MaxBatchSize = 256;
 
-	// when we sort sprites, they'll be stored here // not implemented
+	// when we sort sprites, they'll be stored here
 	std::vector<SpriteInfo const*> sortedSprites;
 
 	// helpers
 	void growSpriteQueue();
-	// sends sprites to GPU
+	// sends sprites to GPU + calculates vertices
 	void renderBatch(Texture* texture, SpriteInfo const* const* sprites, size_t count);
 public:
 	SpriteBatch();

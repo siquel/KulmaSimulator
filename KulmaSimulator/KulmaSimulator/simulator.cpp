@@ -11,6 +11,7 @@ void Simulator::draw() {
 	spriteBatch.begin(SpriteSortMode::Deferred);
 	spriteBatch.draw(pmath::Vec2f(0.f, 0.f), texture);
 	spriteBatch.draw(pmath::Vec2f(-100.f, -100.f), texture);
+	spriteBatch.draw(pmath::Vec2f(-500.f, -500.f), texture);
 	spriteBatch.end();
 }
 
