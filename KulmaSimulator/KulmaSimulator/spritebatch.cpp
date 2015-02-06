@@ -73,20 +73,23 @@ void SpriteBatch::createIndexValues() {
 void SpriteBatch::createVertexArray() {
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
-	
+	createIndexBuffer();
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
 	// position, color, uv
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 
+	
+
+
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, position)));
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, color)));
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, uv)));
 
-	glBindVertexArray(0);
+	
 }
 
 void SpriteBatch::growSpriteQueue() {
@@ -108,7 +111,7 @@ void SpriteBatch::growSpriteQueue() {
 void SpriteBatch::prepareForRendering() {
 	// clear vertex buffer
 	GLuint stride = sizeof(VertexPositionColorTexture);
-
+	
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	//clear buffer
 	glBufferData(GL_ARRAY_BUFFER, spriteQueueCount * VerticesPerSprite * stride, nullptr, GL_DYNAMIC_DRAW);
@@ -147,10 +150,11 @@ void SpriteBatch::flushBatch() {
 }
 
 void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t count) {
-
-	effect->bind();
+	
 	glActiveTexture(GL_TEXTURE0 + 0);
 	glBindTexture(GL_TEXTURE_2D, texture->getId());
+	effect->bind();
+
 	// loop textures
 	while (count > 0) {
 		size_t batchSize = count;
@@ -172,6 +176,7 @@ void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t coun
 
 		// send to gpu
 		// instantiate buffer again, from loc?
+		
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * VerticesPerSprite, (void*)points);
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
@@ -187,6 +192,6 @@ void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t coun
 
 void SpriteBatch::init() {
 	createVertexArray();
-	createIndexBuffer();
+	
 	effect = content.load<Effect>("shader\\basic");
 }

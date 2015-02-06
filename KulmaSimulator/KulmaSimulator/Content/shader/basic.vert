@@ -7,6 +7,7 @@ in vec4 color;
 layout(location = 2)
 in vec2 coords;
 out vec2 texCoords;
+
 void main() {
 	gl_Position = vec4(inPosition, 1.0);
 	texCoords = coords;

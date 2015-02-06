@@ -1,17 +1,6 @@
 #include "simulator.h"
 #include <iostream>
 
-VertexPositionColorTexture points[] = {
-	VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),
-	VertexPositionColorTexture(0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f),
-	VertexPositionColorTexture(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f),
-	VertexPositionColorTexture(0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f)
-};
-GLushort indices[] = {
-	0, 1, 2,
-	1, 2, 3
-};
-
 Simulator::Simulator() {
 
 }
@@ -45,7 +34,7 @@ void Simulator::initialize() {
 	effect = content.load<Effect>("shader\\basic");
 	
 	spriteBatch.init();
-
+	/*
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	glGenBuffers(1, &IBO);
@@ -65,5 +54,5 @@ void Simulator::initialize() {
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, color)));
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, uv)));
-
+	*/
 }
