@@ -13,7 +13,7 @@ public:
 };
 
 class Texture : public Resource {
-private:
+public:
 	size_t width;
 	size_t height;
 	GLuint id;

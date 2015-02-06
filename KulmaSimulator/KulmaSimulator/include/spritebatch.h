@@ -11,10 +11,13 @@ enum SpriteSortMode {
 };
 
 struct SpriteInfo {
-	pmath::Vec3f pos;
+	pmath::Vec2f topLeft;
+	pmath::Vec2f topRight;
+	pmath::Vec2f bottomLeft;
+	pmath::Vec2f bottomRight;
+	pmath::Vec2f origin;
 	pmath::Vec4f color;
-	pmath::Vec2f uv;
-	pmath::Recti source;
+	pmath::Vec4f source;
 	Texture* texture;
 };
 
@@ -30,6 +33,7 @@ struct VertexPositionColorTexture {
 
 class SpriteBatch {
 private:
+	std::vector<VertexPositionColorTexture> vertices;
 	ContentManager content;
 	Effect* effect;
 	SpriteSortMode sortMode;
@@ -75,9 +79,7 @@ public:
 
 	void begin(SpriteSortMode spriteSortMode);
 	void end();
-	void draw(const pmath::Vec3f& pos, Texture* texture);
-	// debug
-	void draw(const pmath::Vec4f& rect);
+	void draw(const pmath::Vec2f& pos, Texture* texture);
 };
 
 #endif

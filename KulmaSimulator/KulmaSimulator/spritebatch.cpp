@@ -27,7 +27,7 @@ void SpriteBatch::end() {
 	flushBatch();
 }
 
-void SpriteBatch::draw(const pmath::Vec3f& pos, Texture* texture) {
+void SpriteBatch::draw(const pmath::Vec2f& pos, Texture* texture) {
 	
 	if (spriteQueueCount >= spriteQueueArraySize) {
 		growSpriteQueue();
@@ -36,11 +36,16 @@ void SpriteBatch::draw(const pmath::Vec3f& pos, Texture* texture) {
 	SpriteInfo* sprite = &spriteQueue[spriteQueueCount];
 
 	// we dont have source rect yet
-	static const pmath::Recti wholeTex = { 0, 0, 1, 1 };
+	static const pmath::Vec4f source = { 0.f, 0.f, 1.f, 1.f };
 	// neither colors
 	static const pmath::Vec4f color = { 1.f, 1.f, 1.f, 1.f };
-	sprite->source = wholeTex;
-	sprite->pos = pos;
+	sprite->source = source;
+	sprite->color = color;
+	sprite->topLeft = pos;
+	sprite->topRight = pmath::Vec2f(pos.x + texture->width, pos.y);
+	sprite->bottomRight = pmath::Vec2f(pos.x + texture->width, pos.y + texture->height);
+	sprite->bottomLeft = pmath::Vec2f(pos.x, pos.y + texture->height);
+	
 	sprite->texture = texture;
 
 	spriteQueueCount++;
@@ -81,15 +86,10 @@ void SpriteBatch::createVertexArray() {
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 
-	
-
-
-
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, position)));
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, color)));
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, uv)));
-
-	
+	vertices.reserve(InitialQueueSize * VerticesPerSprite);
 }
 
 void SpriteBatch::growSpriteQueue() {
@@ -115,7 +115,7 @@ void SpriteBatch::prepareForRendering() {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	//clear buffer
 	glBufferData(GL_ARRAY_BUFFER, spriteQueueCount * VerticesPerSprite * stride, nullptr, GL_DYNAMIC_DRAW);
-	
+	vertices.clear();
 }
 
 void SpriteBatch::flushBatch() {
@@ -167,17 +167,19 @@ void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t coun
 			0.0, 0.0f
 		};
 
-		static const VertexPositionColorTexture points[] = {
-			VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),
-			VertexPositionColorTexture(0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f),
-			VertexPositionColorTexture(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f),
-			VertexPositionColorTexture(0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f)
-		};
+		static pmath::Vec3f asd = pmath::Vec3f(0.1f, 0.1f, 0.1f);
 
+		GLuint scaleLocation = glGetUniformLocation(effect->getProgram(), "scale");
+		glUniform3f(scaleLocation, 0.1f, 0.1f, 0.1f);
 		// send to gpu
 		// instantiate buffer again, from loc?
 		
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * VerticesPerSprite, (void*)points);
+		vertices.push_back(VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
+		vertices.push_back(VertexPositionColorTexture(0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
+		vertices.push_back(VertexPositionColorTexture(-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
+		vertices.push_back(VertexPositionColorTexture(0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
+
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * VerticesPerSprite, (void*)vertices.data());
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
 

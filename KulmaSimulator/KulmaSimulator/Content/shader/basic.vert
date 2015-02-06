@@ -8,7 +8,10 @@ layout(location = 2)
 in vec2 coords;
 out vec2 texCoords;
 
+uniform vec3 scale;
+//uniform mat4 enterTheMatrix;
+
 void main() {
-	gl_Position = vec4(inPosition, 1.0);
+	gl_Position = vec4(inPosition * scale, 1.0);
 	texCoords = coords;
 }
