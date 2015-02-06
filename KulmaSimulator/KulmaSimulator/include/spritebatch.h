@@ -33,6 +33,7 @@ struct VertexPositionColorTexture {
 
 class SpriteBatch {
 private:
+	unsigned int vertexBufferPos;
 	std::vector<VertexPositionColorTexture> vertices;
 	ContentManager content;
 	Effect* effect;
@@ -69,7 +70,7 @@ private:
 	// helpers
 	void growSpriteQueue();
 	// sends sprites to GPU
-	void renderBatch(Texture* texture, SpriteInfo* sprites, size_t count);
+	void renderBatch(Texture* texture, SpriteInfo const* const* sprites, size_t count);
 public:
 	SpriteBatch();
 	~SpriteBatch();

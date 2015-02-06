@@ -4,7 +4,7 @@
 #define ScreenWidth 1280
 #define ScreenHeight 720
 
-SpriteBatch::SpriteBatch() : hasBegun(false), sortMode(SpriteSortMode::Deferred), VAO(0), VBO(0), IBO(0), spriteQueueCount(0), spriteQueueArraySize(0), content("Content"), effect(nullptr) {
+SpriteBatch::SpriteBatch() : hasBegun(false), sortMode(SpriteSortMode::Deferred), VAO(0), VBO(0), IBO(0), spriteQueueCount(0), spriteQueueArraySize(0), content("Content"), effect(nullptr), vertexBufferPos(0) {
 
 }
 
@@ -110,6 +110,20 @@ void SpriteBatch::growSpriteQueue() {
 }
 
 void SpriteBatch::prepareForRendering() {
+
+
+	if (sortedSprites.size() < spriteQueueCount) {
+		size_t prev = sortedSprites.size();
+		sortedSprites.resize(spriteQueueCount);
+		for (size_t i = prev; i < spriteQueueCount; i++) {
+			sortedSprites[i] = &spriteQueue[i];
+		}
+
+		std::sort(sortedSprites.begin(), sortedSprites.begin() + spriteQueueCount, [](const SpriteInfo* x, const SpriteInfo* y) {
+			return x->texture < y->texture;
+		});
+	}
+
 	// clear vertex buffer
 	GLuint stride = sizeof(VertexPositionColorTexture);
 	
@@ -135,7 +149,7 @@ void SpriteBatch::flushBatch() {
 			
 			if (pos > batchStart) {
 				// todo convert to sorted
-				renderBatch(batchTexture, &spriteQueue[pos], pos - batchStart);
+				renderBatch(batchTexture, &sortedSprites[pos], pos - batchStart);
 			}
 
 			batchTexture = texture;
@@ -144,13 +158,15 @@ void SpriteBatch::flushBatch() {
 	}
 
 	// flush final, todo convert to sorted
-	renderBatch(batchTexture, &spriteQueue[batchStart], spriteQueueCount - batchStart);
+	renderBatch(batchTexture, &sortedSprites[batchStart], spriteQueueCount - batchStart);
 
 	// Reset the queue.
 	spriteQueueCount = 0;
+
+	vertexBufferPos = 0;
 }
 
-void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t count) {
+void SpriteBatch::renderBatch(Texture* texture, SpriteInfo const* const* sprites, size_t count) {
 	
 	glActiveTexture(GL_TEXTURE0 + 0);
 	glBindTexture(GL_TEXTURE_2D, texture->getId());
@@ -159,36 +175,34 @@ void SpriteBatch::renderBatch(Texture* texture, SpriteInfo* sprites, size_t coun
 	// loop textures
 	while (count > 0) {
 		size_t batchSize = count;
-		// generate vertex data
-
-		static const float transformation[] = {
-			1.0, 0.f,
-			0.0, 1.0f,
-			1.0f, 0.0f,
-			0.0, 0.0f
-		};
-
+		/*
 		static pmath::Vec3f asd = pmath::Vec3f(1.0f, 1.0f, 1.0f);
-
 		GLuint scaleLocation = glGetUniformLocation(effect->getProgram(), "scale");
-		glUniform3f(scaleLocation, 1.f, 1.f, 1.f);
-		// send to gpu
-		// instantiate buffer again, from loc?
-		vertices.push_back(VertexPositionColorTexture(sprites->topLeft.x, sprites->topLeft.y, 0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
-		//vertices.push_back(VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
-		vertices.push_back(VertexPositionColorTexture(sprites->topRight.x, sprites->topRight.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
-		vertices.push_back(VertexPositionColorTexture(sprites->bottomLeft.x, sprites->bottomLeft.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
-		vertices.push_back(VertexPositionColorTexture(sprites->bottomRight.x, sprites->bottomRight.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
+		glUniform3f(scaleLocation, 1.f, 1.f, 1.f);*/
+		
+		// generate vertex data
+		for (size_t i = 0; i < batchSize; i++) {
 
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * VerticesPerSprite, (void*)vertices.data());
+			vertices.push_back(VertexPositionColorTexture(sprites[i]->topLeft.x, sprites[i]->topLeft.y, 0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
+			//vertices.push_back(VertexPositionColorTexture(-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
+			vertices.push_back(VertexPositionColorTexture(sprites[i]->topRight.x, sprites[i]->topRight.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
+			vertices.push_back(VertexPositionColorTexture(sprites[i]->bottomLeft.x, sprites[i]->bottomLeft.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
+			vertices.push_back(VertexPositionColorTexture(sprites[i]->bottomRight.x, sprites[i]->bottomRight.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
+		}
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
+		glBufferSubData(GL_ARRAY_BUFFER, vertexBufferPos * sizeof(VertexPositionColorTexture) * VerticesPerSprite, sizeof(VertexPositionColorTexture) * VerticesPerSprite * batchSize, (void*)(vertices.data() + vertexBufferPos * VerticesPerSprite));
+
+		
+
+		glDrawElements(GL_TRIANGLES, IndicesPerSprite * batchSize, GL_UNSIGNED_SHORT, 0);
 
 		// advance
 		sprites += batchSize;
 		count -= batchSize;
-	}
 
+		vertexBufferPos += batchSize;
+	}
+	
 	effect->unbind();
 
 }
