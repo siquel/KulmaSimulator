@@ -40,7 +40,8 @@ void Game::init() {
 	glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);
 	glGetIntegerv(GL_MAJOR_VERSION, &versionMinor);
 	std::cout << "OpenGL context version: " << versionMajor << '.' << versionMinor << '\n';
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Game::run() {
