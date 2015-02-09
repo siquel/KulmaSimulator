@@ -18,6 +18,7 @@ void Simulator::draw() {
 	spriteBatch.draw(glm::vec2(400.f, 100.f), texture);
 	spriteBatch.draw(glm::vec2(500.f, 500.f), texture);
 	spriteBatch.draw(glm::vec2(200.f, 200.f), texture2);
+	spriteBatch.draw(glm::vec2(300.f, 300.f), texture3);
 	
 	spriteBatch.end();
 }
@@ -31,6 +32,7 @@ void Simulator::initialize() {
 	spriteBatch.init();
 	texture = content.load<Texture>("pidgin");
 	texture2 = content.load<Texture>("temp");
+	texture3 = content.load<Texture>("dolan");
 	effect = content.load<Effect>("shader\\basic");
 	getStateManager().push(new GameplayState);
 	

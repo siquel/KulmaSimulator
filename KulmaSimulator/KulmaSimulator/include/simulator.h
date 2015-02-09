@@ -11,6 +11,7 @@ private:
 	GLuint vao = 0;
 	Texture* texture;
 	Texture* texture2;
+	Texture* texture3;
 	GLuint IBO = 0;
 	SpriteBatch spriteBatch;
 public:

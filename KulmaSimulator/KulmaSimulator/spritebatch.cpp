@@ -148,6 +148,14 @@ void SpriteBatch::flushBatch() {
 	if (!spriteQueueCount)
 		return;
 
+	glActiveTexture(GL_TEXTURE0 + 0);
+	
+	glAssert();
+	effect->bind();
+
+	GLuint matrixLocation = glGetUniformLocation(effect->getProgram(), "enterTheMatrix");
+	glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(enterTheMatrix));
+
 	Texture* batchTexture = nullptr;
 	size_t batchStart = 0;
 	for (size_t pos = 0; pos < spriteQueueCount; pos++) {
@@ -168,21 +176,16 @@ void SpriteBatch::flushBatch() {
 	// flush final
 	renderBatch(batchTexture, batchStart, spriteQueueCount - batchStart);
 
+	effect->unbind();
+	
 	// Reset the queue.
 	spriteQueueCount = 0;
 	vertexBufferPos = 0;
 }
 
 void SpriteBatch::renderBatch(Texture* texture, size_t start, size_t count) {
-	
-	glActiveTexture(GL_TEXTURE0 + 0);
-	glAssert();
-	glBindTexture(GL_TEXTURE_2D, texture->getId());
-	glAssert();
-	effect->bind();
 
-	GLuint matrixLocation = glGetUniformLocation(effect->getProgram(), "enterTheMatrix");
-	glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(enterTheMatrix));
+	glBindTexture(GL_TEXTURE_2D, texture->getId());
 	glAssert();
 
 	// loop textures
@@ -204,15 +207,14 @@ void SpriteBatch::renderBatch(Texture* texture, size_t start, size_t count) {
 			sizeof(VertexPositionColorTexture) * vertices.size(), (void*)(vertices.data()));
 		glAssert();
 		// TODO why this needs to be multiplied by 2?
-		glDrawElements(GL_TRIANGLES, IndicesPerSprite * batchSize, GL_UNSIGNED_SHORT, (void*)((IndicesPerSprite * vertexBufferPos*2)));
 		glAssert();
-		
+		glDrawElements(GL_TRIANGLES, IndicesPerSprite * batchSize, GL_UNSIGNED_SHORT, (void*)((IndicesPerSprite * vertexBufferPos * 2)));
 		count -= batchSize;
 		// advance
 		vertexBufferPos += batchSize;
 	}
-	
-	effect->unbind();
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 
 }
 
