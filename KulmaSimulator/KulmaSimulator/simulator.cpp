@@ -15,8 +15,8 @@ void Simulator::draw() {
 	spriteBatch.begin(SpriteSortMode::Deferred);
 	spriteBatch.draw(glm::vec2(0.f, 0.f), texture);
 	
-	//spriteBatch.draw(glm::vec2(400.f, 100.f), texture);
-	//spriteBatch.draw(glm::vec2(500.f, 500.f), texture);
+	spriteBatch.draw(glm::vec2(400.f, 100.f), texture);
+	spriteBatch.draw(glm::vec2(500.f, 500.f), texture);
 	spriteBatch.draw(glm::vec2(200.f, 200.f), texture2);
 	
 	spriteBatch.end();

@@ -192,18 +192,19 @@ void SpriteBatch::renderBatch(Texture* texture, size_t start, size_t count) {
 		std::vector<VertexPositionColorTexture> vertices;
 		// generate vertex data
 		for (size_t i = start; i < start + batchSize; i++) {
-
-			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topLeft.x, sortedSprites[i]->topLeft.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
-			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topRight.x, sortedSprites[i]->topRight.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
-			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomLeft.x, sortedSprites[i]->bottomLeft.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
-			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomRight.x, sortedSprites[i]->bottomRight.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
+			glm::vec4 c = sortedSprites[i]->color;
+			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topLeft.x, sortedSprites[i]->topLeft.y, -0.f, c.x, c.y, c.z, c.z, 0.0f, 1.0f));
+			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topRight.x, sortedSprites[i]->topRight.y, -0.f, c.x, c.y, c.z, c.z,  1.f, 1.f));
+			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomLeft.x, sortedSprites[i]->bottomLeft.y, -0.f, c.x, c.y, c.z, c.z,  0.f, 0.f));
+			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomRight.x, sortedSprites[i]->bottomRight.y, -0.f, c.x, c.y, c.z, c.z, 1.f, 0.f));
 		}
 		
 		glBufferSubData(GL_ARRAY_BUFFER, 
 			vertexBufferPos * sizeof(VertexPositionColorTexture) * vertices.size(), 
 			sizeof(VertexPositionColorTexture) * vertices.size(), (void*)(vertices.data()));
 		glAssert();
-		glDrawElements(GL_TRIANGLES, IndicesPerSprite * batchSize, GL_UNSIGNED_SHORT, (void*)(IndicesPerSprite * vertexBufferPos));
+		// TODO why this needs to be multiplied by 2?
+		glDrawElements(GL_TRIANGLES, IndicesPerSprite * batchSize, GL_UNSIGNED_SHORT, (void*)((IndicesPerSprite * vertexBufferPos*2)));
 		glAssert();
 		
 		count -= batchSize;
