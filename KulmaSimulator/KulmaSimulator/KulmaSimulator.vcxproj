@@ -33,6 +33,7 @@
     <ClInclude Include="include\simulator.h" />
     <ClInclude Include="include\spritebatch.h" />
     <ClInclude Include="include\triggers.h" />
+    <ClInclude Include="include\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3D7434DC-3ED3-44F4-9B30-6FDAF4323586}</ProjectGuid>

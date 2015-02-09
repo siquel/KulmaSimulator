@@ -50,9 +50,9 @@ void GameplayState::onInitialize() {
 }
 
 void GameplayState::update(float tpf) {
-
+	std::cout << "TPF " << tpf << std::endl;
 }
 
 void GameplayState::draw() {
-	std::cout << "GameplayState draw()" << std::endl;
+//	std::cout << "GameplayState draw()" << std::endl;
 }

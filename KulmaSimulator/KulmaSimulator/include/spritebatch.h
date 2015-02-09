@@ -1,30 +1,29 @@
 #ifndef SPRITEBATCH_H
 #define SPRITEBATCH_H
 #include "GL\glew.h"
-#include "pmath\Vector.hpp"
-#include <pmath\Rectangle.hpp>
+#include "GLM.h"
 #include "content.h"
 #include <memory>
-
+#include "util.h"
 enum SpriteSortMode {
 	Deferred
 };
 
-struct SpriteInfo {
-	pmath::Vec2f topLeft;
-	pmath::Vec2f topRight;
-	pmath::Vec2f bottomLeft;
-	pmath::Vec2f bottomRight;
-	pmath::Vec2f origin;
-	pmath::Vec4f color;
-	pmath::Vec4f source;
+__declspec(align(16)) struct SpriteInfo : public AlignedNew<SpriteInfo> {
+	glm::vec2 topLeft;
+	glm::vec2 topRight;
+	glm::vec2 bottomLeft;
+	glm::vec2 bottomRight;
+	glm::vec2 origin;
+	glm::vec4 color;
+	glm::vec4 source;
 	Texture* texture;
 };
 
 struct VertexPositionColorTexture {
-	pmath::Vec3f position;
-	pmath::Vec4f color;
-	pmath::Vec2f uv;
+	glm::vec3 position;
+	glm::vec4 color;
+	glm::vec2 uv;
 
 	VertexPositionColorTexture(float x, float y, float z, float r, float g, float b, float a, float u, float v) 
 		: position(x, y, z), color(r, g, b, a), uv(u, v)
@@ -80,7 +79,7 @@ public:
 
 	void begin(SpriteSortMode spriteSortMode);
 	void end();
-	void draw(const pmath::Vec2f& pos, Texture* texture);
+	void draw(const glm::vec2& pos, Texture* texture);
 };
 
 #endif

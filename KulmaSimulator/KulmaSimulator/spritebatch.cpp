@@ -28,7 +28,7 @@ void SpriteBatch::end() {
 	flushBatch();
 }
 
-void SpriteBatch::draw(const pmath::Vec2f& pos, Texture* texture) {
+void SpriteBatch::draw(const glm::vec2& pos, Texture* texture) {
 	
 	if (spriteQueueCount >= spriteQueueArraySize) {
 		growSpriteQueue();
@@ -37,15 +37,15 @@ void SpriteBatch::draw(const pmath::Vec2f& pos, Texture* texture) {
 	SpriteInfo* sprite = &spriteQueue[spriteQueueCount];
 
 	// we dont have source rect yet
-	static const pmath::Vec4f source = { 0.f, 0.f, 1.f, 1.f };
+	static const glm::vec4 source = { 0.f, 0.f, 1.f, 1.f };
 	// neither colors
-	static const pmath::Vec4f color = { 1.f, 1.f, 1.f, 1.f };
+	static const glm::vec4 color = { 1.f, 1.f, 1.f, 1.f };
 	sprite->source = source;
 	sprite->color = color;
-	sprite->topLeft = pmath::Vec2f(pos.x / ScreenWidth, pos.y / ScreenHeight);
-	sprite->topRight = pmath::Vec2f((pos.x + texture->width)/ScreenWidth, (pos.y) / ScreenHeight);
-	sprite->bottomRight = pmath::Vec2f((pos.x + texture->width) / ScreenWidth, (pos.y + texture->height) / ScreenHeight);
-	sprite->bottomLeft = pmath::Vec2f((pos.x) / ScreenWidth, (pos.y + texture->height) / ScreenHeight);
+	sprite->topLeft = glm::vec2(pos.x / ScreenWidth, pos.y / ScreenHeight);
+	sprite->topRight = glm::vec2((pos.x + texture->width) / ScreenWidth, (pos.y) / ScreenHeight);
+	sprite->bottomRight = glm::vec2((pos.x + texture->width) / ScreenWidth, (pos.y + texture->height) / ScreenHeight);
+	sprite->bottomLeft = glm::vec2((pos.x) / ScreenWidth, (pos.y + texture->height) / ScreenHeight);
 	
 	sprite->texture = texture;
 
