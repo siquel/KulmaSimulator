@@ -1,7 +1,7 @@
 #include "game.h"
 #include <cassert>
 #include <iostream>
-
+#include "util.h"
 
 Game::Game() : running(false), content("Content") {
 
@@ -13,7 +13,6 @@ Game::~Game() {
 
 void Game::init() {
 	int result = SDL_Init(SDL_INIT_VIDEO);
-
 	assert(result == 0);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG);
@@ -28,7 +27,6 @@ void Game::init() {
 
 	window = SDL_CreateWindow("KulmaSimulator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
-
 	assert(window != nullptr);
 
 	context = SDL_GL_CreateContext(window);
@@ -36,7 +34,7 @@ void Game::init() {
 	glewExperimental = GL_TRUE;
 	const GLenum glewResult = glewInit();
 	assert(glewResult == GLEW_OK);
-
+	glGetError();
 	int versionMajor;
 	int versionMinor;
 	glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);

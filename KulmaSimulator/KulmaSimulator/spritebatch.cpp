@@ -1,5 +1,6 @@
 #include "spritebatch.h"
 #include <algorithm>
+#include "util.h"
 // todo hax
 #define ScreenWidth 1280
 #define ScreenHeight 720
@@ -42,10 +43,12 @@ void SpriteBatch::draw(const glm::vec2& pos, Texture* texture) {
 	static const glm::vec4 color = { 1.f, 1.f, 1.f, 1.f };
 	sprite->source = source;
 	sprite->color = color;
-	sprite->topLeft = glm::vec2(pos.x / ScreenWidth, pos.y / ScreenHeight);
-	sprite->topRight = glm::vec2((pos.x + texture->width) / ScreenWidth, (pos.y) / ScreenHeight);
-	sprite->bottomRight = glm::vec2((pos.x + texture->width) / ScreenWidth, (pos.y + texture->height) / ScreenHeight);
-	sprite->bottomLeft = glm::vec2((pos.x) / ScreenWidth, (pos.y + texture->height) / ScreenHeight);
+	sprite->topLeft = pos;
+	sprite->topRight = glm::vec2((pos.x + texture->width) , (pos.y));
+	sprite->bottomLeft = glm::vec2(pos.x, pos.y + texture->height);
+	sprite->bottomRight = glm::vec2((pos.x + texture->width), (pos.y + texture->height));
+	
+	
 	
 	sprite->texture = texture;
 
@@ -58,6 +61,7 @@ void SpriteBatch::createIndexBuffer() {
 	glGenBuffers(1, &IBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned short) * indices.size(), indices.data(), GL_STATIC_DRAW);
+	glAssert();
 }
 
 void SpriteBatch::createIndexValues() {
@@ -77,11 +81,14 @@ void SpriteBatch::createIndexValues() {
 
 
 void SpriteBatch::createVertexArray() {
+	
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
+	
 	//createIndexBuffer();
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glAssert();
 	// position, color, uv
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -90,6 +97,7 @@ void SpriteBatch::createVertexArray() {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, position)));
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, color)));
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexPositionColorTexture), (void*)(offsetof(VertexPositionColorTexture, uv)));
+	glAssert();
 	vertices.reserve(InitialQueueSize * VerticesPerSprite);
 }
 
@@ -127,8 +135,10 @@ void SpriteBatch::prepareForRendering() {
 	GLuint stride = sizeof(VertexPositionColorTexture);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glAssert();
 	//clear buffer
 	glBufferData(GL_ARRAY_BUFFER, spriteQueueCount * VerticesPerSprite * stride, nullptr, GL_DYNAMIC_DRAW);
+	glAssert();
 	vertices.clear();
 }
 
@@ -165,27 +175,32 @@ void SpriteBatch::flushBatch() {
 void SpriteBatch::renderBatch(Texture* texture, SpriteInfo const* const* sprites, size_t count) {
 	
 	glActiveTexture(GL_TEXTURE0 + 0);
+	glAssert();
 	glBindTexture(GL_TEXTURE_2D, texture->getId());
+	glAssert();
 	effect->bind();
+
+	GLuint matrixLocation = glGetUniformLocation(effect->getProgram(), "enterTheMatrix");
+	glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(enterTheMatrix));
+	glAssert();
 
 	// loop textures
 	while (count > 0) {
 		size_t batchSize = count;
 
-		GLuint scaleLocation = glGetUniformLocation(effect->getProgram(), "scale");
-		glUniform3f(scaleLocation, 1.f, 1.f, 1.f);
-		
 		// generate vertex data
 		for (size_t i = 0; i < batchSize; i++) {
 
-			vertices.push_back(VertexPositionColorTexture(sprites[i]->topLeft.x, sprites[i]->topLeft.y, 0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
-			vertices.push_back(VertexPositionColorTexture(sprites[i]->topRight.x, sprites[i]->topRight.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
-			vertices.push_back(VertexPositionColorTexture(sprites[i]->bottomLeft.x, sprites[i]->bottomLeft.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
-			vertices.push_back(VertexPositionColorTexture(sprites[i]->bottomRight.x, sprites[i]->bottomRight.y, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
+			vertices.push_back(VertexPositionColorTexture(sprites[i]->topLeft.x, sprites[i]->topLeft.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
+			vertices.push_back(VertexPositionColorTexture(sprites[i]->topRight.x, sprites[i]->topRight.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
+			vertices.push_back(VertexPositionColorTexture(sprites[i]->bottomLeft.x, sprites[i]->bottomLeft.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
+			vertices.push_back(VertexPositionColorTexture(sprites[i]->bottomRight.x, sprites[i]->bottomRight.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
 		}
 
 		glBufferSubData(GL_ARRAY_BUFFER, vertexBufferPos * sizeof(VertexPositionColorTexture) * VerticesPerSprite, sizeof(VertexPositionColorTexture) * VerticesPerSprite * batchSize, (void*)(vertices.data() + vertexBufferPos * VerticesPerSprite));
+		glAssert();
 		glDrawElements(GL_TRIANGLES, IndicesPerSprite * batchSize, GL_UNSIGNED_SHORT, (void*)(IndicesPerSprite * vertexBufferPos));
+		glAssert();
 		
 		sprites += batchSize;
 		count -= batchSize;
@@ -201,4 +216,6 @@ void SpriteBatch::init() {
 	createVertexArray();
 	createIndexBuffer();
 	effect = content.load<Effect>("shader\\basic");
+	enterTheMatrix = glm::ortho(0.f, static_cast<float>(ScreenWidth), static_cast<float>(ScreenHeight), 0.f, -1.f, 1.f);
+		
 }

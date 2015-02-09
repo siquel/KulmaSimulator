@@ -70,6 +70,7 @@ private:
 	void growSpriteQueue();
 	// sends sprites to GPU + calculates vertices
 	void renderBatch(Texture* texture, SpriteInfo const* const* sprites, size_t count);
+	glm::mat4 enterTheMatrix;
 public:
 	SpriteBatch();
 	~SpriteBatch();

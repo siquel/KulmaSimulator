@@ -14,8 +14,8 @@ void Simulator::draw() {
 	stateManager.draw();
 	spriteBatch.begin(SpriteSortMode::Deferred);
 	spriteBatch.draw(glm::vec2(0.f, 0.f), texture);
-	spriteBatch.draw(glm::vec2(-100.f, -100.f), texture);
-	spriteBatch.draw(glm::vec2(-500.f, -500.f), texture);
+	spriteBatch.draw(glm::vec2(100, 100.f), texture);
+	spriteBatch.draw(glm::vec2(500.f, 500.f), texture);
 	spriteBatch.end();
 }
 
@@ -24,9 +24,10 @@ void Simulator::initialize() {
 		if (args.state == InputState::PRESSED)
 			std::cout << "a pressed" << std::endl;
 	}, std::vector < ITrigger* > { new KeyTrigger(SDLK_a) });
-	texture = content.load<Texture>("temp");
-	effect = content.load<Effect>("shader\\basic");
 	
 	spriteBatch.init();
+	texture = content.load<Texture>("temp");
+	effect = content.load<Effect>("shader\\basic");
 	getStateManager().push(new GameplayState);
+	
 }

@@ -48,4 +48,7 @@ struct AlignedNew
 	}
 };
 
+#define glAssert() assert(glGetError() == GL_NO_ERROR)
+
+
 #endif

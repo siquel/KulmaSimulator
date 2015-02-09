@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
-
+#include "util.h"
 
 Resource::Resource() {
 
@@ -107,6 +107,7 @@ GLuint Effect::compileShaders(const char* vertexSrc, const char* fragmentSrc) {
 
 void Effect::bind() const {
 	glUseProgram(program);
+	glAssert();
 }
 
 void Effect::unbind() const {
