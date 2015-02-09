@@ -6,8 +6,12 @@ Simulator::Simulator() {
 }
 Simulator::~Simulator() {}
 
-void Simulator::update() {}
-void Simulator::draw() { 
+void Simulator::update(float tpf) {
+	stateManager.update(tpf);
+}
+void Simulator::draw() {
+	// TODO pass spritebatch maybe?
+	stateManager.draw();
 	spriteBatch.begin(SpriteSortMode::Deferred);
 	spriteBatch.draw(pmath::Vec2f(0.f, 0.f), texture);
 	spriteBatch.draw(pmath::Vec2f(-100.f, -100.f), texture);
@@ -24,4 +28,5 @@ void Simulator::initialize() {
 	effect = content.load<Effect>("shader\\basic");
 	
 	spriteBatch.init();
+	getStateManager().push(new GameplayState);
 }

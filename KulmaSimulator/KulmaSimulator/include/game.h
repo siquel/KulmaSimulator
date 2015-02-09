@@ -21,13 +21,14 @@ public:
 	~Game();
 	virtual void initialize() = 0;
 	// called every frame
-	virtual void update() = 0;
+	virtual void update(float tpf) = 0;
 	// draw stuff
 	virtual void draw() = 0;
 	// runs the game loop
 	void run();
 
 	InputManager& getInput();
+	GameStateManager& getStateManager();
 
 	static const int WINDOW_WIDTH = 1280;
 	static const int WINDOW_HEIGHT = 720;

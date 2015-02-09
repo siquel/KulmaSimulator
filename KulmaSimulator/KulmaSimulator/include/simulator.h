@@ -15,7 +15,7 @@ private:
 public:
 	Simulator();
 	~Simulator();
-	void update();
+	void update(float tpf);
 	void draw();
 	void initialize();
 };

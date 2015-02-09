@@ -51,7 +51,14 @@ void Game::run() {
 	running = true;
 	SDL_Event event;
 
+	Uint32 oldTime, currentTime;
+	oldTime = currentTime = 0;
+	float tpf;
+
 	while (running) {
+		oldTime = currentTime;
+		currentTime = SDL_GetTicks();
+		tpf = (currentTime - oldTime) / 1000.0f;
 		input.update();
 		while (SDL_PollEvent(&event) == 1)
 		{
@@ -59,7 +66,7 @@ void Game::run() {
 				running = false;
 		}
 		
-		update();
+		update(tpf);
 		draw();
 		SDL_GL_SwapWindow(window);
 	}
@@ -71,4 +78,8 @@ void Game::run() {
 
 InputManager& Game::getInput() {
 	return input;
+}
+
+GameStateManager& Game::getStateManager() {
+	return stateManager;
 }
