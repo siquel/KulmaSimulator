@@ -1,6 +1,7 @@
 #include "spritebatch.h"
 #include <algorithm>
 #include "util.h"
+
 // todo hax
 #define ScreenWidth 1280
 #define ScreenHeight 720
@@ -128,7 +129,7 @@ void SpriteBatch::prepareForRendering() {
 		}
 
 		std::sort(sortedSprites.begin(), sortedSprites.begin() + spriteQueueCount, [](const SpriteInfo* x, const SpriteInfo* y) {
-			return x->texture < y->texture;
+			return x->texture->getId() < y->texture->getId();
 		});
 	}
 
@@ -156,7 +157,7 @@ void SpriteBatch::flushBatch() {
 		if (texture != batchTexture) {
 			
 			if (pos > batchStart) {
-				renderBatch(batchTexture, &sortedSprites[pos], pos - batchStart);
+				renderBatch(batchTexture, batchStart, pos - batchStart);
 			}
 
 			batchTexture = texture;
@@ -165,14 +166,14 @@ void SpriteBatch::flushBatch() {
 	}
 
 	// flush final
-	renderBatch(batchTexture, &sortedSprites[batchStart], spriteQueueCount - batchStart);
+	renderBatch(batchTexture, batchStart, spriteQueueCount - batchStart);
 
 	// Reset the queue.
 	spriteQueueCount = 0;
 	vertexBufferPos = 0;
 }
 
-void SpriteBatch::renderBatch(Texture* texture, SpriteInfo const* const* sprites, size_t count) {
+void SpriteBatch::renderBatch(Texture* texture, size_t start, size_t count) {
 	
 	glActiveTexture(GL_TEXTURE0 + 0);
 	glAssert();
@@ -188,21 +189,23 @@ void SpriteBatch::renderBatch(Texture* texture, SpriteInfo const* const* sprites
 	while (count > 0) {
 		size_t batchSize = count;
 
+		std::vector<VertexPositionColorTexture> vertices;
 		// generate vertex data
-		for (size_t i = 0; i < batchSize; i++) {
+		for (size_t i = start; i < start + batchSize; i++) {
 
-			vertices.push_back(VertexPositionColorTexture(sprites[i]->topLeft.x, sprites[i]->topLeft.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
-			vertices.push_back(VertexPositionColorTexture(sprites[i]->topRight.x, sprites[i]->topRight.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
-			vertices.push_back(VertexPositionColorTexture(sprites[i]->bottomLeft.x, sprites[i]->bottomLeft.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
-			vertices.push_back(VertexPositionColorTexture(sprites[i]->bottomRight.x, sprites[i]->bottomRight.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
+			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topLeft.x, sortedSprites[i]->topLeft.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f));
+			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topRight.x, sortedSprites[i]->topRight.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 1.f));
+			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomLeft.x, sortedSprites[i]->bottomLeft.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 0.f, 0.f));
+			vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomRight.x, sortedSprites[i]->bottomRight.y, -0.f, 0.0f, 0.0f, 0.0f, 1.0f, 1.f, 0.f));
 		}
-
-		glBufferSubData(GL_ARRAY_BUFFER, vertexBufferPos * sizeof(VertexPositionColorTexture) * VerticesPerSprite, sizeof(VertexPositionColorTexture) * VerticesPerSprite * batchSize, (void*)(vertices.data() + vertexBufferPos * VerticesPerSprite));
+		
+		glBufferSubData(GL_ARRAY_BUFFER, 
+			vertexBufferPos * sizeof(VertexPositionColorTexture) * vertices.size(), 
+			sizeof(VertexPositionColorTexture) * vertices.size(), (void*)(vertices.data()));
 		glAssert();
 		glDrawElements(GL_TRIANGLES, IndicesPerSprite * batchSize, GL_UNSIGNED_SHORT, (void*)(IndicesPerSprite * vertexBufferPos));
 		glAssert();
 		
-		sprites += batchSize;
 		count -= batchSize;
 		// advance
 		vertexBufferPos += batchSize;

@@ -14,8 +14,11 @@ void Simulator::draw() {
 	stateManager.draw();
 	spriteBatch.begin(SpriteSortMode::Deferred);
 	spriteBatch.draw(glm::vec2(0.f, 0.f), texture);
-	spriteBatch.draw(glm::vec2(100, 100.f), texture);
-	spriteBatch.draw(glm::vec2(500.f, 500.f), texture);
+	
+	//spriteBatch.draw(glm::vec2(400.f, 100.f), texture);
+	//spriteBatch.draw(glm::vec2(500.f, 500.f), texture);
+	spriteBatch.draw(glm::vec2(200.f, 200.f), texture2);
+	
 	spriteBatch.end();
 }
 
@@ -26,7 +29,8 @@ void Simulator::initialize() {
 	}, std::vector < ITrigger* > { new KeyTrigger(SDLK_a) });
 	
 	spriteBatch.init();
-	texture = content.load<Texture>("temp");
+	texture = content.load<Texture>("pidgin");
+	texture2 = content.load<Texture>("temp");
 	effect = content.load<Effect>("shader\\basic");
 	getStateManager().push(new GameplayState);
 	
