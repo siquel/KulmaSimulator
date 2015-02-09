@@ -203,7 +203,7 @@ void SpriteBatch::renderBatch(Texture* texture, size_t start, size_t count) {
 		}
 		
 		glBufferSubData(GL_ARRAY_BUFFER, 
-			vertexBufferPos * sizeof(VertexPositionColorTexture) * vertices.size(), 
+			vertexBufferPos * sizeof(VertexPositionColorTexture) * VerticesPerSprite, 
 			sizeof(VertexPositionColorTexture) * vertices.size(), (void*)(vertices.data()));
 		glAssert();
 		// TODO why this needs to be multiplied by 2?

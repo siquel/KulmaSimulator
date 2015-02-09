@@ -16,10 +16,15 @@ void Simulator::draw() {
 	spriteBatch.draw(glm::vec2(0.f, 0.f), texture);
 	
 	spriteBatch.draw(glm::vec2(400.f, 100.f), texture);
+	spriteBatch.draw(glm::vec2(200.f, 400.f), texture2);
+	
 	spriteBatch.draw(glm::vec2(500.f, 500.f), texture);
 	spriteBatch.draw(glm::vec2(200.f, 200.f), texture2);
+
+	spriteBatch.draw(glm::vec2(200.f, 600.f), texture2);
 	spriteBatch.draw(glm::vec2(300.f, 300.f), texture3);
-	
+	spriteBatch.draw(glm::vec2(200.f, 700.f), texture2);
+	spriteBatch.draw(glm::vec2(700.f, 300.f), texture3);
 	spriteBatch.end();
 }
 
