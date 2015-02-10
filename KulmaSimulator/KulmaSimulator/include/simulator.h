@@ -6,17 +6,17 @@
 
 class Simulator : public Game  {
 private:
-	Effect* effect;
-	GLuint vbo = 0;
-	GLuint vao = 0;
-	Texture* texture;
-	Texture* texture2;
-	Texture* texture3;
-	GLuint IBO = 0;
 	SpriteBatch spriteBatch;
-public:
 	Simulator();
 	~Simulator();
+
+	Simulator(Simulator const&) = delete;
+	void operator=(Simulator const&) = delete;
+public:
+	static Simulator& getInstance() {
+		static Simulator instance;
+		return instance;
+	}
 	void update(float tpf);
 	void draw();
 	void initialize();

@@ -1,6 +1,6 @@
 #include "gamestates.h"
 #include <iostream>
-
+#include "simulator.h"
 
 GameState::GameState() : initialized(false) {}
 GameState::~GameState() {}
@@ -35,9 +35,9 @@ void GameStateManager::update(float tpf) {
 	states.back()->update(tpf);
 }
 
-void GameStateManager::draw() {
+void GameStateManager::draw(SpriteBatch& spriteBatch) {
 	// no need to check if states.size() == 0, because we already exit game on update()
-	states.back()->draw();
+	states.back()->draw(spriteBatch);
 }
 
 
@@ -46,13 +46,15 @@ GameplayState::GameplayState() {}
 GameplayState::~GameplayState() {}
 
 void GameplayState::onInitialize() {
-	std::cout << "Gameplaystate init()" << std::endl;
+	texture = Simulator::getInstance().getContent().load<Texture>("pidgin");
 }
 
 void GameplayState::update(float tpf) {
-	std::cout << "TPF " << tpf << std::endl;
+	
 }
 
-void GameplayState::draw() {
-//	std::cout << "GameplayState draw()" << std::endl;
+void GameplayState::draw(SpriteBatch& spriteBatch) {
+	spriteBatch.begin(SpriteSortMode::Deferred);
+	spriteBatch.draw(texture, glm::vec2(100.f, 100.f));
+	spriteBatch.end();
 }

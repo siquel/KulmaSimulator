@@ -5,6 +5,7 @@
 #include "input.h"
 #include "content.h"
 #include "gamestates.h"
+
 class Game {
 protected:
 	InputManager input;
@@ -16,9 +17,11 @@ protected:
 	bool running;
 	// init SDL and OpenGL
 	void init();
-public:
 	Game();
 	~Game();
+	Game(Game const&) = delete;
+	void operator=(Game const&) = delete;
+public:
 	virtual void initialize() = 0;
 	// called every frame
 	virtual void update(float tpf) = 0;
@@ -29,6 +32,7 @@ public:
 
 	InputManager& getInput();
 	GameStateManager& getStateManager();
+	ContentManager& getContent();
 
 	static const int WINDOW_WIDTH = 1280;
 	static const int WINDOW_HEIGHT = 720;

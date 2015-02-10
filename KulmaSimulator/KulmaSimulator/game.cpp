@@ -82,3 +82,7 @@ InputManager& Game::getInput() {
 GameStateManager& Game::getStateManager() {
 	return stateManager;
 }
+
+ContentManager& Game::getContent() {
+	return content;
+}

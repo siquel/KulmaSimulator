@@ -2,6 +2,7 @@
 #define GAMESTATEMANAGER_H
 
 #include <vector>
+#include "spritebatch.h"
 
 class GameState {
 private:
@@ -10,7 +11,7 @@ public:
 	GameState();
 	virtual ~GameState();
 	virtual void update(float tpf) = 0;
-	virtual void draw() = 0;
+	virtual void draw(SpriteBatch& spriteBatch) = 0;
 	void init();
 protected:
 	virtual void onInitialize() = 0;
@@ -30,15 +31,17 @@ public:
 	void change(GameState*);
 
 	void update(float tpf);
-	void draw();
+	void draw(SpriteBatch& spriteBatch);
 };
 
 class GameplayState : public GameState {
+private:
+	Texture* texture;
 public:
 	GameplayState();
 	~GameplayState();
 	void update(float tpf);
-	void draw();
+	void draw(SpriteBatch& spriteBatch);
 protected:
 	void onInitialize();
 };
