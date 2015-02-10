@@ -14,9 +14,7 @@ __declspec(align(16)) struct SpriteInfo : public AlignedNew<SpriteInfo> {
 	glm::vec2 topRight;
 	glm::vec2 bottomLeft;
 	glm::vec2 bottomRight;
-	glm::vec2 origin;
 	glm::vec4 color;
-	glm::vec4 source;
 	glm::vec4 texCoords;
 	Texture* texture;
 };
@@ -81,7 +79,7 @@ public:
 
 	void begin(SpriteSortMode spriteSortMode);
 	void end();
-	void draw(const glm::vec2& pos, Texture* texture, glm::vec4* source, glm::vec2& scale, glm::vec2& origin);
+	void draw(const glm::vec2& pos, Texture* texture, glm::vec4* source, glm::vec2& scale, glm::vec2& origin, float rotation);
 };
 
 #endif

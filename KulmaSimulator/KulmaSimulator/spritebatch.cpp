@@ -30,7 +30,7 @@ void SpriteBatch::end() {
 	flushBatch();
 }
 
-void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source, glm::vec2& scale, glm::vec2& origin) {
+void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source, glm::vec2& scale, glm::vec2& origin, float rotation) {
 	
 	if (spriteQueueCount >= spriteQueueArraySize) {
 		growSpriteQueue();
@@ -53,13 +53,20 @@ void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source
 	sprite->texCoords = texCoords;
 	// neither colors
 	static const glm::vec4 color = { 1.f, 1.f, 1.f, 1.f };
-	sprite->source = rect;
+
+	float sin = sinf(rotation);
+	float cos = cosf(rotation);
+	float dx = -origin.x;
+	float dy = -origin.y;
+
+	float w = rect.z * scale.x;
+	float h = rect.w * scale.y;
+
 	sprite->color = color;
-	sprite->topLeft = pos;
-	sprite->topRight = glm::vec2((pos.x + rect.z) * scale.x , (pos.y));
-	sprite->bottomLeft = glm::vec2(pos.x, (pos.y + rect.w) * scale.y);
-	sprite->bottomRight = glm::vec2((pos.x + rect.z) * scale.x, (pos.y + rect.w) * scale.y);
-	sprite->origin = -origin;
+	sprite->topLeft = glm::vec2(pos.x + dx * cos - dy * sin, pos.y + dx * sin + dy * cos);
+	sprite->topRight = glm::vec2(pos.x + (dx + w) * cos - dy * sin, pos.y + (dx + w) * sin + dy * cos);
+	sprite->bottomLeft = glm::vec2(pos.x + dx*cos-(dy+h)* sin, pos.y + dx * sin + (dy + h) * cos);
+	sprite->bottomRight = glm::vec2(pos.x + ( dx + w) * cos-(dy+h)*sin, pos.y + (dx + w) * sin + (dy + h) * cos);
 	sprite->texture = texture;
 
 	spriteQueueCount++;
