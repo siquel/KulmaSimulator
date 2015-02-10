@@ -13,18 +13,19 @@ void Simulator::draw() {
 	// TODO pass spritebatch maybe?
 	stateManager.draw();
 	spriteBatch.begin(SpriteSortMode::Deferred);
-	spriteBatch.draw(glm::vec2(0.f, 0.f), texture);
+	glm::vec4 src(0.f, 0.f, 200.f, 100.f);
+	spriteBatch.draw(glm::vec2(0.f, 0.f), texture, &src);
 	
-	spriteBatch.draw(glm::vec2(400.f, 100.f), texture);
-	spriteBatch.draw(glm::vec2(200.f, 400.f), texture2);
+	//spriteBatch.draw(glm::vec2(400.f, 100.f), texture, nullptr);
+	//spriteBatch.draw(glm::vec2(200.f, 400.f), texture2, nullptr);
 	
-	spriteBatch.draw(glm::vec2(500.f, 500.f), texture);
-	spriteBatch.draw(glm::vec2(200.f, 200.f), texture2);
+	//spriteBatch.draw(glm::vec2(500.f, 500.f), texture, nullptr);
+	//spriteBatch.draw(glm::vec2(200.f, 200.f), texture2, nullptr);
 
-	spriteBatch.draw(glm::vec2(200.f, 600.f), texture2);
-	spriteBatch.draw(glm::vec2(300.f, 300.f), texture3);
-	spriteBatch.draw(glm::vec2(200.f, 700.f), texture2);
-	spriteBatch.draw(glm::vec2(700.f, 300.f), texture3);
+	//spriteBatch.draw(glm::vec2(200.f, 600.f), texture2, nullptr);
+	//spriteBatch.draw(glm::vec2(300.f, 300.f), texture3, nullptr);
+	//spriteBatch.draw(glm::vec2(200.f, 700.f), texture2, nullptr);
+	//spriteBatch.draw(glm::vec2(700.f, 300.f), texture3, nullptr);
 	spriteBatch.end();
 }
 

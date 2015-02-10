@@ -30,24 +30,35 @@ void SpriteBatch::end() {
 	flushBatch();
 }
 
-void SpriteBatch::draw(const glm::vec2& pos, Texture* texture) {
+void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source) {
 	
 	if (spriteQueueCount >= spriteQueueArraySize) {
 		growSpriteQueue();
 	}
 
 	SpriteInfo* sprite = &spriteQueue[spriteQueueCount];
-
-	// we dont have source rect yet
-	static const glm::vec4 source = { 0.f, 0.f, 1.f, 1.f };
+	glm::vec4 rect;
+	if (source == nullptr) {
+		rect = { 0.f, 0.f, texture->width, texture->height };
+	}
+	else {
+		rect = *source;
+	}
+	glm::vec4 texCoords(
+		(rect.x / texture->width),
+		1.0f - (rect.y / texture->height),
+		rect.z / texture->width,
+		1.0f - (rect.w / texture->height)
+		);
+	sprite->texCoords = texCoords;
 	// neither colors
 	static const glm::vec4 color = { 1.f, 1.f, 1.f, 1.f };
-	sprite->source = source;
+	sprite->source = rect;
 	sprite->color = color;
 	sprite->topLeft = pos;
-	sprite->topRight = glm::vec2((pos.x + texture->width) , (pos.y));
-	sprite->bottomLeft = glm::vec2(pos.x, pos.y + texture->height);
-	sprite->bottomRight = glm::vec2((pos.x + texture->width), (pos.y + texture->height));
+	sprite->topRight = glm::vec2((pos.x + rect.z) , (pos.y));
+	sprite->bottomLeft = glm::vec2(pos.x, pos.y + rect.w);
+	sprite->bottomRight = glm::vec2((pos.x + rect.z), (pos.y + rect.w));
 	
 	sprite->texture = texture;
 
@@ -142,10 +153,11 @@ void SpriteBatch::prepareForRendering() {
 	// generate vertex data
 	for (size_t i = 0; i < spriteQueueCount; i++) {
 		glm::vec4 c = sortedSprites[i]->color;
-		vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topLeft.x, sortedSprites[i]->topLeft.y, -0.f, c.x, c.y, c.z, c.w, 0.0f, 1.0f));
-		vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topRight.x, sortedSprites[i]->topRight.y, -0.f, c.x, c.y, c.z, c.w, 1.f, 1.f));
-		vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomLeft.x, sortedSprites[i]->bottomLeft.y, -0.f, c.x, c.y, c.z, c.w, 0.f, 0.f));
-		vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomRight.x, sortedSprites[i]->bottomRight.y, -0.f, c.x, c.y, c.z, c.w, 1.f, 0.f));
+		glm::vec4 uv = sortedSprites[i]->texCoords;
+		vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topLeft.x, sortedSprites[i]->topLeft.y, -0.f, c.x, c.y, c.z, c.w, uv.x, uv.y));
+		vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->topRight.x, sortedSprites[i]->topRight.y, -0.f, c.x, c.y, c.z, c.w, uv.z, uv.y));
+		vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomLeft.x, sortedSprites[i]->bottomLeft.y, -0.f, c.x, c.y, c.z, c.w, uv.x, uv.w));
+		vertices.push_back(VertexPositionColorTexture(sortedSprites[i]->bottomRight.x, sortedSprites[i]->bottomRight.y, -0.f, c.x, c.y, c.z, c.w, uv.z, uv.w));
 	}
 	//clear buffer w/ new data
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * vertices.size(), (void*)(vertices.data()));
@@ -155,7 +167,6 @@ void SpriteBatch::prepareForRendering() {
 }
 
 void SpriteBatch::flushBatch() {
-
 	if (!spriteQueueCount)
 		return;
 
