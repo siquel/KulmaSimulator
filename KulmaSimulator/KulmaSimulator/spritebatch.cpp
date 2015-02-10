@@ -30,7 +30,9 @@ void SpriteBatch::end() {
 	flushBatch();
 }
 
-void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source, glm::vec2& scale, glm::vec2& origin, float rotation) {
+#pragma region Draw calls
+
+void SpriteBatch::draw(const Texture* texture, const glm::vec2& pos, const glm::vec4* source, const glm::vec4& color, const glm::vec2& scale, const glm::vec2& origin, float rotation) {
 	
 	if (spriteQueueCount >= spriteQueueArraySize) {
 		growSpriteQueue();
@@ -51,8 +53,6 @@ void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source
 		1.0f - (rect.w / texture->height)
 		);
 	sprite->texCoords = texCoords;
-	// neither colors
-	static const glm::vec4 color = { 1.f, 1.f, 1.f, 1.f };
 
 	float sin = sinf(rotation);
 	float cos = cosf(rotation);
@@ -72,6 +72,32 @@ void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source
 	spriteQueueCount++;
 
 }
+
+void SpriteBatch::draw(const Texture* texture, const glm::vec2& pos) {
+	draw(texture, pos, glm::vec4(1.f, 1.f, 1.f, 1.f));
+}
+
+void SpriteBatch::draw(const Texture* texture, const glm::vec2& pos, const glm::vec4& color) {
+	draw(texture, pos, nullptr, color, glm::vec2(1.f, 1.f), glm::vec2(0.f, 0.f), 0.f);
+}
+
+void SpriteBatch::draw(const Texture* texture, const glm::vec2& pos, const glm::vec4* source, const glm::vec4& color) {
+	draw(texture, pos, source, color, glm::vec2(1.f, 1.f), glm::vec2(0.f, 0.f), 0.f);
+}
+
+void SpriteBatch::draw(const Texture* texture, const glm::vec2& pos, const glm::vec4& color, const glm::vec2& scale, const glm::vec2& origin, float rotation) {
+	draw(texture, pos, nullptr, color, scale, origin, rotation);
+}
+
+void SpriteBatch::draw(const Texture* texture, const glm::vec2& pos, const glm::vec4& color, const glm::vec2& scale) {
+	draw(texture, pos, nullptr, color, scale, glm::vec2(0.f, 0.f), 0.f);
+}
+
+void SpriteBatch::draw(const Texture* texture, const glm::vec2& pos, const glm::vec4* source, const glm::vec4& color, const glm::vec2& scale) {
+	draw(texture, pos, source, color, scale, glm::vec2(0.f, 0.f), 0.f);
+}
+
+#pragma endregion
 
 void SpriteBatch::createIndexBuffer() {
 	createIndexValues();
@@ -185,10 +211,10 @@ void SpriteBatch::flushBatch() {
 	GLuint matrixLocation = glGetUniformLocation(effect->getProgram(), "enterTheMatrix");
 	glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(enterTheMatrix));
 
-	Texture* batchTexture = nullptr;
+	const Texture* batchTexture = nullptr;
 	size_t batchStart = 0;
 	for (size_t pos = 0; pos < spriteQueueCount; pos++) {
-		Texture* texture = sortedSprites[pos]->texture;
+		const Texture* texture = sortedSprites[pos]->texture;
 		assert(texture != nullptr);
 
 		if (texture != batchTexture) {
@@ -212,7 +238,7 @@ void SpriteBatch::flushBatch() {
 	vertexBufferPos = 0;
 }
 
-void SpriteBatch::renderBatch(Texture* texture, size_t start, size_t count) {
+void SpriteBatch::renderBatch(const Texture* texture, size_t start, size_t count) {
 
 	glBindTexture(GL_TEXTURE_2D, texture->getId());
 	glAssert();

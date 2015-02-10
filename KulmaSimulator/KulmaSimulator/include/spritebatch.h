@@ -16,7 +16,7 @@ __declspec(align(16)) struct SpriteInfo : public AlignedNew<SpriteInfo> {
 	glm::vec2 bottomRight;
 	glm::vec4 color;
 	glm::vec4 texCoords;
-	Texture* texture;
+	const Texture* texture;
 };
 
 struct VertexPositionColorTexture {
@@ -68,7 +68,7 @@ private:
 	// helpers
 	void growSpriteQueue();
 	// sends sprites to GPU + calculates vertices
-	void renderBatch(Texture* texture, size_t start, size_t count);
+	void renderBatch(const Texture* texture, size_t start, size_t count);
 	glm::mat4 enterTheMatrix;
 public:
 	SpriteBatch();
@@ -79,7 +79,14 @@ public:
 
 	void begin(SpriteSortMode spriteSortMode);
 	void end();
-	void draw(const glm::vec2& pos, Texture* texture, glm::vec4* source, glm::vec2& scale, glm::vec2& origin, float rotation);
+	void draw(const Texture* texture, const glm::vec2& pos);
+	void draw(const Texture* texture, const glm::vec2& pos, const glm::vec4& color);
+	void draw(const Texture* texture, const glm::vec2& pos, const glm::vec4* source, const glm::vec4& color);
+	void draw(const Texture* texture, const glm::vec2& pos, const glm::vec4& color, const glm::vec2& scale);
+	void draw(const Texture* texture, const glm::vec2& pos, const glm::vec4* source, const glm::vec4& color, const glm::vec2& scale);
+	void draw(const Texture* texture, const glm::vec2& pos, const glm::vec4& color, const glm::vec2& scale, const glm::vec2& origin, float rotation);
+	void draw(const Texture* texture, const glm::vec2& pos, const glm::vec4* source, const glm::vec4& color, const glm::vec2& scale, const glm::vec2& origin, float rotation);
+	
 };
 
 #endif

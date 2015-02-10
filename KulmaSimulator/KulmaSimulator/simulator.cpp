@@ -13,8 +13,7 @@ void Simulator::draw() {
 	// TODO pass spritebatch maybe?
 	stateManager.draw();
 	spriteBatch.begin(SpriteSortMode::Deferred);
-	glm::vec4 src(0.f, 0.f, 300.f, 300.f);
-	spriteBatch.draw(glm::vec2(400.f, 200.f), texture, &src, glm::vec2(1.5f, 1.5f), glm::vec2(0.f, 0.f), glm::radians(45.f));
+	spriteBatch.draw(texture, glm::vec2(400.f, 200.f), glm::vec4(1.f, 1.f, 1.f, 1.f));
 	
 	//spriteBatch.draw(glm::vec2(400.f, 100.f), texture, nullptr);
 	//spriteBatch.draw(glm::vec2(200.f, 400.f), texture2, nullptr);
