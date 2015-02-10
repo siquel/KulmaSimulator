@@ -11,7 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="content.cpp" />
+    <ClCompile Include="DrawableComponent.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamestates.cpp" />
     <ClCompile Include="include\lodepng\lodepng.cpp" />
@@ -21,6 +26,7 @@
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="simulator.cpp" />
     <ClCompile Include="spritebatch.cpp" />
+    <ClCompile Include="TagContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\content.h" />
