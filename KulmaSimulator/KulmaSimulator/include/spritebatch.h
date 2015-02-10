@@ -81,7 +81,7 @@ public:
 
 	void begin(SpriteSortMode spriteSortMode);
 	void end();
-	void draw(const glm::vec2& pos, Texture* texture, glm::vec4* source);
+	void draw(const glm::vec2& pos, Texture* texture, glm::vec4* source, glm::vec2& scale, glm::vec2& origin);
 };
 
 #endif

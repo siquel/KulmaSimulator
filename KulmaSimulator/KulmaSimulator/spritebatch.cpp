@@ -30,7 +30,7 @@ void SpriteBatch::end() {
 	flushBatch();
 }
 
-void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source) {
+void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source, glm::vec2& scale, glm::vec2& origin) {
 	
 	if (spriteQueueCount >= spriteQueueArraySize) {
 		growSpriteQueue();
@@ -56,10 +56,10 @@ void SpriteBatch::draw(const glm::vec2& pos, Texture* texture, glm::vec4* source
 	sprite->source = rect;
 	sprite->color = color;
 	sprite->topLeft = pos;
-	sprite->topRight = glm::vec2((pos.x + rect.z) , (pos.y));
-	sprite->bottomLeft = glm::vec2(pos.x, pos.y + rect.w);
-	sprite->bottomRight = glm::vec2((pos.x + rect.z), (pos.y + rect.w));
-	
+	sprite->topRight = glm::vec2((pos.x + rect.z) * scale.x , (pos.y));
+	sprite->bottomLeft = glm::vec2(pos.x, (pos.y + rect.w) * scale.y);
+	sprite->bottomRight = glm::vec2((pos.x + rect.z) * scale.x, (pos.y + rect.w) * scale.y);
+	sprite->origin = -origin;
 	sprite->texture = texture;
 
 	spriteQueueCount++;
