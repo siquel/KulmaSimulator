@@ -46,11 +46,14 @@ void SpriteBatch::draw(const Texture* texture, const glm::vec2& pos, const glm::
 	else {
 		rect = *source;
 	}
+
+	float x = rect.x / texture->width;
+	float y = 1.f - rect.y / texture->height;
 	glm::vec4 texCoords(
-		(rect.x / texture->width),
-		1.0f - (rect.y / texture->height),
-		rect.z / texture->width,
-		1.0f - (rect.w / texture->height)
+		x,
+		y,
+		x + (rect.z / texture->width),
+		y - rect.w / texture->height
 		);
 	sprite->texCoords = texCoords;
 
