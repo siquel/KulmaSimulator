@@ -84,9 +84,9 @@ void EntityManager::update() {
 		e->update();
 	});
 }
-void EntityManager::draw() {
-	std::for_each(entities.begin(), entities.end(), [](Entity* e) {
-		e->draw();
+void EntityManager::draw(SpriteBatch& spriteBatch) {
+	std::for_each(entities.begin(), entities.end(), [&spriteBatch](Entity* e) {
+		e->draw(spriteBatch);
 	});
 }
 #pragma endregion

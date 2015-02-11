@@ -1,9 +1,7 @@
 #include "Component.h"
 
-Component::Component(Entity& owner, const int updateOrder) : owner(owner), updateOrder(updateOrder) {
-	destroyed = false;
-	enabled = false;
-	initialized = false;
+Component::Component(Entity& owner, const int updateOrder) 
+	: owner(owner), updateOrder(updateOrder), destroyed(false), enabled(false), initialized(false) {
 }
 
 #pragma region Protected members

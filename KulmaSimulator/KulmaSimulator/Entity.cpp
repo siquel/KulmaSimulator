@@ -158,12 +158,12 @@ void Entity::update() {
 
 // Draw all components that are visible if entity is in enabled
 // state, and is not destroyed.
-void Entity::draw() {
+void Entity::draw(SpriteBatch& spriteBatch) {
 	if (!visible || destroyed) {
 		return;
 	}
 
-	components.draw();
+	components.draw(spriteBatch);
 }
 #pragma endregion
 

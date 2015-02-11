@@ -110,9 +110,9 @@ void ComponentManager::update() {
 		c->update();
 	});
 }
-void ComponentManager::draw() {
-	std::for_each(drawableComponents.begin(), drawableComponents.end(), [this](DrawableComponent* c) {
-		c->draw();
+void ComponentManager::draw(SpriteBatch& spriteBatch) {
+	std::for_each(drawableComponents.begin(), drawableComponents.end(), [this, &spriteBatch](DrawableComponent* c) {
+		c->draw(spriteBatch);
 	});
 }
 #pragma endregion 
