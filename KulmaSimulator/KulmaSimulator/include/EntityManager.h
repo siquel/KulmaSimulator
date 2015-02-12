@@ -29,7 +29,7 @@ public:
 	Entity* const findEntityWithID(const int id) const;
 
 	void update();
-	void draw();
+	void draw(SpriteBatch& spriteBatch);
 
 	~EntityManager();
 };

@@ -26,11 +26,17 @@
     <ClCompile Include="primitivebatch.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="simulator.cpp" />
+    <ClCompile Include="sprite.cpp" />
     <ClCompile Include="spritebatch.cpp" />
     <ClCompile Include="TagContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Component.h" />
+    <ClInclude Include="include\ComponentManager.h" />
     <ClInclude Include="include\content.h" />
+    <ClInclude Include="include\DrawableComponent.h" />
+    <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\exceptions.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\gamestates.h" />
@@ -39,7 +45,9 @@
     <ClInclude Include="include\primitivebatch.h" />
     <ClInclude Include="include\resources.h" />
     <ClInclude Include="include\simulator.h" />
+    <ClInclude Include="include\sprite.h" />
     <ClInclude Include="include\spritebatch.h" />
+    <ClInclude Include="include\TagContainer.h" />
     <ClInclude Include="include\triggers.h" />
     <ClInclude Include="include\util.h" />
   </ItemGroup>

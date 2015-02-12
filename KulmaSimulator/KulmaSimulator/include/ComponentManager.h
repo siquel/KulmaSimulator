@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <functional>
 #include <list>
+#include "spritebatch.h"
 
 class ComponentManager {
 private:
@@ -23,7 +24,7 @@ public:
 	void freeComponents();
 
 	void update();
-	void draw();
+	void draw(SpriteBatch& spriteBatch);
 
 	template<class T> T* const getComponent() const {
 		T* foundComponent = nullptr;

@@ -71,7 +71,7 @@ public:
 	bool removeChild(Entity* const child);
 
 	void update();
-	void draw();
+	void draw(SpriteBatch& spriteBatch);
 
 	~Entity();
 };

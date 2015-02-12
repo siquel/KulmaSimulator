@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-
+#include "spritebatch.h"
 // Base class for components that can draw.
 class DrawableComponent : public Component
 {
@@ -9,7 +9,7 @@ private:
 
 	bool visible;
 protected:
-	virtual void onDraw();
+	virtual void onDraw(SpriteBatch& spriteBatch);
 
 	virtual void onVisibleChanged(const bool newVisibility, const bool oldVisibility);
 
@@ -23,7 +23,7 @@ public:
 	void hide();
 	bool isVisible() const;
 
-	void draw();
+	void draw(SpriteBatch& spriteBatch);
 
 	virtual ~DrawableComponent();
 };
