@@ -197,8 +197,9 @@ void SpriteBatch::prepareForRendering() {
 	}
 	//clear buffer w/ new data
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * vertices.size(), (void*)(vertices.data()));
-	vertices.clear();
+	
 	glAssert();
+	vertices.clear();
 	
 }
 

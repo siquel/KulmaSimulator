@@ -60,7 +60,7 @@ private:
 	static const size_t IndicesPerSprite = 6;
 	static const size_t VerticesPerSprite = 4;
 	static const size_t InitialQueueSize = 64;
-	static const size_t MaxBatchSize = 256;
+	static const size_t MaxBatchSize = 2048;
 
 	// when we sort sprites, they'll be stored here
 	std::vector<SpriteInfo const*> sortedSprites;
@@ -70,6 +70,10 @@ private:
 	// sends sprites to GPU + calculates vertices
 	void renderBatch(const Texture* texture, size_t start, size_t count);
 	glm::mat4 enterTheMatrix;
+
+	//prevent copying
+	SpriteBatch(SpriteBatch const&);
+	SpriteBatch& operator=(SpriteBatch const&);
 public:
 	SpriteBatch();
 	~SpriteBatch();

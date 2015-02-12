@@ -54,7 +54,11 @@ void GameplayState::update(float tpf) {
 }
 
 void GameplayState::draw(SpriteBatch& spriteBatch) {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	spriteBatch.begin(SpriteSortMode::Deferred);
-	spriteBatch.draw(texture, glm::vec2(100.f, 100.f));
+	for (size_t i = 0; i < 1; i++) {
+		spriteBatch.draw(texture, glm::vec2(100.f, 100.f));
+		
+	}
 	spriteBatch.end();
 }

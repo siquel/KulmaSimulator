@@ -23,6 +23,7 @@
     <ClCompile Include="include\triggers.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="primitivebatch.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="simulator.cpp" />
     <ClCompile Include="spritebatch.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="include\gamestates.h" />
     <ClInclude Include="include\input.h" />
     <ClInclude Include="include\lodepng\lodepng.h" />
+    <ClInclude Include="include\primitivebatch.h" />
     <ClInclude Include="include\resources.h" />
     <ClInclude Include="include\simulator.h" />
     <ClInclude Include="include\spritebatch.h" />
