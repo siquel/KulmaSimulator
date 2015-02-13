@@ -26,10 +26,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="primitivebatch.cpp" />
     <ClCompile Include="resources.cpp" />
+    <ClCompile Include="rigidbody.cpp" />
     <ClCompile Include="simulator.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="spritebatch.cpp" />
     <ClCompile Include="TagContainer.cpp" />
+    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Component.h" />
@@ -46,12 +48,14 @@
     <ClInclude Include="include\lodepng\lodepng.h" />
     <ClInclude Include="include\primitivebatch.h" />
     <ClInclude Include="include\resources.h" />
+    <ClInclude Include="include\rigidbody.h" />
     <ClInclude Include="include\simulator.h" />
     <ClInclude Include="include\sprite.h" />
     <ClInclude Include="include\spritebatch.h" />
     <ClInclude Include="include\TagContainer.h" />
     <ClInclude Include="include\triggers.h" />
     <ClInclude Include="include\util.h" />
+    <ClInclude Include="include\World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3D7434DC-3ED3-44F4-9B30-6FDAF4323586}</ProjectGuid>
@@ -93,7 +97,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;OpenGL32.lib;SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Box2D.lib;glew32s.lib;OpenGL32.lib;SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>

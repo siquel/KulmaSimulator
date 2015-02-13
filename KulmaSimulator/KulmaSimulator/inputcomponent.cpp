@@ -9,7 +9,7 @@ InputComponent::~InputComponent() {}
 void InputComponent::onInitialize() { 
 	using namespace std::placeholders;
 	InputManager& input = Simulator::getInstance().getInput();
-	input.bind("Move right", std::bind(&InputComponent::moveRight, this, _1), 1, new KeyTrigger(SDLK_d));
+	input.bind("Move right", std::bind(&InputComponent::moveRight, this, _1), 2, new KeyTrigger(SDLK_d), new KeyTrigger(SDLK_RIGHT));
 	input.bind("Move left", std::bind(&InputComponent::moveLeft, this, _1), 1, new KeyTrigger(SDLK_a));
 	input.bind("Move down", std::bind(&InputComponent::moveDown, this, _1), 1, new KeyTrigger(SDLK_s));
 	input.bind("Move up", std::bind(&InputComponent::moveUp, this, _1), 1, new KeyTrigger(SDLK_w));
