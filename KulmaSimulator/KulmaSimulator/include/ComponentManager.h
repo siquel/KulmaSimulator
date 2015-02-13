@@ -23,7 +23,7 @@ public:
 
 	void freeComponents();
 
-	void update();
+	void update(float tpf);
 	void draw(SpriteBatch& spriteBatch);
 
 	template<class T> T* const getComponent() const {

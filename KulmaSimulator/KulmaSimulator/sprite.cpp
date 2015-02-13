@@ -1,5 +1,5 @@
 #include "sprite.h"
-
+#include "Entity.h"
 
 Sprite::Sprite(const Texture* texture,
 	const glm::vec2& position = glm::vec2(0.f, 0.f),
@@ -27,5 +27,7 @@ SpriteRenderer::SpriteRenderer(Entity& owner, Sprite& sprite, const int updateOr
 
 
 void SpriteRenderer::onDraw(SpriteBatch& spriteBatch) {
+	sprite.position = getOwner().getPosition();
+	
 	sprite.draw(spriteBatch);
 }

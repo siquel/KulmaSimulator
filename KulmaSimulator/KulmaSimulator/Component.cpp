@@ -9,7 +9,7 @@ Entity& Component::getOwner() const {
 	return owner;
 }
 
-void Component::onUpdate() { }
+void Component::onUpdate(float tpf) { }
 
 void Component::onDestroyed() { }
 
@@ -80,12 +80,12 @@ bool Component::isDestroyed() const {
 	return destroyed;
 }
 
-void Component::update() {
+void Component::update(float tpf) {
 	if (!enabled || destroyed) {
 		return;
 	}
 
-	onUpdate();
+	onUpdate(tpf);
 }
 #pragma endregion
 

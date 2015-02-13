@@ -148,12 +148,12 @@ bool Entity::removeChild(Entity* const child) {
 
 // Update all components that are enabled if entity is in enabled
 // state, and is not destroyed.
-void Entity::update() {
+void Entity::update(float tpf) {
 	if (!enabled || destroyed) {
 		return;
 	}
 
-	components.update();
+	components.update(tpf);
 }
 
 // Draw all components that are visible if entity is in enabled

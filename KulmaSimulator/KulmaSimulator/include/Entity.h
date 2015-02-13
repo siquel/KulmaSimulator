@@ -70,7 +70,7 @@ public:
 	bool addChild(Entity* const child);
 	bool removeChild(Entity* const child);
 
-	void update();
+	void update(float tpf);
 	void draw(SpriteBatch& spriteBatch);
 
 	~Entity();

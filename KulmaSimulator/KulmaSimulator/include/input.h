@@ -3,6 +3,7 @@
 
 #include "triggers.h"
 #include <string>
+#include <memory>
 #include <functional>
 #include <map>
 #include <string>
@@ -53,7 +54,7 @@ public:
 	InputManager();
 	~InputManager();
 	// creates new binding for keys, there should be at least one key
-	void bind(std::string name, InputEvent args, std::vector<ITrigger*> triggers);
+	void bind(std::string name, InputEvent args, int numTriggers, ...);
 	// checks if the binding name has any mappings on it
 	bool hasMapping(std::string name);
 	

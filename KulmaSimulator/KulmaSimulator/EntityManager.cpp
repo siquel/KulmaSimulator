@@ -71,17 +71,17 @@ Entity* const EntityManager::findEntityWithID(const int id) const {
 	return *result;
 }
 
-void EntityManager::update() {
+void EntityManager::update(float tpf) {
 	freeEntities();
 	
-	std::for_each(entities.begin(), entities.end(), [this](Entity* e) {
+	std::for_each(entities.begin(), entities.end(), [this, tpf](Entity* e) {
 		if (e->isDestroyed()) {
 			destroyedEntities.push_back(e);
 
 			return;
 		}
 
-		e->update();
+		e->update(tpf);
 	});
 }
 void EntityManager::draw(SpriteBatch& spriteBatch) {

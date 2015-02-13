@@ -17,7 +17,7 @@ protected:
 	Entity& getOwner() const;
 
 	// Called every update if component is enabled.
-	virtual void onUpdate();
+	virtual void onUpdate(float tpf);
 
 	// Called when component gets destroyed.
 	virtual void onDestroyed();
@@ -44,7 +44,7 @@ public:
 	void destroy();
 	bool isDestroyed() const;
 
-	void update();
+	void update(float tpf);
 
 	virtual ~Component();
 };

@@ -22,6 +22,7 @@
     <ClCompile Include="include\lodepng\lodepng.cpp" />
     <ClCompile Include="include\triggers.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="inputcomponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="primitivebatch.cpp" />
     <ClCompile Include="resources.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\gamestates.h" />
     <ClInclude Include="include\input.h" />
+    <ClInclude Include="include\inputcomponent.h" />
     <ClInclude Include="include\lodepng\lodepng.h" />
     <ClInclude Include="include\primitivebatch.h" />
     <ClInclude Include="include\resources.h" />

@@ -17,7 +17,7 @@ InputManager::~InputManager() {
 
 }
 
-void InputManager::bind(std::string name, InputEvent event, std::vector<ITrigger*> triggers) {
+void InputManager::bind(std::string name, InputEvent event, int numTriggers, ...) {
 
 	Mapping* mapping = getMapping(name);
 	if (mapping == nullptr) {
@@ -27,19 +27,23 @@ void InputManager::bind(std::string name, InputEvent event, std::vector<ITrigger
 	else {
 		throw std::logic_error("There is already mapping");
 	}
-
-	if (triggers.size() == 0) {
+	
+	if (numTriggers == 0) {
 		throw std::logic_error("There need to be at least 1 trigger");
 	}
+
+	va_list args;
+	va_start(args, numTriggers);
 	
-	std::vector<ITrigger*>::iterator it;
-	for (it = triggers.begin(); it != triggers.end(); it++) {
-		mapTrigger(name, (*it));
-		mapping->addTrigger(*it);
-		binds.push_back((*it)->triggerHash());
+	for (int i = 0; i < numTriggers; i++) {
+		ITrigger* trigger = va_arg(args, ITrigger*);
+		mapTrigger(name, trigger);
+		binds.push_back(trigger->triggerHash());
+		mapping->addTrigger(trigger);
+		
 	}
 	
-
+	va_end(args);
 }
 
 void InputManager::mapTrigger(std::string mappingName, ITrigger* trigger) {

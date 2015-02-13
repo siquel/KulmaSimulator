@@ -94,10 +94,10 @@ void ComponentManager::freeComponents() {
 	destroyedComponents.clear();
 }
 
-void ComponentManager::update() {
+void ComponentManager::update(float tpf) {
 	freeDestroyedComponents();
 	
-	std::for_each(components.begin(), components.end(), [this](Component* c) {
+	std::for_each(components.begin(), components.end(), [this, tpf](Component* c) {
 		// Component was destroyed in last frame, some other
 		// component destroyed it or it was destroyed during 
 		// draw call.
@@ -107,7 +107,7 @@ void ComponentManager::update() {
 			return;
 		}
 
-		c->update();
+		c->update(tpf);
 	});
 }
 void ComponentManager::draw(SpriteBatch& spriteBatch) {
