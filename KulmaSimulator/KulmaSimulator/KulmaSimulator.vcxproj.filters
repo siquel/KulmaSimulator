@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Component">
       <UniqueIdentifier>{ff798c39-4620-42d7-987e-cbe0445fed7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameStates">
+      <UniqueIdentifier>{26714745-143b-4411-aea7-8b267b4b5f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameStates">
+      <UniqueIdentifier>{9e1ca8f8-045f-462e-ab04-1c0b21fa1829}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="world.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestates\gameplay.cpp">
+      <Filter>Source Files\GameStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="include\World.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gameplay.h">
+      <Filter>Header Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

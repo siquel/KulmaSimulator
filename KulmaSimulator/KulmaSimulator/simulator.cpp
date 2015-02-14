@@ -1,6 +1,6 @@
 #include "simulator.h"
 #include <iostream>
-
+#include "gameplay.h"
 Simulator::Simulator() {
 
 }

@@ -1,5 +1,6 @@
 #include "inputcomponent.h"
 #include "simulator.h"
+#include "Entity.h"
 InputComponent::InputComponent() : Component(0)
 {
 	enable();

@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "spritebatch.h"
-#include "EntityManager.h"
 
 class GameState {
 private:
@@ -35,17 +34,6 @@ public:
 	void draw(SpriteBatch& spriteBatch);
 };
 
-class GameplayState : public GameState {
-private:
-	Texture* texture;
-	EntityManager entityManager;
-public:
-	GameplayState();
-	~GameplayState();
-	void update(float tpf);
-	void draw(SpriteBatch& spriteBatch);
-protected:
-	void onInitialize();
-};
+
 
 #endif

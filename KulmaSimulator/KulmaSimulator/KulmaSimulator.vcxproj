@@ -19,6 +19,7 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamestates.cpp" />
+    <ClCompile Include="gamestates\gameplay.cpp" />
     <ClCompile Include="include\lodepng\lodepng.cpp" />
     <ClCompile Include="include\triggers.cpp" />
     <ClCompile Include="input.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\exceptions.h" />
     <ClInclude Include="include\game.h" />
+    <ClInclude Include="include\gameplay.h" />
     <ClInclude Include="include\gamestates.h" />
     <ClInclude Include="include\input.h" />
     <ClInclude Include="include\inputcomponent.h" />
