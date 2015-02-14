@@ -14,8 +14,9 @@ private:
 	std::list<Component* const> destroyedComponents;
 
 	void freeDestroyedComponents();
+	Entity* owner;
 public:
-	ComponentManager();
+	ComponentManager(Entity* owner);
 
 	bool containsComponent(const Component* const component) const;
 	bool removeComponent(Component* const component);

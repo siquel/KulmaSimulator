@@ -1,11 +1,11 @@
 #include "Component.h"
 
-Component::Component(Entity& owner, const int updateOrder) 
-	: owner(owner), updateOrder(updateOrder), destroyed(false), enabled(false), initialized(false) {
+Component::Component(const int updateOrder) 
+	: owner(nullptr), updateOrder(updateOrder), destroyed(false), enabled(false), initialized(false) {
 }
 
 #pragma region Protected members
-Entity& Component::getOwner() const {
+Entity* Component::getOwner() const {
 	return owner;
 }
 
@@ -21,6 +21,12 @@ void Component::updateOrderChanged(const int newOrder, const int oldOrder) { }
 #pragma endregion
 
 #pragma region Public members
+
+void Component::setOwner(Entity* e) {
+	owner = e;
+}
+
+
 int Component::getUpdateOrder() const {
 	return updateOrder;
 }
@@ -91,3 +97,4 @@ void Component::update(float tpf) {
 
 Component::~Component() {
 }
+

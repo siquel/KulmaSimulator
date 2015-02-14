@@ -6,7 +6,7 @@ class Entity;
 // Base class for components that can update.
 class Component {
 private:
-	Entity& owner;
+	Entity* owner;
 
 	int updateOrder;
 
@@ -14,7 +14,7 @@ private:
 	bool enabled;
 	bool initialized;
 protected:
-	Entity& getOwner() const;
+	Entity* getOwner() const;
 
 	// Called every update if component is enabled.
 	virtual void onUpdate(float tpf);
@@ -31,9 +31,10 @@ protected:
 	// Called in first enable call.
 	virtual void onInitialize();
 public:
+	void setOwner(Entity* e);
 	int getUpdateOrder() const;
 
-	Component(Entity& owner, const int updateOrder = 0);
+	Component(const int updateOrder = 0);
 
 	void changeUpdateOrder(const int newOrder);
 

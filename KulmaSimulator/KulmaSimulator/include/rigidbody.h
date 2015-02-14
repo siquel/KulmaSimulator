@@ -8,7 +8,7 @@ private:
 	b2Body* body;
 	std::weak_ptr<b2World> world;
 public:
-	Rigidbody(Entity* entity, World& world);
+	Rigidbody(World& world);
 	~Rigidbody();
 protected:
 	void onInitialize();

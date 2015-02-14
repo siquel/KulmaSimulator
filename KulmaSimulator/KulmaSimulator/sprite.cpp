@@ -21,13 +21,13 @@ void Sprite::draw(SpriteBatch& spriteBatch) {
 }
 
 
-SpriteRenderer::SpriteRenderer(Entity& owner, Sprite& sprite, const int updateOrder, const int drawOrder)
-	: DrawableComponent(owner, updateOrder, drawOrder), sprite(sprite) {
+SpriteRenderer::SpriteRenderer(Sprite& sprite, const int updateOrder, const int drawOrder)
+	: DrawableComponent(updateOrder, drawOrder), sprite(sprite) {
 }
 
 
 void SpriteRenderer::onDraw(SpriteBatch& spriteBatch) {
-	sprite.position = getOwner().getPosition();
+	sprite.position = getOwner()->getPosition();
 	
 	sprite.draw(spriteBatch);
 }

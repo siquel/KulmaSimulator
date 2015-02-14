@@ -1,7 +1,7 @@
 #include "DrawableComponent.h"
 
-DrawableComponent::DrawableComponent(Entity& owner, const int updateOrder, const int drawOrder) 
-: Component(owner, updateOrder), drawOrder(drawOrder), visible(true) {
+DrawableComponent::DrawableComponent(const int updateOrder, const int drawOrder) 
+: Component(updateOrder), drawOrder(drawOrder), visible(true) {
 }
 
 #pragma region Protected members

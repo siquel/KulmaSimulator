@@ -2,7 +2,7 @@
 
 int Entity::idCounter = 0;
 
-Entity::Entity() : id(idCounter++), visible(true), enabled(true), destroyed(false) {
+Entity::Entity() : id(idCounter++), visible(true), enabled(true), destroyed(false), components(this) {
 }
 
 #pragma region Public members

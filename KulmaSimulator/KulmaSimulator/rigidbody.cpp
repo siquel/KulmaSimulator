@@ -1,6 +1,6 @@
 #include "rigidbody.h"
 
-Rigidbody::Rigidbody(Entity* entity, World& world) : Component(*entity), world(world.getBox2D()) {
+Rigidbody::Rigidbody(World& world) : Component(0), world(world.getBox2D()) {
 
 }
 

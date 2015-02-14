@@ -1,6 +1,6 @@
 #include "inputcomponent.h"
 #include "simulator.h"
-InputComponent::InputComponent(Entity* entity) : Component(*entity)
+InputComponent::InputComponent() : Component(0)
 {
 	enable();
 }
@@ -17,24 +17,24 @@ void InputComponent::onInitialize() {
 
 void InputComponent::moveRight(InputArgs& args) {
 	if (args.state == InputState::RELEASED) return;
-	Entity& e = getOwner();
-	e.setPosition(glm::vec2(e.getPosition().x + 1, e.getPosition().y));
+	Entity* e = getOwner();
+	e->setPosition(glm::vec2(e->getPosition().x + 1, e->getPosition().y));
 }
 
 void InputComponent::moveLeft(InputArgs& args) {
 	if (args.state == InputState::RELEASED) return;
-	Entity& e = getOwner();
-	e.setPosition(glm::vec2(e.getPosition().x - 1, e.getPosition().y));
+	Entity* e = getOwner();
+	e->setPosition(glm::vec2(e->getPosition().x - 1, e->getPosition().y));
 }
 
 void InputComponent::moveDown(InputArgs& args) {
 	if (args.state == InputState::RELEASED) return;
-	Entity& e = getOwner();
-	e.setPosition(glm::vec2(e.getPosition().x, e.getPosition().y + 1));
+	Entity* e = getOwner();
+	e->setPosition(glm::vec2(e->getPosition().x, e->getPosition().y + 1));
 }
 
 void InputComponent::moveUp(InputArgs& args) {
 	if (args.state == InputState::RELEASED) return;
-	Entity& e = getOwner();
-	e.setPosition(glm::vec2(e.getPosition().x, e.getPosition().y - 1));
+	Entity* e = getOwner();
+	e->setPosition(glm::vec2(e->getPosition().x, e->getPosition().y - 1));
 }

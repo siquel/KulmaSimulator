@@ -4,7 +4,7 @@
 #include "input.h"
 class InputComponent : public Component {
 public:
-	InputComponent(Entity* entity);
+	InputComponent();
 	~InputComponent();
 protected:
 	void onInitialize();

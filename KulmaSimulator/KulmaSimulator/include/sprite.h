@@ -25,7 +25,7 @@ class SpriteRenderer : public DrawableComponent {
 private:
 	Sprite sprite;
 public:
-	SpriteRenderer(Entity& owner, Sprite& sprite, const int updateOrder, const int drawOrder);
+	SpriteRenderer(Sprite& sprite, const int updateOrder, const int drawOrder);
 	void onDraw(SpriteBatch& spriteBatch);
 };
 

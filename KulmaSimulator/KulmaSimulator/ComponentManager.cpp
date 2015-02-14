@@ -1,6 +1,6 @@
 #include "ComponentManager.h"
 
-ComponentManager::ComponentManager() {
+ComponentManager::ComponentManager(Entity* e) : owner(e) {
 }
 
 #pragma region Private members
@@ -53,6 +53,7 @@ bool ComponentManager::addComponent(Component* const component) {
 	bool add = !containsComponent(component);
 
 	if (add) {
+		component->setOwner(owner);
 		// TODO: could just check beg and end to skip sorting?
 		// TODO: sorting is performed only when component is added.
 		
