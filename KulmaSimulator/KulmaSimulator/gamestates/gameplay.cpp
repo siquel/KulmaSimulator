@@ -2,8 +2,9 @@
 #include "simulator.h"
 #include "sprite.h"
 #include "inputcomponent.h"
+#include "rigidbody.h"
 
-GameplayState::GameplayState() {}
+GameplayState::GameplayState() : world(0.f, 0.f) {}
 GameplayState::~GameplayState() {}
 
 void GameplayState::onInitialize() {
@@ -12,12 +13,14 @@ void GameplayState::onInitialize() {
 	Sprite sprite(texture, glm::vec2(0.f, 0.f), glm::vec4(1.f, 1.f, 1.f, 1.f), glm::vec2(1.f, 1.f), glm::vec2(0.f, 0.f), 0.f);
 	entity->addComponent(new SpriteRenderer(sprite, 0, 0));
 	entity->addComponent(new InputComponent());
-
+	entity->addComponent(new Rigidbody(world));
 	entityManager.addEntity(entity);
 }
 
 void GameplayState::update(float tpf) {
+	world.update(tpf);
 	entityManager.update(tpf);
+	
 }
 
 void GameplayState::draw(SpriteBatch& spriteBatch) {
