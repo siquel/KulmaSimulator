@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cassert>
 #include "util.h"
+#include <algorithm>
 
 Resource::Resource() {
 
@@ -130,5 +131,53 @@ bool Font::readFromFile(const std::string& path) {
 		fprintf(stderr, "Could not init freetype library\n");
 		return false;
 	}
+	// TODO other types?
+	std::string fullpath(path + ".ttf");
+
+	// holds info about font
+	FT_Face face;
+	// load font
+	if (FT_New_Face(lh, fullpath.c_str(), 0, &face)) {
+		fprintf(stderr, "FT_New_Face failed, there is propably a problem with your font file");
+		return false;
+	}
+	// TODO get this from somewhere else
+	FT_Set_Pixel_Sizes(face, 0, 48);
+
+	FT_GlyphSlot g = face->glyph;
+	// get the width of atlas
+	int widt, rows;
+	widt = rows = 0;
+	// as we only support ASCII, 32 is space and 127 is DEL
+	for (size_t i = 32; i < 128; i++) {
+		if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
+			fprintf(stderr, "Loading character '%c' from %s failed\n", i, fullpath.c_str());
+		}
+		widt += g->bitmap.width;
+		rows = std::max(rows, g->bitmap.rows);
+	}
+
+	// create empty texture for all characters
+	GLuint texture;
+	glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	// disable 4-byte alignment restrictions
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	// fill w/ empty data
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, widt, rows, 0, GL_ALPHA, GL_UNSIGNED_BYTE, 0);
+
+
+	int x = 0;
+	// fill texture now
+	for (size_t i = 32; i < 128; i++) {
+		if (FT_Load_Char(face, i, FT_LOAD_RENDER))
+			continue;
+		// upload data from glyph
+		glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+		// increase x offset
+		x += g->bitmap.width;
+	}
+	glBindTexture(GL_TEXTURE_2D, 0);
 	return true;
 }
