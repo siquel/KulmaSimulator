@@ -4,6 +4,8 @@
 #include <lodepng/lodepng.h>
 #include <gl/glew.h>
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 class Resource {
 public:
@@ -38,6 +40,12 @@ public:
 	GLuint getProgram() const;
 	//bool isBound() const;
 	
+};
+
+
+class Font : public Resource {
+public:
+	bool readFromFile(const std::string& path);
 };
 
 #endif

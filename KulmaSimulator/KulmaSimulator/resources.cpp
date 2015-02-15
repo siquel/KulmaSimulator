@@ -123,3 +123,12 @@ Effect::~Effect() {
 }
 
 Effect::Effect() : program(0) { }
+
+bool Font::readFromFile(const std::string& path) {
+	FT_Library lh;
+	if (FT_Init_FreeType(&lh)) {
+		fprintf(stderr, "Could not init freetype library\n");
+		return false;
+	}
+	return true;
+}

@@ -15,6 +15,8 @@ void GameplayState::onInitialize() {
 	entity->addComponent(new InputComponent());
 	entity->addComponent(new Rigidbody(world));
 	entityManager.addEntity(entity);
+
+	Font* font = Simulator::getInstance().getContent().load<Font>("font\\VeronaScript");
 }
 
 void GameplayState::update(float tpf) {
