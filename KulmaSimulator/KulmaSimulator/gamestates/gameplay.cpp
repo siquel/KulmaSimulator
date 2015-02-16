@@ -16,6 +16,8 @@ void GameplayState::onInitialize() {
 	entity->addComponent(new Rigidbody(world));
 	entityManager.addEntity(entity);
 	glClearColor(1.f, 1.f, 1.f, 1.f);
+
+	Mesh* mesh = Simulator::getInstance().getContent().load<Mesh>("mesh\\cube");
 	
 }
 

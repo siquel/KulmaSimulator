@@ -285,10 +285,30 @@ bool Mesh::readFromFile(const std::string& path) {
 		}
 		else if (prefix == "f") {
 			// index
-			// TODO
+			for (size_t i = 0; i < 3; i++) {
+				GLushort x, y;
+				char c;
+				// TODO how about 3 indices?
+				ss >> x >> c >> y >> std::ws;
+				indices.push_back(x);
+				indices.push_back(y);
+			}
 		}
 	}
 
+	// f = v/vt/vn
+	for (size_t i = 0; i < indices.size(); i += 3) {
+		GLushort vertex = indices[i];
+		GLushort texCoord = indices[i + 1];
+		this->vertices.push_back(vertices[vertex]); // xyz
+		this->vertices.push_back(vertices[vertex + 1]);
+		this->vertices.push_back(vertices[vertex + 2]);
+		// texcoords
+		this->vertices.push_back(texCoords[texCoord]); // uv
+		this->vertices.push_back(texCoords[texCoord + 1]);
+		// index
+		this->indices.push_back(vertex);
 
+	}
 	return true;
 }

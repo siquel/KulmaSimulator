@@ -86,6 +86,8 @@ private:
 		}
 		ss >> std::ws;
 	}
+	std::vector<GLfloat> vertices;
+	std::vector<GLushort> indices;
 public:
 	Mesh();
 	~Mesh();
