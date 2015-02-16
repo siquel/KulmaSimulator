@@ -184,7 +184,6 @@ void SpriteBatch::prepareForRendering() {
 	GLuint stride = sizeof(VertexPositionColorTexture);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	GLenum e = glGetError();
 	glAssert();
 
 	// generate vertex data

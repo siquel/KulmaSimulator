@@ -40,6 +40,9 @@ void Game::init() {
 	glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);
 	glGetIntegerv(GL_MAJOR_VERSION, &versionMinor);
 	std::cout << "OpenGL context version: " << versionMajor << '.' << versionMinor << '\n';
+	int max;
+	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max);
+	std::cout << "Max texture size: " << max << std::endl;
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }

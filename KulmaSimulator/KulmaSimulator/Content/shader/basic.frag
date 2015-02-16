@@ -4,5 +4,5 @@ in vec2 texCoords;
 in vec4 color;
 uniform sampler2D tex;
 void main() {
-	outColour = texture(tex, vec2(texCoords.x, -texCoords.y) ) * color;
+	outColour = vec4(1, 1, 1, texture2D(tex, texCoords).r) * color;
 }
