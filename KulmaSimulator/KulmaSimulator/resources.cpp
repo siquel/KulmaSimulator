@@ -5,6 +5,7 @@
 #include "util.h"
 #include <algorithm>
 #include <spritebatch.h>
+#include <sstream>
 
 Resource::Resource() {
 
@@ -179,7 +180,7 @@ bool Font::readFromFile(const std::string& path) {
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glAssert();
 	// fill w/ empty data
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, widt, rows, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widt, rows, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 	glAssert();
 	int x = 0;
 	// fill texture now
@@ -199,7 +200,7 @@ bool Font::readFromFile(const std::string& path) {
 		info[i].tx = static_cast<float>(x) / widt;
 
 		// upload data from glyph
-		glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RGBA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
 		glAssert();
 		// increase x offset
 		x += g->bitmap.width;
@@ -243,4 +244,51 @@ void Font::forEachChar(const std::string& str, FontAction action) {
 			break;
 		}
 	}
+}
+
+
+Mesh::Mesh() {}
+Mesh::~Mesh() {}
+
+bool Mesh::readFromFile(const std::string& path) {
+	std::string fullpath(path + ".obj");
+
+	std::ifstream in(fullpath);
+	if (!in.is_open()) return false;
+
+	std::vector<GLfloat> vertices;
+	std::vector<GLfloat> texCoords;
+	std::vector<GLfloat> normals;
+	std::vector<GLushort> indices;
+
+	std::string line;
+	std::string prefix;
+	std::stringstream ss;
+
+	while (!in.eof()) {
+		std::getline(in, line);
+		ss.str(""); ss.clear();
+		ss << line;
+		ss >> prefix >> std::ws;
+		
+		if (prefix == "v") {
+			//vertex
+			read<GLfloat>(vertices, 3, ss);
+		}
+		else if (prefix == "vt") {
+			// texture coord
+			read<GLfloat>(texCoords, 2, ss);
+		}
+		else if (prefix == "vn") {
+			// normal
+			read<GLfloat>(normals, 3, ss);
+		}
+		else if (prefix == "f") {
+			// index
+			// TODO
+		}
+	}
+
+
+	return true;
 }

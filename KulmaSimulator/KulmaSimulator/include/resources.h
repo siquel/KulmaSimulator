@@ -74,4 +74,22 @@ public:
 	~Font();
 };
 
+
+class Mesh : public Resource {
+private:
+	template<typename TType>
+	void read(std::vector<TType>& to, size_t n, std::stringstream& ss) {
+		TType stuff;
+		for (size_t i = 0; i < n; i++) {
+			ss >> stuff;
+			to.push_back(stuff);
+		}
+		ss >> std::ws;
+	}
+public:
+	Mesh();
+	~Mesh();
+	bool readFromFile(const std::string& path);
+};
+
 #endif
