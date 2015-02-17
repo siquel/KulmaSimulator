@@ -1,8 +1,8 @@
-#include "gamestates.h"
+#include "engine/gamestates.h"
 #include <iostream>
 #include "simulator.h"
 #include "sprite.h"
-#include "inputcomponent.h"
+#include "component/inputcomponent.h"
 GameState::GameState() : initialized(false) {}
 GameState::~GameState() {}
 void GameState::init() {

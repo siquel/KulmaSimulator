@@ -1,8 +1,8 @@
 #include "gameplay.h"
 #include "simulator.h"
 #include "sprite.h"
-#include "inputcomponent.h"
-#include "rigidbody.h"
+#include "component/inputcomponent.h"
+#include "component/rigidbody.h"
 
 GameplayState::GameplayState() : world(0.f, 0.f) {}
 GameplayState::~GameplayState() {}

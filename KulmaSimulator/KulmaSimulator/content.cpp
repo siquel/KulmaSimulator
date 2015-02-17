@@ -1,5 +1,5 @@
-#include "content.h"
-#include <iostream>
+#include "engine/content.h"
+
 ContentManager::ContentManager(const std::string& rootDirectory = "Content") : root(rootDirectory)
 {
 	// get rid of path seperator

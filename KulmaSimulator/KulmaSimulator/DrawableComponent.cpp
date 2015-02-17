@@ -1,4 +1,4 @@
-#include "DrawableComponent.h"
+#include "component/DrawableComponent.h"
 
 DrawableComponent::DrawableComponent(const int updateOrder, const int drawOrder) 
 : Component(updateOrder), drawOrder(drawOrder), visible(true) {

@@ -1,4 +1,4 @@
-#include "Component.h"
+#include "component\Component.h"
 
 Component::Component(const int updateOrder) 
 	: owner(nullptr), updateOrder(updateOrder), destroyed(false), enabled(false), initialized(false) {

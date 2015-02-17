@@ -1,4 +1,4 @@
-#include "ComponentManager.h"
+#include "component\ComponentManager.h"
 
 ComponentManager::ComponentManager(Entity* e) : owner(e) {
 }

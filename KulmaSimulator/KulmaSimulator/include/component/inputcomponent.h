@@ -1,7 +1,7 @@
 #ifndef INPUTCOMPONENT_H
 #define INPUTCOMPONENT_H
 #include "Component.h"
-#include "input.h"
+#include "engine/input.h"
 class InputComponent : public Component {
 public:
 	InputComponent();

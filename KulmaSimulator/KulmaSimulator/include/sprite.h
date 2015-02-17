@@ -1,10 +1,10 @@
 #ifndef SPRITE_H
 #define SPRITE_H
-#include "resources.h"
+#include "engine/resources.h"
 #include "spritebatch.h"
 #include "GLM.h"
 
-#include "DrawableComponent.h"
+#include "component/DrawableComponent.h"
 
 class Sprite {
 public:

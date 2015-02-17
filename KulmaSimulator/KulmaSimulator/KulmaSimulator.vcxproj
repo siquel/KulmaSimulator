@@ -37,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ComponentManager.h" />
+    <ClInclude Include="include\component\meshrenderer.h" />
     <ClInclude Include="include\content.h" />
     <ClInclude Include="include\DrawableComponent.h" />
     <ClInclude Include="include\Entity.h" />

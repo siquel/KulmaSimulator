@@ -2,7 +2,7 @@
 #define SPRITEBATCH_H
 #include "GL\glew.h"
 #include "GLM.h"
-#include "content.h"
+#include "engine/content.h"
 #include <memory>
 #include "util.h"
 enum SpriteSortMode {

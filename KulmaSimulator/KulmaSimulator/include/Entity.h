@@ -1,7 +1,7 @@
 #pragma once
 #include "TagContainer.h"
-#include "ComponentManager.h"
-#include "Component.h"
+#include "component/ComponentManager.h"
+#include "component/Component.h"
 #include "GLM\glm.hpp"
 
 class Entity {

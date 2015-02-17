@@ -1,8 +1,8 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
-#include "gamestates.h"
-#include "resources.h"
+#include "engine/gamestates.h"
+#include "engine/resources.h"
 #include "EntityManager.h"
 #include "World.h"
 class GameplayState : public GameState {

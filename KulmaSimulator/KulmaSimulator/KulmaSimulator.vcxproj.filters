@@ -28,30 +28,21 @@
     <Filter Include="Source Files\GameStates">
       <UniqueIdentifier>{9e1ca8f8-045f-462e-ab04-1c0b21fa1829}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{c9d31b85-a086-4d85-a977-13aee109d3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine">
+      <UniqueIdentifier>{bd3ecec1-4f81-49a4-b8a3-2dc732fabcf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\voidbab">
+      <UniqueIdentifier>{7903144c-9bc0-4eee-92e0-8515b090a416}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="simulator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="content.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gamestates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\triggers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="include\lodepng\lodepng.cpp">
@@ -96,30 +87,30 @@
     <ClCompile Include="gamestates\gameplay.cpp">
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="content.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestates.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="include\triggers.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="resources.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\simulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\content.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gamestates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\triggers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\exceptions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\lodepng\lodepng.h">
@@ -131,31 +122,10 @@
     <ClInclude Include="include\util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ComponentManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DrawableComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EntityManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TagContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\primitivebatch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\inputcomponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\rigidbody.h">
@@ -166,6 +136,48 @@
     </ClInclude>
     <ClInclude Include="include\gameplay.h">
       <Filter>Header Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\meshrenderer.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\inputcomponent.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\game.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gamestates.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\triggers.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\content.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Component.h">
+      <Filter>Header Files\voidbab</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ComponentManager.h">
+      <Filter>Header Files\voidbab</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DrawableComponent.h">
+      <Filter>Header Files\voidbab</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TagContainer.h">
+      <Filter>Header Files\voidbab</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
+      <Filter>Header Files\voidbab</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityManager.h">
+      <Filter>Header Files\voidbab</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

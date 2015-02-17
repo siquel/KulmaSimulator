@@ -1,7 +1,7 @@
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 
-#include "game.h"
+#include "engine/game.h"
 #include "spritebatch.h"
 
 class Simulator : public Game  {

@@ -1,4 +1,4 @@
-#include "inputcomponent.h"
+#include "component/inputcomponent.h"
 #include "simulator.h"
 #include "Entity.h"
 InputComponent::InputComponent() : Component(0)

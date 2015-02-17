@@ -1,4 +1,4 @@
-#include "triggers.h"
+#include "engine/triggers.h"
 
 ITrigger::ITrigger() { }
 ITrigger::~ITrigger() { }
