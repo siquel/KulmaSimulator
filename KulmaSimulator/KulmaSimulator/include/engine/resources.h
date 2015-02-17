@@ -87,11 +87,13 @@ private:
 		ss >> std::ws;
 	}
 	std::vector<GLfloat> vertices;
-	std::vector<GLushort> indices;
+	std::vector<GLuint> indices;
 public:
 	Mesh();
 	~Mesh();
 	bool readFromFile(const std::string& path);
+	const std::vector<GLfloat>& getVertices() const;
+	const std::vector<GLuint>& getIndices() const;
 };
 
 #endif
