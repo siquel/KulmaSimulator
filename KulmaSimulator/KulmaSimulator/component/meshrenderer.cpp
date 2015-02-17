@@ -1,6 +1,6 @@
 #include "component/meshrenderer.h"
 #include "simulator.h"
-MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh) {
+MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh), model(glm::mat4(1.0f)) {
 	enable();
 }
 
@@ -9,17 +9,17 @@ MeshRenderer::~MeshRenderer() {}
 void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	effect->bind();
 	// TODO move somewhere else
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f),
+	glm::mat4 projection = glm::perspective(glm::radians(25.0f),
 		static_cast<float>(1280) / 720,
 		0.1f, 100.0f);
 
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(0.0, 2.0, 4.0),   // eye
+		glm::vec3(1.0, 2.0, 10.0),   // eye
 		glm::vec3(0.0, 0.0, 0.0),   // direction
 		glm::vec3(0.0, 1.0, 0.0)  // up
 		);
 
-	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::rotate(model, 0.05f, glm::vec3(0.0f, 1.f, -0.0f));
 
 	GLuint mvploc = glGetUniformLocation(effect->getProgram(), "MVP");
 	glAssert();

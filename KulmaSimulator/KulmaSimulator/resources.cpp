@@ -269,8 +269,20 @@ bool Mesh::readFromFile(const std::string& path) {
 		ss.str(""); ss.clear();
 		ss << line;
 		ss >> prefix >> std::ws;
-		
-		if (prefix == "v") {
+		// todo move this
+		if (prefix == "mtllib") {
+			std::string file;
+			ss >> file;
+			size_t index = path.rfind("\\");
+			if (index != std::string::npos) {
+				Mtllib::import(path.substr(0, index + 1) + file);
+			}
+			else {
+				Mtllib::import(file);
+			}
+			//Mtllib::import()
+		}
+		else if (prefix == "v") {
 			//vertex
 			glm::vec3 v;
 			ss >> v.x >> v.y >> v.z >> std::ws;
@@ -314,14 +326,43 @@ bool Mesh::readFromFile(const std::string& path) {
 		vertices.push_back(uv.x);
 		vertices.push_back(uv.y);
 		index = normalIndices[i];
-		glm::vec3& normal = tmpNormals[index - 1];
-		vertices.push_back(normal.x);
-		vertices.push_back(normal.y);
-		vertices.push_back(normal.z);
+		// hax TODO fix
+		if (tmpNormals.size() == 0) {
+			vertices.push_back(0.f);
+			vertices.push_back(0.f);
+			vertices.push_back(0.f);
+		}
+		else {
+			glm::vec3& normal = tmpNormals[index - 1];
+			vertices.push_back(normal.x);
+			vertices.push_back(normal.y);
+			vertices.push_back(normal.z);
+		}
+		
 	}
 	return true;
 }
 
 const std::vector<GLfloat>& Mesh::getVertices() const {
 	return vertices;
+}
+
+
+std::vector<Material*> Mtllib::import(const std::string& file) {
+	std::ifstream in(file);
+	assert(in.is_open());
+	std::string line;
+	std::string prefix;
+	std::stringstream ss;
+	while (!in.eof()) {
+		std::getline(in, line);
+		ss.clear(); ss.str("");
+		ss << line;
+		ss >> prefix;
+		// TODO what now?
+		if (prefix == "newmtl") {
+			std::cout << "New material" << std::endl;
+		}
+	}
+	return std::vector<Material*>();
 }

@@ -85,4 +85,15 @@ public:
 	const std::vector<GLfloat>& getVertices() const;
 };
 
+class Material : public Resource {
+private:
+public:
+	bool readFromFile(const std::string& path);
+};
+
+class Mtllib {
+public:
+	static std::vector<Material*> import(const std::string& mtlfile);
+};
+
 #endif

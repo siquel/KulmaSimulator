@@ -10,6 +10,7 @@ private:
 	GLuint VBO;
 	GLuint VAO;
 	Effect* effect;
+	glm::mat4 model;
 public:
 	MeshRenderer(Mesh* mesh);
 	~MeshRenderer();

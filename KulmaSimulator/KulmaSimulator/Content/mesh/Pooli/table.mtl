@@ -1,0 +1,52 @@
+# Blender MTL File: 'None'
+# Material Count: 5
+
+newmtl Green
+Ns 764.705882
+Ka 0.000000 0.000000 0.000000
+Kd 0.001801 0.512000 0.008821
+Ks 0.079651 0.105263 0.006439
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Pool_texture.png
+
+newmtl Hole
+Ns 196.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.003146 0.003146 0.003146
+Ks 0.033701 0.033701 0.033701
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Pool_texture.png
+
+newmtl Marble
+Ns 315.686275
+Ka 0.000000 0.000000 0.000000
+Kd 0.006258 0.051650 0.000000
+Ks 0.254386 0.254386 0.254386
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Pool_texture.png
+
+newmtl Metal
+Ns 78.431373
+Ka 0.000000 0.000000 0.000000
+Kd 0.070443 0.056860 0.000000
+Ks 0.991228 0.991228 0.991228
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Pool_texture.png
+
+newmtl Wood
+Ns 686.274510
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.098404 0.005951
+Ks 0.096491 0.045917 0.000868
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Pool_texture.png

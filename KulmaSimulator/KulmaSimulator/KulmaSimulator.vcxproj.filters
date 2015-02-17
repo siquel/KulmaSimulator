@@ -143,26 +143,8 @@
     <ClInclude Include="include\component\meshrenderer.h">
       <Filter>Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="include\input.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="include\inputcomponent.h">
       <Filter>Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\game.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gamestates.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resources.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\triggers.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\content.h">
-      <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="include\Component.h">
       <Filter>Header Files\voidbab</Filter>
@@ -181,6 +163,24 @@
     </ClInclude>
     <ClInclude Include="include\EntityManager.h">
       <Filter>Header Files\voidbab</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\content.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\game.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\gamestates.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\input.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\resources.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\triggers.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
