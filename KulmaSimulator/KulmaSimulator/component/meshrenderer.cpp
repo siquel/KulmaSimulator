@@ -27,7 +27,7 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	glAssert();
 
 	glAssert();
-	glDrawElements(GL_TRIANGLES, mesh->getIndices().size(), GL_UNSIGNED_INT, nullptr);
+	glDrawArrays(GL_TRIANGLES, 0, mesh->getVertices().size());
 	glAssert();
 	effect->unbind();
 	glAssert();
@@ -49,17 +49,12 @@ void MeshRenderer::onInitialize() {
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, nullptr);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLvoid*)(sizeof(GLfloat) * 3));
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, nullptr);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(sizeof(GLfloat) * 3));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(sizeof(GLfloat) * 5));
 
 	glAssert();
 	glBufferData(GL_ARRAY_BUFFER, mesh->getVertices().size() * sizeof(GLfloat), mesh->getVertices().data(), GL_STATIC_DRAW);
-	glAssert();
-	glAssert();
-	glGenBuffers(1, &IBO);
-	glAssert();
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-	glAssert();
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * mesh->getIndices().size(), mesh->getIndices().data(), GL_STATIC_DRAW);
 	glAssert();
 }

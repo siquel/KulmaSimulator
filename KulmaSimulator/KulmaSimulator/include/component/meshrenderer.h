@@ -9,7 +9,6 @@ private:
 	Mesh* mesh;
 	GLuint VBO;
 	GLuint VAO;
-	GLuint IBO;
 	Effect* effect;
 public:
 	MeshRenderer(Mesh* mesh);

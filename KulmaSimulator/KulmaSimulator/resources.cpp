@@ -256,10 +256,9 @@ bool Mesh::readFromFile(const std::string& path) {
 	std::ifstream in(fullpath);
 	if (!in.is_open()) return false;
 
-	std::vector<GLfloat> vertices;
-	std::vector<GLfloat> texCoords;
-	std::vector<GLfloat> normals;
-	std::vector<GLushort> indices;
+	std::vector<GLuint> vertexIndices, uvIndices, normalIndices;
+	std::vector<glm::vec3> tmpVertices, tmpNormals;
+	std::vector<glm::vec2> tmpUvs;
 
 	std::string line;
 	std::string prefix;
@@ -273,50 +272,56 @@ bool Mesh::readFromFile(const std::string& path) {
 		
 		if (prefix == "v") {
 			//vertex
-			read<GLfloat>(vertices, 3, ss);
+			glm::vec3 v;
+			ss >> v.x >> v.y >> v.z >> std::ws;
+			tmpVertices.push_back(v);
 		}
 		else if (prefix == "vt") {
 			// texture coord
-			read<GLfloat>(texCoords, 2, ss);
+			glm::vec2 uv;
+			ss >> uv.x >> uv.y >> std::ws;
+			tmpUvs.push_back(uv);
 		}
 		else if (prefix == "vn") {
 			// normal
-			read<GLfloat>(normals, 3, ss);
+			glm::vec3 v;
+			ss >> v.x >> v.y >> v.z >> std::ws;
+			tmpNormals.push_back(v);
 		}
 		else if (prefix == "f") {
 			// index
 			for (size_t i = 0; i < 3; i++) {
-				GLuint x, y, z;
+				GLuint v, t, n;
 				char c;
 
-				ss >> x >> c >> y >> c >> z >> std::ws;
-				indices.push_back(x - 1);
-				indices.push_back(y - 1);
-				indices.push_back(z - 1);
+				ss >> v >> c >> t >> c >> n >> std::ws;
+				vertexIndices.push_back(v);
+				uvIndices.push_back(t);
+				normalIndices.push_back(n);
 			}
 		}
 	}
 
 	// f = v/vt/vn
-	for (size_t i = 0; i < indices.size(); i += 3) {
-		GLushort vertex = indices[i];
-		GLushort texCoord = indices[i + 1];
-		this->vertices.push_back(vertices[vertex + 0]); // xyz
-		this->vertices.push_back(vertices[vertex + 1]);
-		this->vertices.push_back(vertices[vertex + 2]);
-		// texcoords
-		this->vertices.push_back(texCoords[texCoord]); // uv
-		this->vertices.push_back(texCoords[texCoord + 1]);
-		// index
-		this->indices.push_back(vertex );
-
+	for (size_t i = 0; i < vertexIndices.size(); i++) {
+		size_t index = vertexIndices[i];
+		glm::vec3& vertex = tmpVertices[index - 1];
+		vertices.push_back(vertex.x);
+		vertices.push_back(vertex.y);
+		vertices.push_back(vertex.z);
+		index = uvIndices[i];
+		glm::vec2& uv = tmpUvs[index - 1];
+		vertices.push_back(uv.x);
+		vertices.push_back(uv.y);
+		index = normalIndices[i];
+		glm::vec3& normal = tmpNormals[index - 1];
+		vertices.push_back(normal.x);
+		vertices.push_back(normal.y);
+		vertices.push_back(normal.z);
 	}
 	return true;
 }
 
 const std::vector<GLfloat>& Mesh::getVertices() const {
 	return vertices;
-}
-const std::vector<GLuint>& Mesh::getIndices() const {
-	return indices;
 }

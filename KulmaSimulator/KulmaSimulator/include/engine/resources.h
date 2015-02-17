@@ -77,23 +77,12 @@ public:
 
 class Mesh : public Resource {
 private:
-	template<typename TType>
-	void read(std::vector<TType>& to, size_t n, std::stringstream& ss) {
-		TType stuff;
-		for (size_t i = 0; i < n; i++) {
-			ss >> stuff;
-			to.push_back(stuff);
-		}
-		ss >> std::ws;
-	}
 	std::vector<GLfloat> vertices;
-	std::vector<GLuint> indices;
 public:
 	Mesh();
 	~Mesh();
 	bool readFromFile(const std::string& path);
 	const std::vector<GLfloat>& getVertices() const;
-	const std::vector<GLuint>& getIndices() const;
 };
 
 #endif
