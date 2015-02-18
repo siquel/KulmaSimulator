@@ -75,16 +75,6 @@ public:
 };
 
 
-class Mesh : public Resource {
-private:
-	std::vector<GLfloat> vertices;
-public:
-	Mesh();
-	~Mesh();
-	bool readFromFile(const std::string& path);
-	const std::vector<GLfloat>& getVertices() const;
-};
-
 class Material {
 private:
 	std::string name;
@@ -105,6 +95,20 @@ public:
 	void setTextureMap(const Texture* texture) {
 		map = texture;
 	}
+	const std::string& getName() const {
+		return name;
+	}
+};
+
+class Mesh : public Resource {
+private:
+	std::vector<GLfloat> vertices;
+	std::vector<Material> materials;
+public:
+	Mesh();
+	~Mesh();
+	bool readFromFile(const std::string& path);
+	const std::vector<GLfloat>& getVertices() const;
 };
 
 class Mtllib {

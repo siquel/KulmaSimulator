@@ -265,6 +265,8 @@ bool Mesh::readFromFile(const std::string& path) {
 	std::string prefix;
 	std::stringstream ss;
 
+	size_t currentMaterial = 0;
+
 	while (!in.eof()) {
 		std::getline(in, line);
 		ss.str(""); ss.clear();
@@ -276,12 +278,22 @@ bool Mesh::readFromFile(const std::string& path) {
 			ss >> file;
 			size_t index = path.rfind("\\");
 			if (index != std::string::npos) {
-				Mtllib::import(path.substr(0, index + 1) + file);
+				materials = Mtllib::import(path.substr(0, index + 1) + file);
 			}
 			else {
-				Mtllib::import(file);
+				materials = Mtllib::import(file);
 			}
-			//Mtllib::import()
+			continue;
+		}
+
+		if (prefix == "usemtl") {
+			std::string material;
+			ss >> material;
+			for (size_t i = 0; i < materials.size(); i++) {
+				if (materials[i].getName() != material) continue;
+				currentMaterial = i;
+				break;
+			}
 		}
 		else if (prefix == "v") {
 			//vertex
@@ -362,28 +374,28 @@ std::vector<Material> Mtllib::import(const std::string& file) {
 
 	while (!in.eof()) {
 		std::getline(in, line);
-		ss.clear(); ss.str("");
+		ss.clear(); ss.str(""); prefix.clear();
 		ss << line;
 		ss >> prefix;
 		// TODO what now?
 		if (prefix == "newmtl") {
 			std::string name;
-			ss >> name;
+			ss >> name >> std::ws;
 			materials.push_back(Material(name));
 		}
 		else if (prefix == "Kd") {
 			float r, g, b;
-			ss >> r >> g >> b;
+			ss >> r >> g >> b >> std::ws;
 			materials.back().setDiffuseColor(r, g, b);
 		}
 		else if (prefix == "Ks") {
 			float r, g, b;
-			ss >> r >> g >> b;
+			ss >> r >> g >> b >> std::ws;
 			materials.back().setSpecularColor(r, g, b);
 		}
 		else if (prefix == "map_Kd") {
 			std::string path;
-			ss >> path;
+			ss >> path >> std::ws;
 			// get rid of content dir
 			std::string fullpath(file.substr(Simulator::getInstance().getContent().getRoot().length() + 1));
 			// get dirname
