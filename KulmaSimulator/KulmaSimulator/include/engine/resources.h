@@ -85,15 +85,31 @@ public:
 	const std::vector<GLfloat>& getVertices() const;
 };
 
-class Material : public Resource {
+class Material {
 private:
+	std::string name;
+	// Kd from obj
+	float diffuse[3];
+	// Ks from obj
+	float specular[3];
+	const Texture* map;
 public:
+	Material(const std::string& name) : name(name), map(nullptr) {}
 	bool readFromFile(const std::string& path);
+	void setDiffuseColor(float r, float g, float b) {
+		diffuse[0] = r; diffuse[1] = g; diffuse[2] = b;
+	}
+	void setSpecularColor(float r, float g, float b) {
+		specular[0] = r; specular[1] = g; specular[2] = b;
+	}
+	void setTextureMap(const Texture* texture) {
+		map = texture;
+	}
 };
 
 class Mtllib {
 public:
-	static std::vector<Material*> import(const std::string& mtlfile);
+	static std::vector<Material> import(const std::string& mtlfile);
 };
 
 #endif

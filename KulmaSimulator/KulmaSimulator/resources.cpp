@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <spritebatch.h>
 #include <sstream>
+#include "simulator.h"
 
 Resource::Resource() {
 
@@ -348,12 +349,17 @@ const std::vector<GLfloat>& Mesh::getVertices() const {
 }
 
 
-std::vector<Material*> Mtllib::import(const std::string& file) {
+std::vector<Material> Mtllib::import(const std::string& file) {
 	std::ifstream in(file);
 	assert(in.is_open());
 	std::string line;
 	std::string prefix;
 	std::stringstream ss;
+
+	std::vector<Material> materials;
+	// as we increase it later to 0
+	int current = -1;
+
 	while (!in.eof()) {
 		std::getline(in, line);
 		ss.clear(); ss.str("");
@@ -361,8 +367,32 @@ std::vector<Material*> Mtllib::import(const std::string& file) {
 		ss >> prefix;
 		// TODO what now?
 		if (prefix == "newmtl") {
-			std::cout << "New material" << std::endl;
+			std::string name;
+			ss >> name;
+			materials.push_back(Material(name));
+		}
+		else if (prefix == "Kd") {
+			float r, g, b;
+			ss >> r >> g >> b;
+			materials.back().setDiffuseColor(r, g, b);
+		}
+		else if (prefix == "Ks") {
+			float r, g, b;
+			ss >> r >> g >> b;
+			materials.back().setSpecularColor(r, g, b);
+		}
+		else if (prefix == "map_Kd") {
+			std::string path;
+			ss >> path;
+			// get rid of content dir
+			std::string fullpath(file.substr(Simulator::getInstance().getContent().getRoot().length() + 1));
+			// get dirname
+			fullpath.erase(std::find(fullpath.rbegin(), fullpath.rend(), '\\').base(), fullpath.end());
+			// add original filename
+			fullpath += path.substr(0, path.find('.'));
+			
+			materials.back().setTextureMap(Simulator::getInstance().getContent().load<Texture>(fullpath));
 		}
 	}
-	return std::vector<Material*>();
+	return materials;
 }
