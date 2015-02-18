@@ -98,6 +98,10 @@ public:
 	const std::string& getName() const {
 		return name;
 	}
+
+	const Texture* getTexture() const {
+		return map;
+	}
 };
 
 class Mesh : public Resource {
@@ -109,6 +113,9 @@ public:
 	~Mesh();
 	bool readFromFile(const std::string& path);
 	const std::vector<GLfloat>& getVertices() const;
+	const std::vector<Material>& getMaterials() const {
+		return materials;
+	}
 };
 
 class Mtllib {

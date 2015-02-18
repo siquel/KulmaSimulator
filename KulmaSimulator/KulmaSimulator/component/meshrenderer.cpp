@@ -8,6 +8,7 @@ MeshRenderer::~MeshRenderer() {}
 
 void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	effect->bind();
+	glBindTexture(GL_TEXTURE_2D, mesh->getMaterials()[0].getTexture()->getId());
 	// TODO move somewhere else
 	glm::mat4 projection = glm::perspective(glm::radians(25.0f),
 		static_cast<float>(1280) / 720,
@@ -29,7 +30,9 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	glAssert();
 	glDrawArrays(GL_TRIANGLES, 0, mesh->getVertices().size());
 	glAssert();
+	
 	effect->unbind();
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glAssert();
 }
 
