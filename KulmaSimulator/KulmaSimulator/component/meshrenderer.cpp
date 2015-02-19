@@ -20,7 +20,7 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 		glm::vec3(0.0, 1.0, 0.0)  // up
 		);
 
-	model = glm::rotate(model, 0.05f, glm::vec3(0.0f, 1.f, -0.0f));
+	///model = glm::rotate(model, 0.05f, glm::vec3(0.0f, 1.f, -0.0f));
 
 	GLuint mvploc = glGetUniformLocation(effect->getProgram(), "MVP");
 	glAssert();

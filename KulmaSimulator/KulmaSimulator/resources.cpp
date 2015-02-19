@@ -48,8 +48,8 @@ bool Texture::readFromFile(const std::string& path) {
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
 	// set GL_NEAREST filter on
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	// unbind
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return true;
@@ -181,7 +181,7 @@ bool Font::readFromFile(const std::string& path) {
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glAssert();
 	// fill w/ empty data
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widt, rows, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, widt, rows, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
 	glAssert();
 	int x = 0;
 	// fill texture now
@@ -201,7 +201,7 @@ bool Font::readFromFile(const std::string& path) {
 		info[i].tx = static_cast<float>(x) / widt;
 
 		// upload data from glyph
-		glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RGBA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
 		glAssert();
 		// increase x offset
 		x += g->bitmap.width;
