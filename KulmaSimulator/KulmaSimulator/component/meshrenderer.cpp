@@ -9,6 +9,8 @@ MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh) {
 MeshRenderer::~MeshRenderer() {}
 
 void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	effect->bind();
 	glBindTexture(GL_TEXTURE_2D, mesh->getMaterials()[0].getTexture()->getId());
 	// TODO move somewhere else
@@ -23,16 +25,14 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 		);
 
 	GLuint mvploc = glGetUniformLocation(effect->getProgram(), "MVP");
-	glAssert();
 	getOwner()->getComponent<Transform>()->rotate(0.05f, glm::vec3(0.0f, 1.f, -0.0f));
 	glUniformMatrix4fv(mvploc, 1, GL_FALSE, glm::value_ptr(projection * view * getOwner()->getComponent<Transform>()->getTransform()));
-	glAssert();
 
-	glAssert();
 	glDrawArrays(GL_TRIANGLES, 0, mesh->getVertices().size());
-	glAssert();
 	
 	effect->unbind();
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glAssert();
 }
@@ -60,5 +60,7 @@ void MeshRenderer::onInitialize() {
 
 	glAssert();
 	glBufferData(GL_ARRAY_BUFFER, mesh->getVertices().size() * sizeof(GLfloat), mesh->getVertices().data(), GL_STATIC_DRAW);
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glAssert();
 }
