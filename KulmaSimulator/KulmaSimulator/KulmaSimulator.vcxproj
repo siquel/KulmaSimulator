@@ -14,6 +14,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="component\meshrenderer.cpp" />
+    <ClCompile Include="component\transform.cpp" />
     <ClCompile Include="content.cpp" />
     <ClCompile Include="DrawableComponent.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ComponentManager.h" />
     <ClInclude Include="include\component\meshrenderer.h" />
+    <ClInclude Include="include\component\transform.h" />
     <ClInclude Include="include\DrawableComponent.h" />
     <ClInclude Include="include\engine\content.h" />
     <ClInclude Include="include\engine\game.h" />

@@ -1,6 +1,8 @@
 #include "component/meshrenderer.h"
 #include "simulator.h"
-MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh), model(glm::mat4(1.0f)) {
+#include "component/transform.h"
+#include "Entity.h"
+MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh) {
 	enable();
 }
 
@@ -20,11 +22,10 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 		glm::vec3(0.0, 1.0, 0.0)  // up
 		);
 
-	///model = glm::rotate(model, 0.05f, glm::vec3(0.0f, 1.f, -0.0f));
-
 	GLuint mvploc = glGetUniformLocation(effect->getProgram(), "MVP");
 	glAssert();
-	glUniformMatrix4fv(mvploc, 1, GL_FALSE, glm::value_ptr(projection * view * model));
+	getOwner()->getComponent<Transform>()->rotate(0.05f, glm::vec3(0.0f, 1.f, -0.0f));
+	glUniformMatrix4fv(mvploc, 1, GL_FALSE, glm::value_ptr(projection * view * getOwner()->getComponent<Transform>()->getTransform()));
 	glAssert();
 
 	glAssert();

@@ -108,6 +108,9 @@
     <ClCompile Include="component\meshrenderer.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
+    <ClCompile Include="component\transform.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\simulator.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="include\engine\triggers.h">
       <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\transform.h">
+      <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
