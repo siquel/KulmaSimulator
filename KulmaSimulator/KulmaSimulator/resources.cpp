@@ -225,7 +225,8 @@ void Font::drawString(SpriteBatch& spriteBatch, std::string& str, glm::vec2& pos
 		glm::vec4 rect(glyph.tx, tex.get()->height - glyph.bh, glyph.bw, glyph.bh);
 		
 		glm::vec2 pos(position.x + x, position.y + y);
-		spriteBatch.draw(tex.get(), pos, &rect, color, scale, origin, rotation);
+		// HAX HAX HAX
+		spriteBatch.draw(tex.get(), pos, &rect, color, glm::vec2(scale.x, -scale.y), origin, rotation);
 	});
 	//spriteBatch.draw(tex.get(), position, nullptr, color, scale, origin, rotation);
 	glAssert();
