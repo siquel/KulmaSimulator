@@ -13,20 +13,10 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	effect->bind();
 	glBindTexture(GL_TEXTURE_2D, mesh->getMaterials()[0].getTexture()->getId());
-	// TODO move somewhere else
-	glm::mat4 projection = glm::perspective(glm::radians(25.0f),
-		static_cast<float>(1280) / 720,
-		0.1f, 100.0f);
-
-	glm::mat4 view = glm::lookAt(
-		glm::vec3(1.0, 2.0, 10.0),   // eye
-		glm::vec3(0.0, 0.0, 0.0),   // direction
-		glm::vec3(0.0, 1.0, 0.0)  // up
-		);
 
 	GLuint mvploc = glGetUniformLocation(effect->getProgram(), "MVP");
 	getOwner()->getComponent<Transform>()->rotate(0.05f, glm::vec3(0.0f, 1.f, -0.0f));
-	glUniformMatrix4fv(mvploc, 1, GL_FALSE, glm::value_ptr(projection * view * getOwner()->getComponent<Transform>()->getTransform()));
+	glUniformMatrix4fv(mvploc, 1, GL_FALSE, glm::value_ptr(Simulator::getInstance().getCamera().getCamera() * getOwner()->getComponent<Transform>()->getTransform()));
 
 	glDrawArrays(GL_TRIANGLES, 0, mesh->getVertices().size());
 	

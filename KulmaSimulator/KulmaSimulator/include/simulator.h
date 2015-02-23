@@ -3,9 +3,11 @@
 
 #include "engine/game.h"
 #include "spritebatch.h"
+#include "engine\camera.h"
 
 class Simulator : public Game  {
 private:
+	Camera camera;
 	SpriteBatch spriteBatch;
 	Simulator();
 	~Simulator();
@@ -20,6 +22,7 @@ public:
 	void update(float tpf);
 	void draw();
 	void initialize();
+	Camera& getCamera();
 };
 
 

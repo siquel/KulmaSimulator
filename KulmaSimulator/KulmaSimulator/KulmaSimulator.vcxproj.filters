@@ -111,6 +111,9 @@
     <ClCompile Include="component\transform.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
+    <ClCompile Include="engine\camera.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\simulator.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="include\component\transform.h">
       <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\camera.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
