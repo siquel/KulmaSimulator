@@ -171,12 +171,19 @@ bool Font::readFromFile(const std::string& path) {
 	spacing = static_cast<float>(rows);
 	// create empty texture for all characters
 	GLuint texture;
-	//glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE0);
 	glAssert();
 	glGenTextures(1, &texture);
 	glAssert();
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glAssert();
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	// disable 4-byte alignment restrictions
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glAssert();
@@ -198,7 +205,7 @@ bool Font::readFromFile(const std::string& path) {
 		info[i].bl = static_cast<float>(g->bitmap_left);
 		info[i].bt = static_cast<float>(g->bitmap_top);
 
-		info[i].tx = static_cast<float>(x) / widt;
+		info[i].tx = static_cast<float>(x);
 
 		// upload data from glyph
 		glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
@@ -214,13 +221,13 @@ bool Font::readFromFile(const std::string& path) {
 
 void Font::drawString(SpriteBatch& spriteBatch, std::string& str, glm::vec2& position, glm::vec4& color, float rotation, glm::vec2& origin, glm::vec2& scale) {
 	std::unique_ptr<Texture>& tex = texture;
-	/*forEachChar(str, [&](CharacterInfo& glyph, float x, float y) {
-		glm::vec4 rect(glyph.bl, glyph.bt, glyph.bl + glyph.bw, glyph.bt + glyph.bh);
+	forEachChar(str, [&](CharacterInfo& glyph, float x, float y) {
+		glm::vec4 rect(glyph.tx, tex.get()->height - glyph.bh, glyph.bw, glyph.bh);
 		
 		glm::vec2 pos(position.x + x, position.y + y);
 		spriteBatch.draw(tex.get(), pos, &rect, color, scale, origin, rotation);
-	});*/
-	spriteBatch.draw(tex.get(), position, nullptr, color, scale, origin, rotation);
+	});
+	//spriteBatch.draw(tex.get(), position, nullptr, color, scale, origin, rotation);
 	glAssert();
 }
 
@@ -228,7 +235,9 @@ void Font::forEachChar(const std::string& str, FontAction action) {
 	float x = 0.f, y = 0.f;
 
 	const char* text = str.c_str();
-	for (char c = *text; *text; text++) {
+	char c;
+	for (; *text; text++) {
+		c = *text;
 		switch (c) {
 		case '\n':
 			x = 0.f;

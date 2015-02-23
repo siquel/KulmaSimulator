@@ -197,7 +197,7 @@ void SpriteBatch::prepareForRendering() {
 	}
 	//clear buffer w/ new data
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(VertexPositionColorTexture) * vertices.size(), (void*)(vertices.data()));
-	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glAssert();
 	vertices.clear();
 	
@@ -208,7 +208,9 @@ void SpriteBatch::flushBatch() {
 		return;
 
 	glActiveTexture(GL_TEXTURE0 + 0);
-	
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 	glAssert();
 	effect->bind();
 
@@ -236,7 +238,9 @@ void SpriteBatch::flushBatch() {
 	renderBatch(batchTexture, batchStart, spriteQueueCount - batchStart);
 
 	effect->unbind();
-	
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	// Reset the queue.
 	spriteQueueCount = 0;
 	vertexBufferPos = 0;
@@ -266,5 +270,7 @@ void SpriteBatch::init() {
 	createIndexBuffer();
 	effect = content.load<Effect>("shader\\basic");
 	enterTheMatrix = glm::ortho(0.f, static_cast<float>(ScreenWidth), static_cast<float>(ScreenHeight), 0.f, -1.f, 1.f);
-		
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }

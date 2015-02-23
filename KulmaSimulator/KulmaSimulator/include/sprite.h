@@ -6,7 +6,7 @@
 
 #include "component/DrawableComponent.h"
 
-class Sprite {
+class Sprite : public AlignedNew<Sprite> {
 public:
 	const Texture* texture;
 	glm::vec2 position;
@@ -16,16 +16,16 @@ public:
 	glm::vec4 source;
 	float rotation;
 	
-	Sprite(const Texture* texture, const glm::vec2& position, const glm::vec4& color, const glm::vec2& scale, const glm::vec2& origin, float rotation);
+	__declspec(align(16)) Sprite(const Texture* texture, const glm::vec2& position, const glm::vec4& color, const glm::vec2& scale, const glm::vec2& origin, float rotation);
 	~Sprite();
 	void draw(SpriteBatch& spriteBatch);
 };
 
-class SpriteRenderer : public DrawableComponent {
+class SpriteRenderer : public DrawableComponent, public AlignedNew<SpriteRenderer> {
 private:
 	Sprite sprite;
 public:
-	SpriteRenderer(Sprite& sprite, const int updateOrder, const int drawOrder);
+	__declspec(align(16)) SpriteRenderer(Sprite& sprite, const int updateOrder, const int drawOrder);
 	void onDraw(SpriteBatch& spriteBatch);
 };
 
