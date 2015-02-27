@@ -91,3 +91,7 @@ GameStateManager& Game::getStateManager() {
 ContentManager& Game::getContent() {
 	return content;
 }
+
+SDL_Window* Game::getWindow() {
+	return window;
+}

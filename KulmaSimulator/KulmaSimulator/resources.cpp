@@ -222,11 +222,11 @@ bool Font::readFromFile(const std::string& path) {
 void Font::drawString(SpriteBatch& spriteBatch, std::string& str, glm::vec2& position, glm::vec4& color, float rotation, glm::vec2& origin, glm::vec2& scale) {
 	std::unique_ptr<Texture>& tex = texture;
 	forEachChar(str, [&](CharacterInfo& glyph, float x, float y) {
-		glm::vec4 rect(glyph.tx, tex.get()->height, glyph.bw, glyph.bh);
+		glm::vec4 rect(glyph.tx, texture.get()->height, glyph.bw, glyph.bh);
 		
 		glm::vec2 pos(position.x + x, position.y + y);
-		// HAX HAX HAX
-		spriteBatch.draw(tex.get(), pos, &rect, color, glm::vec2(scale.x, scale.y), origin, rotation);
+		// TODO draw to FBO?
+		spriteBatch.draw(tex.get(), pos, &rect, color, scale, origin, rotation);
 	});
 	//spriteBatch.draw(tex.get(), position, nullptr, color, scale, origin, rotation);
 	glAssert();
