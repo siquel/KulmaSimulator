@@ -14,6 +14,8 @@ Camera::Camera(float fov, float ar, float near, float far) :
 	using namespace std::placeholders;
 	input.bind("_CameraForward", std::bind(&Camera::moveForward, this, _1), 2, new KeyTrigger(SDLK_w), new KeyTrigger(SDLK_UP));
 	input.bind("_CameraBackward", std::bind(&Camera::moveBackward, this, _1), 2, new KeyTrigger(SDLK_s), new KeyTrigger(SDLK_DOWN));
+	//input.bind("_CameraStrafeLeft", std::bind(&Camera::strafeLeft, this, _1), 2, new KeyTrigger(SDLK_a), new KeyTrigger(SDLK_LEFT));
+	//input.bind("_CameraStrafeRight", std::bind(&Camera::strafeRight, this, _1), 2, new KeyTrigger(SDLK_d), new KeyTrigger(SDLK_RIGHT));
 }
 
 void Camera::moveForward(InputArgs& args) {
@@ -49,7 +51,20 @@ void Camera::moveBackward(InputArgs& args) {
 
 Camera::~Camera() {}
 const glm::mat4 Camera::getCamera() const {
-	return projection * glm::rotate(rotation.x, glm::vec3(1.0f, 0.0f, 0.f)) * glm::rotate(rotation.y, glm::vec3(0.0f, 1.0f, 0.f)) * glm::translate(-position);
+	glm::mat4 rot;
+	rot = glm::rotate(rot, rotation.x, glm::vec3(1.f, 0.f, 0.f));
+	rot = glm::rotate(rot, rotation.y, glm::vec3(0.f, 1.f, 0.f));
+	rot = glm::rotate(rot, rotation.z, glm::vec3(0.f, 0.f, 1.f));
+
+	glm::vec3 forward = glm::vec3(rot[0][2], rot[1][2], rot[2][2]);
+	glm::vec3 up(rot[0][1], rot[1][1], rot[2][1]);
+	glm::vec3 right(rot[0][0], rot[1][0], rot[2][0]);
+	forward = glm::normalize(forward);
+	up = glm::normalize(up);
+	right = glm::normalize(right);
+	
+
+	return projection * rot * glm::translate(-position);
 }
 
 void Camera::update(float tpf) {

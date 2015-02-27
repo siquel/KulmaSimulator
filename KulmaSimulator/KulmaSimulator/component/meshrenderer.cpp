@@ -15,7 +15,7 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	glBindTexture(GL_TEXTURE_2D, mesh->getMaterials()[0].getTexture()->getId());
 
 	GLuint mvploc = glGetUniformLocation(effect->getProgram(), "MVP");
-	getOwner()->getComponent<Transform>()->rotate(0.05f, glm::vec3(0.0f, 1.f, -0.0f));
+	//getOwner()->getComponent<Transform>()->rotate(0.05f, glm::vec3(0.0f, 1.f, -0.0f));
 	glUniformMatrix4fv(mvploc, 1, GL_FALSE, glm::value_ptr(Simulator::getInstance().getCamera().getCamera() * getOwner()->getComponent<Transform>()->getTransform()));
 
 	glDrawArrays(GL_TRIANGLES, 0, mesh->getVertices().size());
