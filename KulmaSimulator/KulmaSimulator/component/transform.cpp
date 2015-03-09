@@ -21,3 +21,7 @@ void Transform::rotate(float angle, glm::vec3& axis) {
 const glm::mat4 Transform::getTransform() const {
 	return transform * rotation * scale;
 }
+
+void Transform::setScale(glm::vec3& s) {
+	scale = glm::scale(s);
+}

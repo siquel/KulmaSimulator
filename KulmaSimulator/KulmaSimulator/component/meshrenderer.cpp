@@ -12,7 +12,10 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	effect->bind();
-	glBindTexture(GL_TEXTURE_2D, mesh->getMaterials()[0].getTexture()->getId());
+	// hax
+	if (mesh->getMaterials().size() != 0) {
+		glBindTexture(GL_TEXTURE_2D, mesh->getMaterials()[0].getTexture()->getId());
+	}
 
 	GLuint mvploc = glGetUniformLocation(effect->getProgram(), "MVP");
 	//getOwner()->getComponent<Transform>()->rotate(0.05f, glm::vec3(0.0f, 1.f, -0.0f));

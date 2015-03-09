@@ -14,7 +14,7 @@ void GameplayState::onInitialize() {
 	Sprite sprite(texture, glm::vec2(0.f, 0.f), glm::vec4(1.f, 1.f, 1.f, 1.f), glm::vec2(1.f, 1.f), glm::vec2(0.f, 0.f), 0.f);
 	entity->addComponent(new SpriteRenderer(sprite, 0, 0));
 	entity->addComponent(new Transform());
-	entity->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.f, 0.f));
+	entity->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.5f, 0.f));
 	entity->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
 	entity->addComponent(new InputComponent());
 	entity->addComponent(new Rigidbody(world));
@@ -22,6 +22,16 @@ void GameplayState::onInitialize() {
 	entityManager.addEntity(entity);
 	Entity* asd = new Entity();
 
+	for (size_t i = 0; i < 10; i++) {
+		for (size_t y = 0; y < 10; y++) {
+			Entity* entity = new Entity();
+			entity->addComponent(new Transform);
+			entity->getComponent<Transform>()->setPosition(glm::vec3(i, 0.f, y));
+			entity->getComponent<Transform>()->setScale(glm::vec3(0.5f, 0.5f, 0.5f));
+			entity->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\cube")));
+			entityManager.addEntity(entity);
+		}
+	}
 	
 	asd->addComponent(new Transform());
 	asd->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.f, 0.f));
