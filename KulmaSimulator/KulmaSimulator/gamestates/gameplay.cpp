@@ -14,7 +14,7 @@ void GameplayState::onInitialize() {
 	Sprite sprite(texture, glm::vec2(0.f, 0.f), glm::vec4(1.f, 1.f, 1.f, 1.f), glm::vec2(1.f, 1.f), glm::vec2(0.f, 0.f), 0.f);
 	entity->addComponent(new SpriteRenderer(sprite, 0, 0));
 	entity->addComponent(new Transform());
-	entity->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.f, 10.f));
+	entity->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.f, 0.f));
 	entity->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
 	entity->addComponent(new InputComponent());
 	entity->addComponent(new Rigidbody(world));
@@ -26,11 +26,11 @@ void GameplayState::onInitialize() {
 	asd->addComponent(new Transform());
 	asd->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.f, 0.f));
 	//asd->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
-	entityManager.addEntity(asd);
+	//entityManager.addEntity(asd);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 
 	//Mesh* mesh = Simulator::getInstance().getContent().load<Mesh>("mesh\\cube");
-	
+	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2);
 }
 
 void GameplayState::update(float tpf) {

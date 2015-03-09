@@ -8,11 +8,12 @@ private:
 
 	glm::mat4 projection;
 	glm::mat4 view;
-
-	glm::vec3 rotation;
 	glm::vec3 position;
-	glm::vec3 speed;
+	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
+	float yaw;
+	float pitch;
 	int midWinX;
 	int midWinY;
 

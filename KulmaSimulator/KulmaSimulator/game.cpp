@@ -58,7 +58,6 @@ void Game::run() {
 	Uint32 oldTime, currentTime;
 	oldTime = currentTime = 0;
 	float tpf;
-
 	while (running) {
 		oldTime = currentTime;
 		currentTime = SDL_GetTicks();

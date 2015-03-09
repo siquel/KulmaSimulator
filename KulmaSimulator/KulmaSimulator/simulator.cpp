@@ -1,6 +1,7 @@
 #include "simulator.h"
 #include <iostream>
 #include "gameplay.h"
+#include <SDL\SDL.h>
 Simulator::Simulator() 
 	: camera(glm::radians(45.f), static_cast<float>(Game::WINDOW_WIDTH) / Game::WINDOW_HEIGHT, 0.1f, 1500.f) {
 }
