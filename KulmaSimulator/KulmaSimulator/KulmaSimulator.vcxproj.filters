@@ -114,6 +114,9 @@
     <ClCompile Include="engine\camera.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="gamestates\pool.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\simulator.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="include\engine\camera.h">
       <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gamestate\pool.h">
+      <Filter>Header Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
