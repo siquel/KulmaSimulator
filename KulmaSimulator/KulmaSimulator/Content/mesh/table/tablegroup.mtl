@@ -1,0 +1,42 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl Black
+Ns 272.549020
+Ka 0.000000 0.000000 0.000000
+Kd 0.000487 0.000487 0.000487
+Ks 0.229927 0.229927 0.229927
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd table_group_texture.png
+
+newmtl black_fabric
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.096234 0.096234 0.096234
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd table_group_texture.png
+
+newmtl orange_fabric
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.040175 0.040175 0.040175
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd table_group_texture.png
+
+newmtl wood
+Ns 221.568627
+Ka 0.000000 0.000000 0.000000
+Kd 0.194336 0.194336 0.194336
+Ks 0.149635 0.149635 0.149635
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd table_group_texture.png

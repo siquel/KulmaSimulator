@@ -23,7 +23,7 @@ void PoolState::draw(SpriteBatch& sb) {
 void PoolState::onInitialize() {
 	Entity* poolTable = new Entity();
 	ContentManager& content = Simulator::getInstance().getContent();
-	Mesh* table = content.load<Mesh>("mesh\\Balls\\ykone2");
+	Mesh* table = content.load<Mesh>("mesh\\table\\tablegroup");
 	poolTable->addComponent(new MeshRenderer(table));
 	Transform* t = new Transform;
 	t->setPosition(glm::vec3(0.f, 0.f, 5.f));
