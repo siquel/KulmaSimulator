@@ -14,6 +14,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="component\meshrenderer.cpp" />
+    <ClCompile Include="component\rigidbody3d.cpp" />
     <ClCompile Include="component\transform.cpp" />
     <ClCompile Include="content.cpp" />
     <ClCompile Include="DrawableComponent.cpp" />
@@ -41,7 +42,9 @@
   <ItemGroup>
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ComponentManager.h" />
+    <ClInclude Include="include\component\collider3d.h" />
     <ClInclude Include="include\component\meshrenderer.h" />
+    <ClInclude Include="include\component\rigidbody3d.h" />
     <ClInclude Include="include\component\transform.h" />
     <ClInclude Include="include\DrawableComponent.h" />
     <ClInclude Include="include\engine\camera.h" />
@@ -106,8 +109,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libfreetype.a;Box2D.lib;glew32s.lib;OpenGL32.lib;SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>./lib/bullet/lib/Debug;./lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>BulletDynamics_Debug.lib;BulletCollision_Debug.lib;LinearMath_Debug.lib;libfreetype.a;Box2D.lib;glew32s.lib;OpenGL32.lib;SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>

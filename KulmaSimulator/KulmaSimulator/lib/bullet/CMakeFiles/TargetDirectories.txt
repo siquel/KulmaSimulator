@@ -1,0 +1,6 @@
+C:/Users/ttv14sjanin/Source/Repos/KulmaSimulator/KulmaSimulator/KulmaSimulator/lib/bullet/src/BulletDynamics/CMakeFiles/BulletDynamics.dir
+C:/Users/ttv14sjanin/Source/Repos/KulmaSimulator/KulmaSimulator/KulmaSimulator/lib/bullet/src/BulletCollision/CMakeFiles/BulletCollision.dir
+C:/Users/ttv14sjanin/Source/Repos/KulmaSimulator/KulmaSimulator/KulmaSimulator/lib/bullet/src/LinearMath/CMakeFiles/LinearMath.dir
+C:/Users/ttv14sjanin/Source/Repos/KulmaSimulator/KulmaSimulator/KulmaSimulator/lib/bullet/src/BulletSoftBody/CMakeFiles/BulletSoftBody.dir
+C:/Users/ttv14sjanin/Source/Repos/KulmaSimulator/KulmaSimulator/KulmaSimulator/lib/bullet/CMakeFiles/ALL_BUILD.dir
+C:/Users/ttv14sjanin/Source/Repos/KulmaSimulator/KulmaSimulator/KulmaSimulator/lib/bullet/CMakeFiles/ZERO_CHECK.dir
