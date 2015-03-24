@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="bulletdebugdraw.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="component\meshrenderer.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\bulletdebugdraw.h" />
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ComponentManager.h" />
     <ClInclude Include="include\component\collider3d.h" />

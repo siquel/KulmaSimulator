@@ -3,8 +3,9 @@
 #include "simulator.h"
 #include "component/transform.h"
 #include "component/rigidbody3d.h"
-PoolState::PoolState() {
 
+PoolState::PoolState() {
+	debugdraw.setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 }
 
 PoolState::~PoolState() {
@@ -19,11 +20,14 @@ void PoolState::update(float tpf) {
 	world->stepSimulation(1 / 60.f, 10);
 	entities.update(tpf);
 	Simulator::getInstance().getCamera().update(tpf);
+	world->debugDrawWorld();
+
 }
 
 void PoolState::draw(SpriteBatch& sb) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	entities.draw(sb);
+	debugdraw.draw();
 }
 
 void PoolState::onInitialize() {
@@ -39,7 +43,7 @@ void PoolState::onInitialize() {
 	world = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 
 	world->setGravity(btVector3(0, -9.8, 0));
-
+	world->setDebugDrawer(&debugdraw);
 	Entity* poolTable = new Entity();
 	ContentManager& content = Simulator::getInstance().getContent();
 	Mesh* table = content.load<Mesh>("mesh\\Pooli\\table");
@@ -62,7 +66,7 @@ void PoolState::onInitialize() {
 	poolBall->addComponent(bllbody);
 	bllbody->enable();
 
-	bllbody->getBody()->setMassProps(0.1f, btVector3(0, 0, 0));
+	//bllbody->getBody()->setMassProps(0.1f, btVector3(0, 0, 0));
 	world->addRigidBody(bllbody->getBody());
 	btTransform tf;
 	bllbody->getBody()->getMotionState()->getWorldTransform(tf);
@@ -74,4 +78,6 @@ void PoolState::onInitialize() {
 	entities.addEntity(poolBall);
 
 	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2);
+
+	world->debugDrawWorld();
 }

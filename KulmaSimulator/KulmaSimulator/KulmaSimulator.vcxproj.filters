@@ -120,6 +120,9 @@
     <ClCompile Include="component\rigidbody3d.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
+    <ClCompile Include="bulletdebugdraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\simulator.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="include\component\collider3d.h">
       <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bulletdebugdraw.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
