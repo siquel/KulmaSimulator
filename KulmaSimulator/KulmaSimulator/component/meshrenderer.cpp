@@ -8,6 +8,10 @@ MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh) {
 
 MeshRenderer::~MeshRenderer() {}
 
+Mesh* MeshRenderer::getMesh() {
+	return mesh;
+}
+
 void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);

@@ -46,11 +46,32 @@ void PoolState::onInitialize() {
 	poolTable->addComponent(new MeshRenderer(table));
 	Rigidbody3D* rigidbody = new Rigidbody3D();
 	poolTable->addComponent(rigidbody);
+	rigidbody->enable();
 	world->addRigidBody(rigidbody->getBody());
 	Transform* t = new Transform;
 	t->setPosition(glm::vec3(0.f, 0.f, 5.f));
 	//t->rotate(90.f, glm::vec3(0.f, 1.f, 0.f));
 	poolTable->addComponent(t);
 	entities.addEntity(poolTable);
+
+
+	Entity* poolBall = new Entity();
+	Mesh* ball = content.load<Mesh>("mesh\\Balls\\ykone2");
+	poolBall->addComponent(new MeshRenderer(ball));
+	Rigidbody3D* bllbody = new Rigidbody3D();
+	poolBall->addComponent(bllbody);
+	bllbody->enable();
+
+	bllbody->getBody()->setMassProps(0.1f, btVector3(0, 0, 0));
+	world->addRigidBody(bllbody->getBody());
+	btTransform tf;
+	bllbody->getBody()->getMotionState()->getWorldTransform(tf);
+	tf.setOrigin(btVector3(0.f, 2.f, 0.f));
+	bllbody->getBody()->getMotionState()->setWorldTransform(tf);
+	Transform* t1 = new Transform;
+	
+	poolBall->addComponent(t1);
+	entities.addEntity(poolBall);
+
 	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2);
 }

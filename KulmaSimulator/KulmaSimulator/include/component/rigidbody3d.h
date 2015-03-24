@@ -9,7 +9,7 @@ private:
 	btRigidBody* body;
 	btCollisionShape* shape;
 public:
-	Rigidbody3D() { enable(); }
+	Rigidbody3D() { }
 	~Rigidbody3D() = default;
 	btRigidBody* getBody();
 protected:

@@ -13,6 +13,7 @@ private:
 public:
 	MeshRenderer(Mesh* mesh);
 	~MeshRenderer();
+	Mesh* getMesh();
 protected:
 	void onDraw(SpriteBatch& spriteBatch);
 	void onInitialize();
