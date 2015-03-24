@@ -26,7 +26,7 @@ public:
 	Camera(float fov, float ar, float near, float far);
 	~Camera();
 	const glm::mat4 getCamera() const;
-
+	const glm::mat4 getProjection() const;
 
 	void update(float tpf);
 };

@@ -56,7 +56,8 @@ void GLDebugDraw::draw3dText(const btVector3& location, const char* textString) 
 void GLDebugDraw::draw() {
 	// TODO enter the matrix
 	effect->bind();
-
+	GLuint loc = glGetUniformLocation(effect->getProgram(), "projection");
+	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(Simulator::getInstance().getCamera().getCamera()));
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 

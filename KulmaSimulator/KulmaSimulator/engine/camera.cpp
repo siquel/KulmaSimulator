@@ -43,6 +43,10 @@ const glm::mat4 Camera::getCamera() const {
 	return projection * view;
 }
 
+const glm::mat4 Camera::getProjection() const {
+	return projection;
+}
+
 void Camera::update(float tpf) {
 	
 	static const GLfloat sensitivity = 0.05f;
