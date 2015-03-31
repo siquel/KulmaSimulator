@@ -12,7 +12,7 @@ void Rigidbody::onInitialize() {
 
 }
 
-const b2Body* Rigidbody::getBody() const {
+b2Body* Rigidbody::getBody() const {
 	return body;
 }
 

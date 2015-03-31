@@ -123,6 +123,9 @@
     <ClCompile Include="box2Ddebugdraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="component\debugcue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\simulator.h">
@@ -211,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="include\box2Ddebugdraw.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\debugcue.h">
+      <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

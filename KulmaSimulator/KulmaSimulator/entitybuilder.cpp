@@ -54,7 +54,7 @@ Entity* EntityBuilder::buildPoolTable(World& world) {
 	return table;
 }
 static float i = 1.f;
-Entity* EntityBuilder::buildPoolBall(World& world) {
+Entity* EntityBuilder::buildPoolBall(World& world, float x, float y) {
 	Entity* ball = new Entity;
 
 	Rigidbody* body = new PoolBallBody(world);
@@ -63,18 +63,18 @@ Entity* EntityBuilder::buildPoolBall(World& world) {
 
 	Transform* tf = new Transform;
 	tf->setPosition(glm::vec3(0.f, 0.86f, 5.f));
-	tf->setScale(glm::vec3(0.25f, 0.25f, 0.25f) / 4.f);
+	tf->setScale(glm::vec3(0.25f, 0.25f, 0.25f) / 8.f);
 
 	b2BodyDef def;
 	def.fixedRotation = true;
 	def.type = b2_dynamicBody;
 	//def.position = b2Vec2(0.65f, 20.f);
-	def.position = b2Vec2(-0.f, 0.f);
+	def.position = b2Vec2(x, y);
 	body->createBody(def);
 
 	b2FixtureDef fixtureDef;
 	b2CircleShape shape;
-	shape.m_radius = 0.25f / 4.f;
+	shape.m_radius = 0.25f / 8.f;
 	fixtureDef.shape = &shape;
 	body->createFixture(fixtureDef);
 
@@ -83,4 +83,39 @@ Entity* EntityBuilder::buildPoolBall(World& world) {
 	ball->addComponent(body);
 	body->enable();
 	return ball;
+}
+
+Entity** EntityBuilder::buildPooBallTriangle(World& world) {
+	// triangle
+	Entity** balls = new Entity*[15];
+	float r = 0.25f / 8.f;
+	float d = r * 2.f;
+	float y = 0.f;
+	float x = 0.f;
+	float currentx = x - r/2.f;
+	x = currentx;
+	balls[0] = EntityBuilder::buildPoolBall(world, 0.f, 0.f);
+	y += d;
+	for (size_t i = 1; i < 15; i++) {
+		if (i == 3) {
+			y += d;
+			x = currentx -= r/2.f;
+		}
+		else if (i == 6) {
+			y += d;
+			x = currentx -= r / 2.f;
+		}
+		else if (i == (1 + 2 + 3)) {
+			y += d;
+			x = currentx -= r / 2.f;
+		}
+		else if (i == (1 + 2 + 3 + 4)) {
+			y += d;
+			x = currentx -= r / 2.f;
+		}
+		
+		balls[i] = EntityBuilder::buildPoolBall(world, x, y);
+		x += r;
+	}
+	return balls;
 }

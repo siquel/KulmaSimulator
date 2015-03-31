@@ -10,7 +10,7 @@ private:
 public:
 	Rigidbody(World& world);
 	~Rigidbody();
-	const b2Body* getBody() const;
+	b2Body* getBody() const;
 	void createBody(const b2BodyDef& def);
 	b2Fixture* createFixture(const b2FixtureDef& def);
 protected:
