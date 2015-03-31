@@ -5,7 +5,7 @@
 
 #include "entitybuilder.h"
 
-PoolState::PoolState() : world(4.f, 0){
+PoolState::PoolState() : world(0.5f, -0.f){
 	debugdraw.SetFlags(b2Draw::e_shapeBit);
 	world.getBox2D()->SetDebugDraw(&debugdraw);
 }
@@ -34,5 +34,6 @@ void PoolState::onInitialize() {
 	Entity* ball = EntityBuilder::buildPoolBall(world);
 	entities.addEntity(poolTable);
 	entities.addEntity(ball);
+	entities.addEntity(EntityBuilder::buildPoolBall(world));
 	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2);
 }
