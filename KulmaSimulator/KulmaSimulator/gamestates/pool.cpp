@@ -5,7 +5,7 @@
 
 #include "entitybuilder.h"
 
-PoolState::PoolState() : world(0.f, -9.8){
+PoolState::PoolState() : world(4.f, 0){
 	debugdraw.SetFlags(b2Draw::e_shapeBit);
 	world.getBox2D()->SetDebugDraw(&debugdraw);
 }
