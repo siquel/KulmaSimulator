@@ -2,8 +2,12 @@
 #include "component/meshrenderer.h"
 #include "simulator.h"
 #include "component/transform.h"
-PoolState::PoolState() {
 
+#include "entitybuilder.h"
+
+PoolState::PoolState() : world(0.f, -9.8){
+	debugdraw.SetFlags(b2Draw::e_shapeBit);
+	world.getBox2D()->SetDebugDraw(&debugdraw);
 }
 
 PoolState::~PoolState() {
@@ -11,6 +15,7 @@ PoolState::~PoolState() {
 }
 
 void PoolState::update(float tpf) {
+	world.update(tpf);
 	entities.update(tpf);
 	Simulator::getInstance().getCamera().update(tpf);
 }
@@ -18,17 +23,16 @@ void PoolState::update(float tpf) {
 void PoolState::draw(SpriteBatch& sb) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	entities.draw(sb);
+	world.getBox2D()->DrawDebugData();
+	debugdraw.doDraw();
+	
 }
 
 void PoolState::onInitialize() {
-	Entity* poolTable = new Entity();
-	ContentManager& content = Simulator::getInstance().getContent();
-	Mesh* table = content.load<Mesh>("mesh\\table\\tablegroup");
-	poolTable->addComponent(new MeshRenderer(table));
-	Transform* t = new Transform;
-	t->setPosition(glm::vec3(0.f, 0.f, 5.f));
-	//t->rotate(90.f, glm::vec3(0.f, 1.f, 0.f));
-	poolTable->addComponent(t);
+
+	Entity* poolTable = EntityBuilder::buildPoolTable(world);
+	Entity* ball = EntityBuilder::buildPoolBall(world);
 	entities.addEntity(poolTable);
+	entities.addEntity(ball);
 	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2);
 }

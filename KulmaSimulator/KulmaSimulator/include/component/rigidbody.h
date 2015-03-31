@@ -10,8 +10,19 @@ private:
 public:
 	Rigidbody(World& world);
 	~Rigidbody();
+	const b2Body* getBody() const;
+	void createBody(const b2BodyDef& def);
+	b2Fixture* createFixture(const b2FixtureDef& def);
 protected:
-	void onInitialize();
+	virtual void onInitialize();
+	virtual void onUpdate(float tpf);
+};
+
+
+class PoolBallBody : public Rigidbody {
+public:
+	PoolBallBody(World& world);
+	void onUpdate(float tpf);
 };
 
 #endif

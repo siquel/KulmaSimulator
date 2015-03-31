@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="box2Ddebugdraw.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="component\meshrenderer.cpp" />
@@ -19,6 +20,7 @@
     <ClCompile Include="DrawableComponent.cpp" />
     <ClCompile Include="engine\camera.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="entitybuilder.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamestates.cpp" />
@@ -39,9 +41,11 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\box2Ddebugdraw.h" />
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ComponentManager.h" />
     <ClInclude Include="include\component\meshrenderer.h" />
+    <ClInclude Include="include\component\rigidbody.h" />
     <ClInclude Include="include\component\transform.h" />
     <ClInclude Include="include\DrawableComponent.h" />
     <ClInclude Include="include\engine\camera.h" />
@@ -52,6 +56,7 @@
     <ClInclude Include="include\engine\resources.h" />
     <ClInclude Include="include\engine\triggers.h" />
     <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\entitybuilder.h" />
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\exceptions.h" />
     <ClInclude Include="include\gameplay.h" />
@@ -59,7 +64,6 @@
     <ClInclude Include="include\inputcomponent.h" />
     <ClInclude Include="include\lodepng\lodepng.h" />
     <ClInclude Include="include\primitivebatch.h" />
-    <ClInclude Include="include\rigidbody.h" />
     <ClInclude Include="include\simulator.h" />
     <ClInclude Include="include\sprite.h" />
     <ClInclude Include="include\spritebatch.h" />
