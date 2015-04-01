@@ -34,5 +34,5 @@ void PoolBallBody::onUpdate(float tpf) {
 	Transform* tf = getOwner()->getComponent<Transform>();
 	const b2Transform& tx = getBody()->GetTransform();
 	tf->setPosition(glm::vec3(tx.p.x, tf->getPosition().y, tx.p.y));
-	std::cout << tx.p.x << " " << tx.p.y << std::endl;
+	//std::cout << tx.p.x << " " << tx.p.y << std::endl;
 }
