@@ -26,6 +26,9 @@ Entity* EntityBuilder::buildPoolTable(World& world) {
 	float halfwidth = 1.f;
 
 	b2FixtureDef fixtureDef;
+	//fixtureDef.restitution = 0.5f;
+	//fixtureDef.friction = 0.2f;
+	fixtureDef.density = 0;
 	b2PolygonShape box;
 	// bottom
 	box.SetAsBox(w, 0.1f, -b2Vec2(0.f, top/2.f + 0.01f), 0.f);
@@ -66,8 +69,11 @@ Entity* EntityBuilder::buildPoolBall(World& world, float x, float y) {
 	tf->setScale(glm::vec3(0.25f, 0.25f, 0.25f) / 8.f);
 
 	b2BodyDef def;
-	def.fixedRotation = true;
+	def.fixedRotation = false;
 	def.type = b2_dynamicBody;
+	def.bullet = true;
+	def.angularDamping = 0.7f;
+	def.allowSleep = false;
 	//def.position = b2Vec2(0.65f, 20.f);
 	def.position = b2Vec2(x, y);
 	body->createBody(def);
@@ -76,6 +82,9 @@ Entity* EntityBuilder::buildPoolBall(World& world, float x, float y) {
 	b2CircleShape shape;
 	shape.m_radius = 0.25f / 8.f;
 	fixtureDef.shape = &shape;
+	fixtureDef.friction = 0.3f;
+	fixtureDef.restitution = 0.3f;
+	fixtureDef.density = 58.474822f;
 	body->createFixture(fixtureDef);
 
 	ball->addComponent(tf);
