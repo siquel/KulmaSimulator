@@ -28,22 +28,22 @@ Entity* EntityBuilder::buildPoolTable(World& world) {
 	b2FixtureDef fixtureDef;
 	b2PolygonShape box;
 	// bottom
-	box.SetAsBox(w, 0.1f, -b2Vec2(0.f, top/2.f), 0.f);
+	box.SetAsBox(w, 0.1f, -b2Vec2(0.f, top/2.f + 0.01f), 0.f);
 	fixtureDef.shape = &box;
 	body->createFixture(fixtureDef);
 
 	// upper
-	box.SetAsBox(w, 0.1f, b2Vec2(0.f, top/2.f - 0.2f), 0.f);
-	fixtureDef.shape = &box;
-	body->createFixture(fixtureDef);
-	
-	// left
-	box.SetAsBox(0.1f, top / 2.f, -b2Vec2(w + 0.2f, 0.f), 0.f);
+	box.SetAsBox(w, 0.1f, b2Vec2(0.f, top/2.f + 0.01f), 0.f);
 	fixtureDef.shape = &box;
 	body->createFixture(fixtureDef);
 	
 	// right
-	box.SetAsBox(0.1f, top / 2.f, b2Vec2(w + 0.2f, 0.f), 0.f);
+	box.SetAsBox(0.1f, top / 2.f, -b2Vec2(w + 0.18f, 0.f), 0.f);
+	fixtureDef.shape = &box;
+	body->createFixture(fixtureDef);
+	
+	// left
+	box.SetAsBox(0.1f, top / 2.f, b2Vec2(w + 0.18f, 0.f), 0.f);
 	fixtureDef.shape = &box;
 	body->createFixture(fixtureDef);
 
@@ -62,7 +62,7 @@ Entity* EntityBuilder::buildPoolBall(World& world, float x, float y) {
 	MeshRenderer* renderer = new MeshRenderer(ballmesh);
 
 	Transform* tf = new Transform;
-	tf->setPosition(glm::vec3(0.f, 0.86f, 5.f));
+	tf->setPosition(glm::vec3(0.f, 0.83f, 5.f));
 	tf->setScale(glm::vec3(0.25f, 0.25f, 0.25f) / 8.f);
 
 	b2BodyDef def;

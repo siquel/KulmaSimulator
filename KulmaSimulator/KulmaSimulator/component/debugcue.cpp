@@ -14,5 +14,5 @@ void DebugCueBall::onInitialize() {
 void DebugCueBall::shoot(InputArgs& args) {
 	if (args.state != RELEASED) return;
 	Rigidbody* body = getOwner()->getComponent<Rigidbody>();
-	body->getBody()->ApplyLinearImpulse(b2Vec2(0, 10.f), body->getBody()->GetWorldCenter(), true);
+	body->getBody()->ApplyLinearImpulse(b2Vec2(0, -10.f), body->getBody()->GetWorldCenter(), true);
 }
