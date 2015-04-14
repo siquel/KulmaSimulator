@@ -31,9 +31,12 @@ Entity* EntityBuilder::buildPoolTable(World& world) {
 	fixtureDef.density = 0;
 	b2PolygonShape box;
 	// bottom
-	box.SetAsBox(w, 0.1f, -b2Vec2(0.f, top/2.f + 0.01f), 0.f);
+	box.SetAsBox(0.6f, 0.1f, -b2Vec2(0.f, top/2.f + 0.01f), 0.f);
 	fixtureDef.shape = &box;
 	body->createFixture(fixtureDef);
+
+	b2CircleShape hole;
+	hole.m_radius = 0.25f / 6.f;
 
 	// upper
 	box.SetAsBox(w, 0.1f, b2Vec2(0.f, top/2.f + 0.01f), 0.f);
