@@ -2,8 +2,8 @@
 #include "component/meshrenderer.h"
 #include "simulator.h"
 #include "component/transform.h"
-#include "component/debugcue.h"
 #include "entitybuilder.h"
+#include "component/poolstick.h"
 
 PoolState::PoolState() : world(0.f, -0.f){
 	debugdraw.SetFlags(b2Draw::e_shapeBit);
@@ -36,8 +36,13 @@ void PoolState::onInitialize() {
 	for (size_t i = 0; i < 15; i++) {
 		entities.addEntity(balls[i]);
 	}
+
 	Entity* cueball = EntityBuilder::buildPoolBall(world, 0.f, -1.f);
-	cueball->addComponent(new DebugCueBall);
 	entities.addEntity(cueball);
+
+	Entity* player = new Entity();
+	player->addComponent(new PoolStick(cueball));
+	entities.addEntity(player);
+
 	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2);
 }

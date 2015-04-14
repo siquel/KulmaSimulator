@@ -27,7 +27,7 @@ public:
 	~Camera();
 	const glm::mat4 getCamera() const;
 
-
+	void setView(glm::mat4& view);
 	void update(float tpf);
 };
 

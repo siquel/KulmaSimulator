@@ -11,11 +11,11 @@ Camera::Camera(float fov, float ar, float near, float far) :
 	projection(glm::perspective(fov, ar, near, far)),
 	midWinX(640), midWinY(720 / 2), position(0.f, 0.f, 3.f), pitch(0.f), yaw(0.f) {
 	InputManager& input = Simulator::getInstance().getInput();
-	using namespace std::placeholders;
+	/*using namespace std::placeholders;
 	input.bind("_CameraForward", std::bind(&Camera::moveForward, this, _1), 2, new KeyTrigger(SDLK_w), new KeyTrigger(SDLK_UP));
 	input.bind("_CameraBackward", std::bind(&Camera::moveBackward, this, _1), 2, new KeyTrigger(SDLK_s), new KeyTrigger(SDLK_DOWN));
 	input.bind("_CameraStrafeLeft", std::bind(&Camera::strafeLeft, this, _1), 2, new KeyTrigger(SDLK_a), new KeyTrigger(SDLK_LEFT));
-	input.bind("_CameraStrafeRight", std::bind(&Camera::strafeRight, this, _1), 2, new KeyTrigger(SDLK_d), new KeyTrigger(SDLK_RIGHT));
+	input.bind("_CameraStrafeRight", std::bind(&Camera::strafeRight, this, _1), 2, new KeyTrigger(SDLK_d), new KeyTrigger(SDLK_RIGHT));*/
 }
 
 void Camera::moveForward(InputArgs& args) {
@@ -43,8 +43,12 @@ const glm::mat4 Camera::getCamera() const {
 	return projection * view;
 }
 
+void Camera::setView(glm::mat4& view) {
+	this->view = view;
+}
+
 void Camera::update(float tpf) {
-	
+	/*
 	static const GLfloat sensitivity = 0.05f;
 	int mouseX, mouseY;
 	mouseX = mouseY = 0;
@@ -67,5 +71,5 @@ void Camera::update(float tpf) {
 	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), midWinX, midWinY);
 	position.y = 1.f;
 
-	view = glm::lookAt(position, position + cameraFront, cameraUp);
+	view = glm::lookAt(position, position + cameraFront, cameraUp);*/
 }

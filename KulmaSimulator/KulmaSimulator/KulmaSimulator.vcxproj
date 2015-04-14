@@ -14,7 +14,6 @@
     <ClCompile Include="box2Ddebugdraw.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
-    <ClCompile Include="component\debugcue.cpp" />
     <ClCompile Include="component\meshrenderer.cpp" />
     <ClCompile Include="component\transform.cpp" />
     <ClCompile Include="content.cpp" />
@@ -84,6 +83,7 @@
     <ClCompile Include="simulator.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="spritebatch.cpp" />
+    <ClCompile Include="src\gobject\poolstick.cpp" />
     <ClCompile Include="TagContainer.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -138,8 +138,8 @@
     <ClInclude Include="include\Box2D\Rope\b2Rope.h" />
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ComponentManager.h" />
-    <ClInclude Include="include\component\debugcue.h" />
     <ClInclude Include="include\component\meshrenderer.h" />
+    <ClInclude Include="include\component\poolstick.h" />
     <ClInclude Include="include\component\rigidbody.h" />
     <ClInclude Include="include\component\transform.h" />
     <ClInclude Include="include\DrawableComponent.h" />
