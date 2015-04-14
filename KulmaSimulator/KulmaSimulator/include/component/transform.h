@@ -12,7 +12,9 @@ public:
 	void rotate(float r, glm::vec3& axis);
 	void setScale(glm::vec3& scale);
 	const glm::mat4 getTransform() const;
+	const glm::vec3& getPosition() const;
 private:
+	glm::vec3 position;
 	glm::mat4 transform;
 	glm::mat4 rotation;
 	glm::mat4 scale;
