@@ -2,7 +2,7 @@
 #define GAMEPLAY_H
 
 #include "engine/gamestates.h"
-#include "engine/resources.h"
+class Texture;
 #include "EntityManager.h"
 #include "World.h"
 class GameplayState : public GameState {

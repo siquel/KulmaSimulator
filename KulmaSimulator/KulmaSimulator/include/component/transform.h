@@ -11,6 +11,7 @@ public:
 	void translate(glm::vec3& pos);
 	void rotate(float r, glm::vec3& axis);
 	void setScale(glm::vec3& scale);
+	void setRotation(const glm::mat4& rot);
 	const glm::mat4 getTransform() const;
 	const glm::vec3& getPosition() const;
 private:

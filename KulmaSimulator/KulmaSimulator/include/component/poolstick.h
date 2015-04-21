@@ -11,7 +11,6 @@ protected:
 	void onInitialize() override;
 	void onUpdate(float tpf) override;
 private:
-
 	void shoot(InputArgs& args);
 	glm::vec3 up;
 	glm::vec3 forward;

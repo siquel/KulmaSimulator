@@ -31,3 +31,7 @@ void Transform::setScale(glm::vec3& s) {
 const glm::vec3& Transform::getPosition() const {
 	return position;
 }
+
+void Transform::setRotation(const glm::mat4& rot) {
+	rotation = rot;
+}

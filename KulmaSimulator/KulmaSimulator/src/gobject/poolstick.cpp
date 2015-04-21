@@ -46,7 +46,11 @@ void PoolStick::onUpdate(float tpf) {
 
 	Transform* tf = cueball->getComponent<Transform>();
 	glm::vec3 position = tf->getPosition();
+
+	Transform* mytf = getOwner()->getComponent<Transform>();
+	mytf->setPosition(position);
 	position.y = 1.5f;
+
 	camera.setView(glm::lookAt(position + glm::normalize(front), tf->getPosition(), up));
 }
 
