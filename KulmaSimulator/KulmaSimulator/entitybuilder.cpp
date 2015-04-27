@@ -5,6 +5,7 @@
 #include "component\meshrenderer.h"
 #include "component\transform.h"
 #include "Box2D\Box2D.h"
+#include "EntityManager.h"
 Entity* EntityBuilder::buildPoolTable(World& world) {
 	Entity* table = new Entity;
 
@@ -131,4 +132,59 @@ Entity** EntityBuilder::buildPooBallTriangle(World& world) {
 		x += r;
 	}
 	return balls;
+}
+
+Entity* EntityBuilder::createWall(const glm::vec3& pos, const glm::vec3& scale) {
+	Entity* wall = new Entity;
+	Transform* walltf = new Transform;
+	walltf->setPosition(pos);
+	walltf->setScale(scale);
+	wall->addComponent(walltf);
+	wall->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\cube")));
+	return wall;
+}
+
+Entity* EntityBuilder::createTableGroup(const glm::vec3& pos, float rotation, const glm::vec3& axis) {
+	Entity* tablegroup = new Entity;
+	Transform* tablegrptf = new Transform;
+	tablegrptf->rotate(glm::radians(rotation), axis);
+	tablegrptf->setPosition(pos);
+	tablegroup->addComponent(tablegrptf);
+	tablegroup->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\table\\tablegroup")));
+	return tablegroup;
+}
+
+Entity* EntityBuilder::buildKulma(EntityManager& entityManager) {
+	float width = 10;
+	float height = 15.f;
+
+	Entity* kulma = new Entity;
+
+	std::vector<Entity*> entities;
+
+	Entity* floor = new Entity;
+	Transform* floortf = new Transform;
+	floortf->setScale(glm::vec3(width, 1.f, height));
+	floortf->setPosition(glm::vec3(0.f, -1.f, 0.f));
+	floor->addComponent(floortf);
+	floor->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\cube")));
+	entities.push_back(floor);
+
+	Entity* leftWall = EntityBuilder::createWall(glm::vec3(width + 1.f, 2.f, 0.f), glm::vec3(1.f, 5.f, height));
+	Entity* rightWall = EntityBuilder::createWall(glm::vec3(-(width + 1.f), 2.f, 0.f), glm::vec3(1.f, 5.f, height));
+	Entity* topWall = EntityBuilder::createWall(glm::vec3(0.f, 2.f, height + 1), glm::vec3(width, 5.f, 1.f));
+	Entity* bottomWall = EntityBuilder::createWall(glm::vec3(0.f, 2.f, -(height + 1)), glm::vec3(width, 5.f, 1.f));
+	entities.push_back(leftWall);
+	entities.push_back(rightWall);
+	entities.push_back(topWall);
+	entities.push_back(bottomWall);
+
+	for (size_t i = 1; i <= 4; ++i) {
+		entities.push_back(createTableGroup(glm::vec3(width - 2.5f * i, 0.f, height - 2.f), 90.f, glm::vec3(0, 1, 0)));
+	}
+	for (size_t i = 0; i < entities.size(); i++) {
+		kulma->addChild(entities[i]);
+		entityManager.addEntity(entities[i]);
+	}
+	return kulma;
 }
