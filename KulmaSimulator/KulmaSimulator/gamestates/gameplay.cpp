@@ -14,6 +14,7 @@ void GameplayState::onInitialize() {
 	Entity* player = new Entity;
 	player->addComponent(new Transform);
 	player->addComponent(new PlayerController);
+	entityManager.addEntity(player);
 
 	Entity* table = new Entity();
 	table->addComponent(new Transform());

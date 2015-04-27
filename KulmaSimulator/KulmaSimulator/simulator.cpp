@@ -17,7 +17,7 @@ void Simulator::draw() {
 
 void Simulator::initialize() {
 	spriteBatch.init();
-	getStateManager().push(new PoolState);
+	getStateManager().push(new GameplayState);
 }
 
 Camera& Simulator::getCamera() {
