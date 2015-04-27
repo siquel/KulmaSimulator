@@ -78,12 +78,16 @@
     <ClCompile Include="inputcomponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="primitivebatch.cpp" />
-    <ClCompile Include="resources.cpp" />
     <ClCompile Include="rigidbody.cpp" />
     <ClCompile Include="simulator.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="spritebatch.cpp" />
     <ClCompile Include="src\gobject\poolstick.cpp" />
+    <ClCompile Include="src\resources\effect.cpp" />
+    <ClCompile Include="src\resources\font.cpp" />
+    <ClCompile Include="src\resources\mesh.cpp" />
+    <ClCompile Include="src\resources\resource.cpp" />
+    <ClCompile Include="src\resources\texture.cpp" />
     <ClCompile Include="TagContainer.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -148,7 +152,6 @@
     <ClInclude Include="include\engine\game.h" />
     <ClInclude Include="include\engine\gamestates.h" />
     <ClInclude Include="include\engine\input.h" />
-    <ClInclude Include="include\engine\resources.h" />
     <ClInclude Include="include\engine\triggers.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\entitybuilder.h" />
@@ -159,6 +162,11 @@
     <ClInclude Include="include\inputcomponent.h" />
     <ClInclude Include="include\lodepng\lodepng.h" />
     <ClInclude Include="include\primitivebatch.h" />
+    <ClInclude Include="include\resources\effect.h" />
+    <ClInclude Include="include\resources\font.h" />
+    <ClInclude Include="include\resources\mesh.h" />
+    <ClInclude Include="include\resources\resource.h" />
+    <ClInclude Include="include\resources\texture.h" />
     <ClInclude Include="include\simulator.h" />
     <ClInclude Include="include\sprite.h" />
     <ClInclude Include="include\spritebatch.h" />

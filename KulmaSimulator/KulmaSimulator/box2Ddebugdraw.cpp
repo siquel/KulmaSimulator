@@ -1,6 +1,7 @@
 #include "box2Ddebugdraw.h"
 #include "util.h"
 #include "simulator.h"
+#include "resources\effect.h"
 
 Box2DDebugDraw::Box2DDebugDraw() {
 	glGenVertexArrays(1, &VAO);

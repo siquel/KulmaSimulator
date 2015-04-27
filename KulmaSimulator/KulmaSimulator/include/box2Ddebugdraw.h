@@ -2,7 +2,7 @@
 #include "Box2D\Box2D.h"
 #include "GL\glew.h"
 #include <vector>
-#include "engine\resources.h"
+class Effect;
 class Box2DDebugDraw : public b2Draw {
 private:
 	GLuint VAO;

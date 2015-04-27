@@ -2,6 +2,7 @@
 #include "simulator.h"
 #include "component/transform.h"
 #include "Entity.h"
+#include "resources/effect.h"
 MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh) {
 	enable();
 }

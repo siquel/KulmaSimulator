@@ -5,6 +5,8 @@
 #include "engine/content.h"
 #include <memory>
 #include "util.h"
+class Effect;
+
 enum SpriteSortMode {
 	Deferred
 };

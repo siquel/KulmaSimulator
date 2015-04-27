@@ -1,9 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
-#include "engine/resources.h"
 #include "spritebatch.h"
 #include "GLM.h"
-
 #include "component/DrawableComponent.h"
 
 class Sprite : public AlignedNew<Sprite> {

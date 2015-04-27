@@ -1,6 +1,7 @@
 #include "spritebatch.h"
 #include <algorithm>
 #include "util.h"
+#include "resources\effect.h"
 
 // todo hax
 #define ScreenWidth 1280

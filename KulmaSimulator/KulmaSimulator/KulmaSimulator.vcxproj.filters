@@ -49,6 +49,12 @@
     <Filter Include="Header Files\box2d">
       <UniqueIdentifier>{33e1d296-1814-48de-8c10-ede446590a15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\resources">
+      <UniqueIdentifier>{8fcd8ec6-5753-4134-8174-979e13131e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resources">
+      <UniqueIdentifier>{327ae059-beb2-4b62-a807-e58a73fde8d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -112,9 +118,6 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="include\triggers.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="resources.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="component\meshrenderer.cpp">
@@ -276,6 +279,21 @@
     <ClCompile Include="src\gobject\poolstick.cpp">
       <Filter>Source Files\gobject</Filter>
     </ClCompile>
+    <ClCompile Include="src\resources\effect.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\texture.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\resource.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\font.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\mesh.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\simulator.h">
@@ -339,9 +357,6 @@
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="include\engine\input.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\resources.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="include\engine\triggers.h">
@@ -508,6 +523,21 @@
     </ClInclude>
     <ClInclude Include="include\Box2D\Box2D.h">
       <Filter>Header Files\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\resource.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\texture.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\effect.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\font.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\mesh.h">
+      <Filter>Header Files\resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
