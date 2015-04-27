@@ -17,19 +17,9 @@ void GameplayState::onInitialize() {
 	player->addComponent(new PlayerController);
 	entityManager.addEntity(player);
 
-	Entity* table = new Entity();
-	table->addComponent(new Transform());
-	table->getComponent<Transform>()->setPosition(glm::vec3(5.f, 0.f, 5.f));
-	table->getComponent<Transform>()->rotate(glm::radians(90.f), glm::vec3(0.f,1.f,0.f));
-	table->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
-	table->addComponent(new Rigidbody(world));
-	entityManager.addEntity(table);
-
 	Entity* kulma = EntityBuilder::buildKulma(entityManager);
 
 	glClearColor(0.f, 0.f, 0.f, 1.f);
-
-	//Mesh* mesh = Simulator::getInstance().getContent().load<Mesh>("mesh\\cube");
 	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2);
 }
 

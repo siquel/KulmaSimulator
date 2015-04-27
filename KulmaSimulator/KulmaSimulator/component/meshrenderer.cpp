@@ -3,7 +3,7 @@
 #include "component/transform.h"
 #include "Entity.h"
 #include "resources/effect.h"
-MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh) {
+MeshRenderer::MeshRenderer(Mesh* mesh) : mesh(mesh), texture(nullptr) {
 	enable();
 }
 
@@ -18,12 +18,14 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	effect->bind();
 	// hax
-	if (mesh->getMaterials().size() != 0) {
-		glBindTexture(GL_TEXTURE_2D, mesh->getMaterials()[0].getTexture()->getId());
+	if (texture != nullptr) {
+		glBindTexture(GL_TEXTURE_2D, texture->getId());
+	}
+	else if (mesh->getTextures().size() != 0) {
+		glBindTexture(GL_TEXTURE_2D, mesh->getTextures()[0]->getId());
 	}
 
 	GLuint mvploc = glGetUniformLocation(effect->getProgram(), "MVP");
-	//getOwner()->getComponent<Transform>()->rotate(0.05f, glm::vec3(0.0f, 1.f, -0.0f));
 	glUniformMatrix4fv(mvploc, 1, GL_FALSE, glm::value_ptr(Simulator::getInstance().getCamera().getCamera() * getOwner()->getComponent<Transform>()->getTransform()));
 
 	glDrawArrays(GL_TRIANGLES, 0, mesh->getVertices().size());
@@ -36,9 +38,6 @@ void MeshRenderer::onDraw(SpriteBatch& spriteBatch) {
 }
 
 void MeshRenderer::onInitialize() {
-
-
-
 	effect = Simulator::getInstance().getContent().load<Effect>("shader/trivial");
 
 	glGenVertexArrays(1, &VAO);
@@ -61,4 +60,8 @@ void MeshRenderer::onInitialize() {
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glAssert();
+}
+
+void MeshRenderer::setTexture(Texture* tex) {
+	texture = tex;
 }

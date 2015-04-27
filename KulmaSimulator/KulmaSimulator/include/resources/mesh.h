@@ -39,20 +39,18 @@ public:
 class Mesh : public Resource {
 private:
 	std::vector<GLfloat> vertices;
-	std::vector<Material> materials;
+	std::vector<Texture*> textures;
 public:
 	Mesh();
 	~Mesh();
 	bool readFromFile(const std::string& path);
 	const std::vector<GLfloat>& getVertices() const;
-	const std::vector<Material>& getMaterials() const {
-		return materials;
-	}
+	const std::vector<Texture*>& getTextures() const;
 };
 
 class Mtllib {
 public:
-	static std::vector<Material> import(const std::string& mtlfile);
+	static std::vector<Texture*> import(const std::string& mtlfile);
 };
 
 #endif

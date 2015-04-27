@@ -34,10 +34,10 @@ bool Mesh::readFromFile(const std::string& path) {
 			ss >> file;
 			size_t index = path.rfind("\\");
 			if (index != std::string::npos) {
-				materials = Mtllib::import(path.substr(0, index + 1) + file);
+				textures = Mtllib::import(path.substr(0, index + 1) + file);
 			}
 			else {
-				materials = Mtllib::import(file);
+				textures = Mtllib::import(file);
 			}
 			continue;
 		}
@@ -45,8 +45,8 @@ bool Mesh::readFromFile(const std::string& path) {
 		if (prefix == "usemtl") {
 			std::string material;
 			ss >> material;
-			for (size_t i = 0; i < materials.size(); i++) {
-				if (materials[i].getName() != material) continue;
+			for (size_t i = 0; i < textures.size(); i++) {
+				//if (textures[i].getName() != material) continue;
 				currentMaterial = i;
 				break;
 			}
@@ -116,15 +116,19 @@ const std::vector<GLfloat>& Mesh::getVertices() const {
 	return vertices;
 }
 
+const std::vector<Texture*>& Mesh::getTextures() const {
+	return textures;
+}
 
-std::vector<Material> Mtllib::import(const std::string& file) {
+
+std::vector<Texture*> Mtllib::import(const std::string& file) {
 	std::ifstream in(file);
 	assert(in.is_open());
 	std::string line;
 	std::string prefix;
 	std::stringstream ss;
 
-	std::vector<Material> materials;
+	std::vector<Texture*> textures;
 	// as we increase it later to 0
 	int current = -1;
 
@@ -133,23 +137,7 @@ std::vector<Material> Mtllib::import(const std::string& file) {
 		ss.clear(); ss.str(""); prefix.clear();
 		ss << line;
 		ss >> prefix;
-		// TODO what now?
-		if (prefix == "newmtl") {
-			std::string name;
-			ss >> name >> std::ws;
-			materials.push_back(Material(name));
-		}
-		else if (prefix == "Kd") {
-			float r, g, b;
-			ss >> r >> g >> b >> std::ws;
-			materials.back().setDiffuseColor(r, g, b);
-		}
-		else if (prefix == "Ks") {
-			float r, g, b;
-			ss >> r >> g >> b >> std::ws;
-			materials.back().setSpecularColor(r, g, b);
-		}
-		else if (prefix == "map_Kd") {
+		if (prefix == "map_Kd") {
 			std::string path;
 			ss >> path >> std::ws;
 			// get rid of content dir
@@ -159,8 +147,8 @@ std::vector<Material> Mtllib::import(const std::string& file) {
 			// add original filename
 			fullpath += path.substr(0, path.find('.'));
 
-			materials.back().setTextureMap(Simulator::getInstance().getContent().load<Texture>(fullpath));
+			textures.push_back(Simulator::getInstance().getContent().load<Texture>(fullpath));
 		}
 	}
-	return materials;
+	return textures;
 }

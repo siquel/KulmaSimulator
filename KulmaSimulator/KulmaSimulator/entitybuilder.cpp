@@ -158,6 +158,9 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager) {
 	float width = 10;
 	float height = 15.f;
 
+
+	ContentManager& content = Simulator::getInstance().getContent();
+
 	Entity* kulma = new Entity;
 
 	std::vector<Entity*> entities;
@@ -168,6 +171,7 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager) {
 	floortf->setPosition(glm::vec3(0.f, -1.f, 0.f));
 	floor->addComponent(floortf);
 	floor->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\cube")));
+	floor->getComponent<MeshRenderer>()->setTexture(content.load<Texture>("tex\\floor"));
 	entities.push_back(floor);
 
 	Entity* leftWall = EntityBuilder::createWall(glm::vec3(width + 1.f, 2.f, 0.f), glm::vec3(1.f, 5.f, height));
@@ -179,9 +183,25 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager) {
 	entities.push_back(topWall);
 	entities.push_back(bottomWall);
 
+	Entity* table = new Entity();
+	table->addComponent(new Transform());
+	table->getComponent<Transform>()->setPosition(glm::vec3(width - 3.f, 0.f, height - 6.f));
+	table->getComponent<Transform>()->rotate(glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
+	table->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
+	entities.push_back(table);
+
+	Entity* door = new Entity;
+	door->addComponent(new Transform);
+	door->addComponent(new MeshRenderer(content.load<Mesh>("mesh\\door\\door")));
+	entities.push_back(door);
+
 	for (size_t i = 1; i <= 4; ++i) {
 		entities.push_back(createTableGroup(glm::vec3(width - 2.5f * i, 0.f, height - 2.f), 90.f, glm::vec3(0, 1, 0)));
 	}
+	// wc
+	float start = width - (5 * 2.5f);
+	entities.push_back(createWall(glm::vec3(start, 2.f, height - 3.f), glm::vec3(0.5f, 5.f, 5.f)));
+
 	for (size_t i = 0; i < entities.size(); i++) {
 		kulma->addChild(entities[i]);
 		entityManager.addEntity(entities[i]);
