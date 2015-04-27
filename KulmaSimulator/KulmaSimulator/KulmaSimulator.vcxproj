@@ -82,6 +82,7 @@
     <ClCompile Include="simulator.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="spritebatch.cpp" />
+    <ClCompile Include="src\component\player_controller.cpp" />
     <ClCompile Include="src\gobject\poolstick.cpp" />
     <ClCompile Include="src\resources\effect.cpp" />
     <ClCompile Include="src\resources\font.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ComponentManager.h" />
     <ClInclude Include="include\component\meshrenderer.h" />
+    <ClInclude Include="include\component\player_controller.h" />
     <ClInclude Include="include\component\poolstick.h" />
     <ClInclude Include="include\component\rigidbody.h" />
     <ClInclude Include="include\component\transform.h" />

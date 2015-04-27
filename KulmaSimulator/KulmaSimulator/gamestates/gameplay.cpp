@@ -5,22 +5,22 @@
 #include "component/rigidbody.h"
 #include "component/meshrenderer.h"
 #include "component/transform.h"
+#include "component/player_controller.h"
 GameplayState::GameplayState() : world(0.f, 0.f) {}
 GameplayState::~GameplayState() {}
 
 void GameplayState::onInitialize() {
-	const Texture* texture = Simulator::getInstance().getContent().load<Texture>("pidgin");
-	Entity* entity = new Entity();
-	Sprite sprite(texture, glm::vec2(0.f, 0.f), glm::vec4(1.f, 1.f, 1.f, 1.f), glm::vec2(1.f, 1.f), glm::vec2(0.f, 0.f), 0.f);
-	entity->addComponent(new SpriteRenderer(sprite, 0, 0));
-	entity->addComponent(new Transform());
-	entity->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.5f, 0.f));
-	entity->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
-	entity->addComponent(new InputComponent());
-	entity->addComponent(new Rigidbody(world));
 
-	entityManager.addEntity(entity);
-	Entity* asd = new Entity();
+	Entity* player = new Entity;
+	player->addComponent(new Transform);
+	player->addComponent(new PlayerController);
+
+	Entity* table = new Entity();
+	table->addComponent(new Transform());
+	table->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.5f, 0.f));
+	table->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
+	table->addComponent(new Rigidbody(world));
+	entityManager.addEntity(table);
 
 	for (size_t i = 0; i < 10; i++) {
 		for (size_t y = 0; y < 10; y++) {
@@ -33,10 +33,6 @@ void GameplayState::onInitialize() {
 		}
 	}
 	
-	asd->addComponent(new Transform());
-	asd->getComponent<Transform>()->setPosition(glm::vec3(0.f, 0.f, 0.f));
-	//asd->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
-	//entityManager.addEntity(asd);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 
 	//Mesh* mesh = Simulator::getInstance().getContent().load<Mesh>("mesh\\cube");

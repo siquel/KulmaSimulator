@@ -294,6 +294,9 @@
     <ClCompile Include="src\resources\mesh.cpp">
       <Filter>Source Files\resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\component\player_controller.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\simulator.h">
@@ -538,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="include\resources\mesh.h">
       <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\player_controller.h">
+      <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
