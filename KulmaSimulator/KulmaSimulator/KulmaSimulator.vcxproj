@@ -88,6 +88,7 @@
     <ClCompile Include="src\resources\mesh.cpp" />
     <ClCompile Include="src\resources\resource.cpp" />
     <ClCompile Include="src\resources\texture.cpp" />
+    <ClCompile Include="src\util.cpp" />
     <ClCompile Include="TagContainer.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -214,7 +215,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libfreetype.a;glew32s.lib;OpenGL32.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;OpenGL32.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>

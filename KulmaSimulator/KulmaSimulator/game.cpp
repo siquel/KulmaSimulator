@@ -2,7 +2,7 @@
 #include <cassert>
 #include <iostream>
 #include "util.h"
-
+#include <windows.h>
 Game::Game() : running(false), content("Content") {
 
 }
@@ -12,6 +12,7 @@ Game::~Game() {
 }
 
 void Game::init() {
+	LOG_INFO("Initializing SDL");
 	int result = SDL_Init(SDL_INIT_VIDEO);
 	assert(result == 0);
 
@@ -25,6 +26,7 @@ void Game::init() {
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
 
+	LOG_INFO("Creating window...");
 	window = SDL_CreateWindow("KulmaSimulator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
 	assert(window != nullptr);
@@ -39,10 +41,7 @@ void Game::init() {
 	int versionMinor;
 	glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);
 	glGetIntegerv(GL_MAJOR_VERSION, &versionMinor);
-	std::cout << "OpenGL context version: " << versionMajor << '.' << versionMinor << '\n';
-	int max;
-	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max);
-	std::cout << "Max texture size: " << max << std::endl;
+	LOG_INFO("OpenGL context version: %d.%d", versionMajor, versionMinor);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);

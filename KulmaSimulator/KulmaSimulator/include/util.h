@@ -1,5 +1,8 @@
 #ifndef UTIL_H
 #define UTIL_H
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 
 //
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
@@ -48,7 +51,9 @@ struct AlignedNew
 	}
 };
 
-#define glAssert() assert(glGetError() == GL_NO_ERROR)
+void __log(const char* severity, const char* fmt, ...);
 
+#define glAssert() assert(glGetError() == GL_NO_ERROR)
+#define LOG_INFO(format,...) __log("<INFO> ", format, ##__VA_ARGS__)
 
 #endif
