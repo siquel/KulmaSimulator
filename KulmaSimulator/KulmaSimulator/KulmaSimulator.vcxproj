@@ -85,7 +85,6 @@
     <ClCompile Include="src\component\player_controller.cpp" />
     <ClCompile Include="src\gobject\poolstick.cpp" />
     <ClCompile Include="src\resources\effect.cpp" />
-    <ClCompile Include="src\resources\font.cpp" />
     <ClCompile Include="src\resources\mesh.cpp" />
     <ClCompile Include="src\resources\resource.cpp" />
     <ClCompile Include="src\resources\texture.cpp" />
@@ -165,7 +164,6 @@
     <ClInclude Include="include\lodepng\lodepng.h" />
     <ClInclude Include="include\primitivebatch.h" />
     <ClInclude Include="include\resources\effect.h" />
-    <ClInclude Include="include\resources\font.h" />
     <ClInclude Include="include\resources\mesh.h" />
     <ClInclude Include="include\resources\resource.h" />
     <ClInclude Include="include\resources\texture.h" />
@@ -216,8 +214,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libfreetype.a;glew32s.lib;OpenGL32.lib;SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>libfreetype.a;glew32s.lib;OpenGL32.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(MSBuildProjectDirectory)\lib\*.dll" "$(TargetDir)" /D /K /Y</Command>
@@ -230,12 +228,20 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>./include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;OpenGL32.lib;SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(MSBuildProjectDirectory)\lib\*.dll" "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

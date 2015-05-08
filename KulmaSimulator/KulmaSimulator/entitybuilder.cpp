@@ -219,11 +219,15 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager, World& world) {
 
 	Entity* door = new Entity;
 	door->addComponent(new Transform);
-	door->addComponent(new MeshRenderer(content.load<Mesh>("mesh\\door\\door")));
+	door->addComponent(new MeshRenderer(content.load<Mesh>("mesh\\counter\\counter")));
 	entities.push_back(door);
 
 	for (size_t i = 1; i <= 4; ++i) {
-		entities.push_back(createTableGroup(world, glm::vec3(width - 2.5f * i, 0.f, height - 2.f), 90.f, glm::vec3(0, 1, 0)));
+		entities.push_back(createTableGroup(world, glm::vec3(width - 2.5f * i, 0.f, height - 1.3f), 90.f, glm::vec3(0, 1, 0)));
+	}
+
+	for (size_t i = 1; i <= 2; ++i) {
+		entities.push_back(createTableGroup(world, glm::vec3(width - 1.5f, 0.f, height - 9.f - (2.f * i)), 0.f, glm::vec3(0, 1, 0)));
 	}
 	// wc
 	float start = width - (5 * 2.5f);

@@ -58,15 +58,20 @@ void PlayerController::moveForward(InputArgs& args) {
 
 void PlayerController::moveBackward(InputArgs& args) {
 	if (args.state == InputState::RELEASED) return;
-	position -= MovementSpeedFactor * forward;
+	DynamicBody* body = getOwner()->getComponent<DynamicBody>();
+	body->getBody()->ApplyLinearImpulse(b2Vec2(-forward.x, -forward.z), body->getBody()->GetWorldCenter(), true);
 }
 
 void PlayerController::strafeLeft(InputArgs& args) {
 	if (args.state == InputState::RELEASED) return;
-	position -= glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0))) * MovementSpeedFactor;
+	glm::vec3 dir = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
+	DynamicBody* body = getOwner()->getComponent<DynamicBody>();
+	body->getBody()->ApplyLinearImpulse(-b2Vec2(dir.x, dir.z), body->getBody()->GetWorldCenter(), true);
 }
 
 void PlayerController::strafeRight(InputArgs& args) {
 	if (args.state == InputState::RELEASED) return;
-	position += glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0))) * MovementSpeedFactor;
+	glm::vec3 dir = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
+	DynamicBody* body = getOwner()->getComponent<DynamicBody>();
+	body->getBody()->ApplyLinearImpulse(b2Vec2(dir.x, dir.z), body->getBody()->GetWorldCenter(), true);
 }

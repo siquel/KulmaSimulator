@@ -6,7 +6,6 @@
 #include "resources/resource.h"
 #include "resources/texture.h"
 #include "resources/mesh.h"
-#include "resources/font.h"
 class ContentManager {
 private:
 	std::string root;

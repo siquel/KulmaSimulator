@@ -288,9 +288,6 @@
     <ClCompile Include="src\resources\resource.cpp">
       <Filter>Source Files\resources</Filter>
     </ClCompile>
-    <ClCompile Include="src\resources\font.cpp">
-      <Filter>Source Files\resources</Filter>
-    </ClCompile>
     <ClCompile Include="src\resources\mesh.cpp">
       <Filter>Source Files\resources</Filter>
     </ClCompile>
@@ -534,9 +531,6 @@
       <Filter>Header Files\resources</Filter>
     </ClInclude>
     <ClInclude Include="include\resources\effect.h">
-      <Filter>Header Files\resources</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resources\font.h">
       <Filter>Header Files\resources</Filter>
     </ClInclude>
     <ClInclude Include="include\resources\mesh.h">
