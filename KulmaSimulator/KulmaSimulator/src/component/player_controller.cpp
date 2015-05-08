@@ -3,6 +3,7 @@
 #include "engine/input.h"
 #include "component/transform.h"
 #include "Entity.h"
+#include "component/rigidbody.h"
 
 const float PlayerController::MovementSpeedFactor = 0.1f;
 PlayerController::PlayerController() {
@@ -43,15 +44,16 @@ void PlayerController::onUpdate(float tpf) {
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	forward = glm::normalize(front);
 	SDL_WarpMouseInWindow(Simulator::getInstance().getWindow(), midWinX, midWinY);
-	position.y = 1.f;
 	Transform* tf = getOwner()->getComponent<Transform>();
-	tf->setPosition(position);
+	glm::vec3 position = tf->getPosition();
+	position.y = 1.f;
 	Simulator::getInstance().getCamera().setView(glm::lookAt(position, position + forward, glm::vec3(0,1,0)));
 }
 
 void PlayerController::moveForward(InputArgs& args) {
 	if (args.state == InputState::RELEASED) return;
-	position += MovementSpeedFactor * forward;
+	DynamicBody* body = getOwner()->getComponent<DynamicBody>();
+	body->getBody()->ApplyLinearImpulse(b2Vec2(forward.x, forward.z), body->getBody()->GetWorldCenter(), true);
 }
 
 void PlayerController::moveBackward(InputArgs& args) {

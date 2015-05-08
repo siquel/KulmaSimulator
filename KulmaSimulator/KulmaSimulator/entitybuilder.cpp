@@ -6,10 +6,12 @@
 #include "component\transform.h"
 #include "Box2D\Box2D.h"
 #include "EntityManager.h"
+#include "component/player_controller.h"
+#include "component/rigidbody.h"
 Entity* EntityBuilder::buildPoolTable(World& world) {
 	Entity* table = new Entity;
 
-	Rigidbody* body = new PoolBallBody(world);
+	Rigidbody* body = new DynamicBody(world);
 	Mesh* tableMesh = Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table");
 	MeshRenderer* renderer = new MeshRenderer(tableMesh);
 
@@ -64,7 +66,7 @@ static float i = 1.f;
 Entity* EntityBuilder::buildPoolBall(World& world, float x, float y) {
 	Entity* ball = new Entity;
 
-	Rigidbody* body = new PoolBallBody(world);
+	Rigidbody* body = new DynamicBody(world);
 	Mesh* ballmesh = Simulator::getInstance().getContent().load<Mesh>("mesh\\Balls\\ykone2");
 	MeshRenderer* renderer = new MeshRenderer(ballmesh);
 
@@ -134,13 +136,28 @@ Entity** EntityBuilder::buildPooBallTriangle(World& world) {
 	return balls;
 }
 
-Entity* EntityBuilder::createWall(const glm::vec3& pos, const glm::vec3& scale) {
+Entity* EntityBuilder::createWall(World& world, const glm::vec3& pos, const glm::vec3& scale) {
 	Entity* wall = new Entity;
 	Transform* walltf = new Transform;
+	Rigidbody* body = new Rigidbody(world);
 	walltf->setPosition(pos);
 	walltf->setScale(scale);
 	wall->addComponent(walltf);
 	wall->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\cube")));
+	wall->addComponent(body);
+	body->enable();
+
+	b2BodyDef bodydef;
+	bodydef.type = b2_staticBody;
+	bodydef.position = b2Vec2(pos.x, pos.z);
+	body->createBody(bodydef);
+
+	b2PolygonShape shape;
+	shape.SetAsBox(scale.x , scale.z );
+	b2FixtureDef fixdef;
+	fixdef.shape = &shape;
+	body->createFixture(fixdef);
+
 	return wall;
 }
 
@@ -154,7 +171,7 @@ Entity* EntityBuilder::createTableGroup(const glm::vec3& pos, float rotation, co
 	return tablegroup;
 }
 
-Entity* EntityBuilder::buildKulma(EntityManager& entityManager) {
+Entity* EntityBuilder::buildKulma(EntityManager& entityManager, World& world) {
 	float width = 10;
 	float height = 15.f;
 
@@ -174,10 +191,10 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager) {
 	floor->getComponent<MeshRenderer>()->setTexture(content.load<Texture>("tex\\floor"));
 	entities.push_back(floor);
 
-	Entity* leftWall = EntityBuilder::createWall(glm::vec3(width + 1.f, 2.f, 0.f), glm::vec3(1.f, 5.f, height));
-	Entity* rightWall = EntityBuilder::createWall(glm::vec3(-(width + 1.f), 2.f, 0.f), glm::vec3(1.f, 5.f, height));
-	Entity* topWall = EntityBuilder::createWall(glm::vec3(0.f, 2.f, height + 1), glm::vec3(width, 5.f, 1.f));
-	Entity* bottomWall = EntityBuilder::createWall(glm::vec3(0.f, 2.f, -(height + 1)), glm::vec3(width, 5.f, 1.f));
+	Entity* leftWall = EntityBuilder::createWall(world, glm::vec3(width + 1.f, 2.f, 0.f), glm::vec3(1.f, 5.f, height));
+	Entity* rightWall = EntityBuilder::createWall(world, glm::vec3(-(width + 1.f), 2.f, 0.f), glm::vec3(1.f, 5.f, height));
+	Entity* topWall = EntityBuilder::createWall(world, glm::vec3(0.f, 2.f, height + 1), glm::vec3(width, 5.f, 1.f));
+	Entity* bottomWall = EntityBuilder::createWall(world, glm::vec3(0.f, 2.f, -(height + 1)), glm::vec3(width, 5.f, 1.f));
 	entities.push_back(leftWall);
 	entities.push_back(rightWall);
 	entities.push_back(topWall);
@@ -200,11 +217,36 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager) {
 	}
 	// wc
 	float start = width - (5 * 2.5f);
-	entities.push_back(createWall(glm::vec3(start, 2.f, height - 3.f), glm::vec3(0.5f, 5.f, 5.f)));
+	entities.push_back(createWall(world, glm::vec3(start, 2.f, height - 3.f), glm::vec3(0.5f, 5.f, 5.f)));
 
 	for (size_t i = 0; i < entities.size(); i++) {
 		kulma->addChild(entities[i]);
 		entityManager.addEntity(entities[i]);
 	}
 	return kulma;
+}
+
+Entity* EntityBuilder::buildPlayer(World& world) {
+	Entity* player = new Entity;
+	player->addComponent(new Transform);
+	player->addComponent(new PlayerController);
+	Rigidbody* body = new DynamicBody(world);
+	player->addComponent(body);
+	body->enable();
+
+	b2BodyDef bodydef;
+	bodydef.type = b2_dynamicBody;
+	bodydef.fixedRotation = true;
+	bodydef.angularDamping = 10.f;
+	bodydef.linearDamping = 10.f;
+	body->createBody(bodydef);
+
+	b2CircleShape shape;
+	shape.m_radius = 0.5f;
+	b2FixtureDef fixdef;
+	fixdef.friction = 0.8f;
+	fixdef.density = 1;
+	fixdef.shape = &shape;
+	body->createFixture(fixdef);
+	return player;
 }

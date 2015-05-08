@@ -19,9 +19,9 @@ protected:
 };
 
 
-class PoolBallBody : public Rigidbody {
+class DynamicBody : public Rigidbody {
 public:
-	PoolBallBody(World& world);
+	DynamicBody(World& world);
 	void onUpdate(float tpf);
 };
 

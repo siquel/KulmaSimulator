@@ -10,8 +10,9 @@ public:
 	static Entity* buildPoolTable(World& world);
 	static Entity* buildPoolBall(World& world, float x, float y);
 	static Entity** buildPooBallTriangle(World& world);
-	static Entity* buildKulma(EntityManager&);
+	static Entity* buildKulma(EntityManager&, World&);
+	static Entity* buildPlayer(World& world);
 private:
-	static Entity* createWall(const glm::vec3& pos, const glm::vec3& scale);
+	static Entity* createWall(World& world, const glm::vec3& pos, const glm::vec3& scale);
 	static Entity* createTableGroup(const glm::vec3& pos, float rotation, const glm::vec3& axis);
 };

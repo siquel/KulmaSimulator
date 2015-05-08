@@ -27,10 +27,10 @@ b2Fixture* Rigidbody::createFixture(const b2FixtureDef& def) {
 void Rigidbody::onUpdate(float tpf) {}
 
 
-PoolBallBody::PoolBallBody(World& world) : Rigidbody(world) {
+DynamicBody::DynamicBody(World& world) : Rigidbody(world) {
 
 }
-void PoolBallBody::onUpdate(float tpf) {
+void DynamicBody::onUpdate(float tpf) {
 	Transform* tf = getOwner()->getComponent<Transform>();
 	const b2Transform& tx = getBody()->GetTransform();
 	tf->setPosition(glm::vec3(tx.p.x, tf->getPosition().y, tx.p.y));
