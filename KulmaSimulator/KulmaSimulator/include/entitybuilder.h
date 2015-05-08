@@ -14,5 +14,6 @@ public:
 	static Entity* buildPlayer(World& world);
 private:
 	static Entity* createWall(World& world, const glm::vec3& pos, const glm::vec3& scale);
-	static Entity* createTableGroup(const glm::vec3& pos, float rotation, const glm::vec3& axis);
+	static Entity* createTableGroup(World&, const glm::vec3& pos, float rotation, const glm::vec3& axis);
+	static Entity* buildStandardPoolTable(World&, const glm::vec3&, const float, const glm::vec3&);
 };

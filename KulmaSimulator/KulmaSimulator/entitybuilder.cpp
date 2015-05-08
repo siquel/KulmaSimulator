@@ -161,13 +161,27 @@ Entity* EntityBuilder::createWall(World& world, const glm::vec3& pos, const glm:
 	return wall;
 }
 
-Entity* EntityBuilder::createTableGroup(const glm::vec3& pos, float rotation, const glm::vec3& axis) {
+Entity* EntityBuilder::createTableGroup(World& world, const glm::vec3& pos, float rotation, const glm::vec3& axis) {
 	Entity* tablegroup = new Entity;
 	Transform* tablegrptf = new Transform;
 	tablegrptf->rotate(glm::radians(rotation), axis);
 	tablegrptf->setPosition(pos);
 	tablegroup->addComponent(tablegrptf);
 	tablegroup->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\table\\tablegroup")));
+	Rigidbody* body = new Rigidbody(world);
+	tablegroup->addComponent(body);
+	body->enable();
+	b2BodyDef bodydef;
+	bodydef.type = b2_staticBody;
+	bodydef.position = b2Vec2(pos.x, pos.z);
+	body->createBody(bodydef);
+
+	b2FixtureDef fixdef;
+	b2PolygonShape shape;
+	shape.SetAsBox(0.9f, 0.8f);
+	fixdef.shape = &shape;
+	body->createFixture(fixdef);
+
 	return tablegroup;
 }
 
@@ -200,11 +214,7 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager, World& world) {
 	entities.push_back(topWall);
 	entities.push_back(bottomWall);
 
-	Entity* table = new Entity();
-	table->addComponent(new Transform());
-	table->getComponent<Transform>()->setPosition(glm::vec3(width - 3.f, 0.f, height - 6.f));
-	table->getComponent<Transform>()->rotate(glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
-	table->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
+	Entity* table = buildStandardPoolTable(world, glm::vec3(width - 3.f, 0.f, height - 6.f), 90.f, glm::vec3(0.f, 1.f, 0.f));
 	entities.push_back(table);
 
 	Entity* door = new Entity;
@@ -213,7 +223,7 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager, World& world) {
 	entities.push_back(door);
 
 	for (size_t i = 1; i <= 4; ++i) {
-		entities.push_back(createTableGroup(glm::vec3(width - 2.5f * i, 0.f, height - 2.f), 90.f, glm::vec3(0, 1, 0)));
+		entities.push_back(createTableGroup(world, glm::vec3(width - 2.5f * i, 0.f, height - 2.f), 90.f, glm::vec3(0, 1, 0)));
 	}
 	// wc
 	float start = width - (5 * 2.5f);
@@ -249,4 +259,28 @@ Entity* EntityBuilder::buildPlayer(World& world) {
 	fixdef.shape = &shape;
 	body->createFixture(fixdef);
 	return player;
+}
+
+Entity* EntityBuilder::buildStandardPoolTable(World& world, const glm::vec3& pos, const float rotation, const glm::vec3& axis) {
+	Entity* table = new Entity();
+	table->addComponent(new Transform());
+	table->getComponent<Transform>()->setPosition(pos);
+	table->getComponent<Transform>()->rotate(glm::radians(rotation), axis);
+	table->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
+
+	Rigidbody* body = new Rigidbody(world);
+	table->addComponent(body);
+	body->enable();
+	b2BodyDef bodydef;
+	bodydef.type = b2_staticBody;
+	bodydef.position = b2Vec2(pos.x, pos.z);
+	body->createBody(bodydef);
+	
+	b2PolygonShape shape;
+	shape.SetAsBox(1.5f, 1.f);
+	b2FixtureDef fixdef;
+	fixdef.shape = &shape;
+	body->createFixture(fixdef);
+
+	return table;
 }
