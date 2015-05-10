@@ -5,7 +5,6 @@
 #include "Entity.h"
 #include "component/rigidbody.h"
 
-const float PlayerController::MovementSpeedFactor = 0.1f;
 PlayerController::PlayerController() {
 	enable();
 }
@@ -17,10 +16,11 @@ PlayerController::~PlayerController() {
 void PlayerController::onInitialize() {
 	InputManager& input = Simulator::getInstance().getInput();
 	using namespace std::placeholders;
-	input.bind("Move forward", std::bind(&PlayerController::moveForward, this, _1), 2, new KeyTrigger(SDLK_w), new KeyTrigger(SDLK_UP));
-	input.bind("Move backward", std::bind(&PlayerController::moveBackward, this, _1), 2, new KeyTrigger(SDLK_s), new KeyTrigger(SDLK_DOWN));
-	input.bind("Move left", std::bind(&PlayerController::strafeLeft, this, _1), 2, new KeyTrigger(SDLK_a), new KeyTrigger(SDLK_LEFT));
-	input.bind("Move right", std::bind(&PlayerController::strafeRight, this, _1), 2, new KeyTrigger(SDLK_d), new KeyTrigger(SDLK_RIGHT));
+	input.bind("Move forward", KULMA_INPUT_BIND_2(PlayerController::moveForward, this, new KeyTrigger(SDLK_w), new KeyTrigger(SDLK_UP)));
+	input.bind("Move backward", KULMA_INPUT_BIND_2(PlayerController::moveBackward, this, new KeyTrigger(SDLK_s), new KeyTrigger(SDLK_DOWN)));
+	input.bind("Move left", KULMA_INPUT_BIND_2(PlayerController::strafeLeft, this, new KeyTrigger(SDLK_a), new KeyTrigger(SDLK_LEFT)));
+	input.bind("Move right", KULMA_INPUT_BIND_2(PlayerController::strafeRight, this, new KeyTrigger(SDLK_d), new KeyTrigger(SDLK_RIGHT)));
+	input.bind("Interact", KULMA_INPUT_BIND_1(PlayerController::interact, this, new KeyTrigger(SDLK_SPACE)));
 }
 void PlayerController::onUpdate(float tpf) {
 	static const GLfloat sensitivity = 0.05f;
@@ -74,4 +74,9 @@ void PlayerController::strafeRight(InputArgs& args) {
 	glm::vec3 dir = glm::normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
 	DynamicBody* body = getOwner()->getComponent<DynamicBody>();
 	body->getBody()->ApplyLinearImpulse(b2Vec2(dir.x, dir.z), body->getBody()->GetWorldCenter(), true);
+}
+
+void PlayerController::interact(InputArgs&) {
+	CircleCollider* c = getOwner()->getComponent<CircleCollider>();
+	
 }

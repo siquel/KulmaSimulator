@@ -5,7 +5,9 @@
 #include "component/meshrenderer.h"
 #include "component/transform.h"
 #include "entitybuilder.h"
-GameplayState::GameplayState() : world(0.f, 0.f) {}
+GameplayState::GameplayState() : world(0.f, 0.f) {
+	world.getBox2D()->SetContactListener(&collisionListener);
+}
 GameplayState::~GameplayState() {}
 
 void GameplayState::onInitialize() {

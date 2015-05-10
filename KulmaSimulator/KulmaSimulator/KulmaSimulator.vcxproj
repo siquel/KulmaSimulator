@@ -82,6 +82,7 @@
     <ClCompile Include="simulator.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="spritebatch.cpp" />
+    <ClCompile Include="src\collision_listener.cpp" />
     <ClCompile Include="src\component\player_controller.cpp" />
     <ClCompile Include="src\gobject\poolstick.cpp" />
     <ClCompile Include="src\resources\effect.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="include\Box2D\Dynamics\Joints\b2WeldJoint.h" />
     <ClInclude Include="include\Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="include\Box2D\Rope\b2Rope.h" />
+    <ClInclude Include="include\collision_listener.h" />
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\ComponentManager.h" />
     <ClInclude Include="include\component\meshrenderer.h" />

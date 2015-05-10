@@ -3,6 +3,8 @@
 #include "Component.h"
 #include "Box2D\Box2D.h"
 #include "World.h"
+#include "GLM.h"
+class CollisionListener;
 class Rigidbody : public Component {
 private:
 	b2Body* body;
@@ -23,6 +25,21 @@ class DynamicBody : public Rigidbody {
 public:
 	DynamicBody(World& world);
 	void onUpdate(float tpf);
+};
+
+class CircleCollider : public Component {
+private:
+	b2Body* body;
+	std::weak_ptr<b2World> world;
+	float radius;
+	glm::vec2 pos;
+public:
+	CircleCollider(World& world, float r, const glm::vec2& pos = glm::vec2(0, 0));
+	void setCollisionListener(CollisionListener* listener);
+	void removeCollisionListener(CollisionListener* listener);
+protected:
+	void onInitialize() override;
+	void onUpdate(float tpf) override;
 };
 
 #endif

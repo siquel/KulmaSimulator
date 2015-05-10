@@ -3,7 +3,7 @@
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #endif
-
+class ITrigger;
 //
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 // ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
@@ -55,5 +55,9 @@ void __log(const char* severity, const char* fmt, ...);
 
 #define glAssert() assert(glGetError() == GL_NO_ERROR)
 #define LOG_INFO(format,...) __log("<INFO> ", format, ##__VA_ARGS__)
+#define KULMA_BIND_1(__selector__, __target__) std::bind(&__selector__, __target__, std::placeholders::_1)
+#define KULMA_INPUT_BIND_1(__selector__, __target__, ...) KULMA_BIND_1(__selector__, __target__), 1, __VA_ARGS__
+#define KULMA_INPUT_BIND_2(__selector__, __target__, ...) KULMA_BIND_1(__selector__, __target__), 2, __VA_ARGS__
+#define KULMA_INPUT_BIND_3(__selector__, __target__, ...) KULMA_BIND_1(__selector__, __target__), 3, __VA_ARGS__
 
 #endif
