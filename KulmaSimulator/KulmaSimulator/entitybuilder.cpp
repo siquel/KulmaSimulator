@@ -245,9 +245,9 @@ Entity* EntityBuilder::buildPlayer(World& world) {
 	player->addComponent(new Transform);
 	player->addComponent(new PlayerController);
 
-	CircleCollider* fov = new CircleCollider(world, 2.f);
+	/*CircleCollider* fov = new CircleCollider(world, 2.f);
 	player->addComponent(fov);
-	fov->enable();
+	fov->enable();*/
 
 	Rigidbody* body = new DynamicBody(world);
 	player->addComponent(body);

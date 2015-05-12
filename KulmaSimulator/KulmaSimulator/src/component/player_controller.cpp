@@ -5,6 +5,26 @@
 #include "Entity.h"
 #include "component/rigidbody.h"
 
+class InteractionCallback : public b2RayCastCallback {
+public:
+	Entity* result = nullptr;
+	float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction) override {
+		if (fixture->GetUserData()) {
+			Entity* entity =static_cast<Entity*>(fixture->GetUserData());
+
+			// is player
+ 			if (entity->getComponent<PlayerController>()) {
+				return -1;
+			}
+			result = entity;
+			// gotta find the closest
+			return fraction;
+		}
+		// not having entity so we dont need it
+		return -1;
+	}
+};
+
 PlayerController::PlayerController() {
 	enable();
 }
@@ -77,6 +97,20 @@ void PlayerController::strafeRight(InputArgs& args) {
 }
 
 void PlayerController::interact(InputArgs&) {
-	CircleCollider* c = getOwner()->getComponent<CircleCollider>();
+	//b2RayCastCallback callback;
+	const b2World* world = getOwner()->getComponent<Rigidbody>()->getBody()->GetWorld();
+	Transform *tx = getOwner()->getComponent<Transform>();
+	const glm::vec3 me = tx->getPosition();
+	// fov is 2f
+	const glm::vec3 to = me + forward * 2.f;
+	InteractionCallback cb;
+	world->RayCast(&cb, b2Vec2(me.x, me.z), b2Vec2(to.x, to.z));
+
+	// we didnt hit anyone
+	if (!cb.result) {
+		return;
+	}
+
+	// TODO what now?
 	
 }
