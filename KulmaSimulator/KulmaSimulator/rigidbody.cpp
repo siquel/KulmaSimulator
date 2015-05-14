@@ -7,7 +7,9 @@ Rigidbody::Rigidbody(World& world) : Component(0), world(world.getBox2D()) {
 	
 }
 
-Rigidbody::~Rigidbody() {}
+Rigidbody::~Rigidbody() {
+	world.lock().get()->DestroyBody(body);
+}
 
 void Rigidbody::onInitialize() {
 
@@ -39,6 +41,10 @@ void DynamicBody::onUpdate(float tpf) {
 	const b2Transform& tx = getBody()->GetTransform();
 	tf->setPosition(glm::vec3(tx.p.x, tf->getPosition().y, tx.p.y));
 	//std::cout << tx.p.x << " " << tx.p.y << std::endl;
+}
+
+DynamicBody::~DynamicBody() {
+
 }
 
 

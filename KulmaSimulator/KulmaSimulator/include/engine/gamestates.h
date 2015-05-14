@@ -13,8 +13,10 @@ public:
 	virtual void update(float tpf) = 0;
 	virtual void draw(SpriteBatch& spriteBatch) = 0;
 	void init();
+	void unload();
 protected:
 	virtual void onInitialize() = 0;
+	virtual void onUnload();
 };
 
 class GameStateManager {

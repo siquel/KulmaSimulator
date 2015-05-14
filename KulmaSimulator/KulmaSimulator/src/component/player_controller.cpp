@@ -4,6 +4,7 @@
 #include "component/transform.h"
 #include "Entity.h"
 #include "component/rigidbody.h"
+#include "component/interaction.h"
 
 class InteractionCallback : public b2RayCastCallback {
 public:
@@ -30,7 +31,12 @@ PlayerController::PlayerController() {
 }
 
 PlayerController::~PlayerController() {
-
+	InputManager& input = Simulator::getInstance().getInput();
+	input.unbind("Move forward");
+	input.unbind("Move backward");
+	input.unbind("Move left");
+	input.unbind("Move right");
+	input.unbind("Interact");
 }
 
 void PlayerController::onInitialize() {
@@ -96,7 +102,8 @@ void PlayerController::strafeRight(InputArgs& args) {
 	body->getBody()->ApplyLinearImpulse(b2Vec2(dir.x, dir.z), body->getBody()->GetWorldCenter(), true);
 }
 
-void PlayerController::interact(InputArgs&) {
+void PlayerController::interact(InputArgs& args) {
+	if (args.state != InputState::PRESSED) return;
 	//b2RayCastCallback callback;
 	const b2World* world = getOwner()->getComponent<Rigidbody>()->getBody()->GetWorld();
 	Transform *tx = getOwner()->getComponent<Transform>();
@@ -108,9 +115,9 @@ void PlayerController::interact(InputArgs&) {
 
 	// we didnt hit anyone
 	if (!cb.result) {
-		return;
+ 		return;
 	}
 
-	// TODO what now?
-	
+	InteractionComponent* ic = cb.result->getComponent<InteractionComponent>();
+	ic->interact(getOwner());
 }

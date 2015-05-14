@@ -17,3 +17,7 @@ void World::update(float tpf) {
 std::shared_ptr<b2World> World::getBox2D() {
 	return box2dWorld;
 }
+
+World::~World() {
+	
+}

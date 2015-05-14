@@ -11,6 +11,7 @@ public:
 	World();
 	// with gravity
 	World(float x, float y);
+	~World();
 	// updates physics
 	void update(float tpf);
 

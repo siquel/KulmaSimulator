@@ -11,7 +11,7 @@ private:
 	std::weak_ptr<b2World> world;
 public:
 	Rigidbody(World& world);
-	~Rigidbody();
+	virtual ~Rigidbody();
 	b2Body* getBody() const;
 	void createBody(const b2BodyDef& def);
 	b2Fixture* createFixture(const b2FixtureDef& def);
@@ -24,6 +24,7 @@ protected:
 class DynamicBody : public Rigidbody {
 public:
 	DynamicBody(World& world);
+	~DynamicBody();
 	void onUpdate(float tpf);
 };
 

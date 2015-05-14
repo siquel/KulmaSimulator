@@ -11,6 +11,6 @@ PoolInteraction::~PoolInteraction() {
 
 void PoolInteraction::interact(Entity* initiator) {
 	Simulator::getInstance().doNextFrame([]() {
-		Simulator::getInstance().getStateManager().push(new PoolState);
+		Simulator::getInstance().getStateManager().change(new PoolState);
 	});
 }

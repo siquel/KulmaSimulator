@@ -19,6 +19,7 @@ public:
 	void draw(SpriteBatch& spriteBatch);
 protected:
 	void onInitialize();
+	void onUnload() override;
 };
 
 #endif

@@ -30,7 +30,7 @@ public:
 
 	void update(float tpf);
 	void draw(SpriteBatch& spriteBatch);
-
+	void clear();
 	~EntityManager();
 };
 

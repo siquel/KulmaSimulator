@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "component/player_controller.h"
 #include "component/rigidbody.h"
+#include "component/pool_interaction.h"
 Entity* EntityBuilder::buildPoolTable(World& world) {
 	Entity* table = new Entity;
 
@@ -276,6 +277,7 @@ Entity* EntityBuilder::buildStandardPoolTable(World& world, const glm::vec3& pos
 	table->getComponent<Transform>()->setPosition(pos);
 	table->getComponent<Transform>()->rotate(glm::radians(rotation), axis);
 	table->addComponent(new MeshRenderer(Simulator::getInstance().getContent().load<Mesh>("mesh\\Pooli\\table")));
+	table->addComponent(new PoolInteraction);
 
 	Rigidbody* body = new Rigidbody(world);
 	table->addComponent(body);

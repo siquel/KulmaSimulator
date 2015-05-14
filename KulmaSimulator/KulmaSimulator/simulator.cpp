@@ -10,7 +10,7 @@ Simulator::~Simulator() {}
 
 void Simulator::update(float tpf) {
 	while (!pendingActions.empty()) {
-		pendingActions.front()();
+ 		pendingActions.front()();
 		pendingActions.pop();
 	}
 	stateManager.update(tpf);

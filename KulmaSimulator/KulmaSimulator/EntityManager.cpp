@@ -98,3 +98,9 @@ EntityManager::~EntityManager() {
 		e = nullptr;
 	});
 }
+
+void EntityManager::clear() {
+	std::for_each(entities.begin(), entities.end(), [](Entity* e) {
+		e->destroy();
+	});
+}

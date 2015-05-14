@@ -31,3 +31,7 @@ void GameplayState::draw(SpriteBatch& spriteBatch) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	entityManager.draw(spriteBatch);
 }
+
+void GameplayState::onUnload() {
+	entityManager.clear();
+}

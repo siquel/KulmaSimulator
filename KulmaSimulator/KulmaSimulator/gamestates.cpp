@@ -11,6 +11,17 @@ void GameState::init() {
 	initialized = true;
 }
 
+void GameState::unload() {
+	if (initialized) {
+		initialized = false;
+		onUnload();
+	}
+}
+
+void GameState::onUnload() {
+
+}
+
 GameStateManager::GameStateManager() { }
 GameStateManager::~GameStateManager() {}
 void GameStateManager::change(GameState* gs) { 
@@ -19,7 +30,8 @@ void GameStateManager::change(GameState* gs) {
 }
 void GameStateManager::pop() {
 	if (states.size() == 0) return;
-
+	states.back()->unload();
+	delete states.back();
 	states.erase(states.end() - 1);
 }
 void GameStateManager::push(GameState* gs) {
