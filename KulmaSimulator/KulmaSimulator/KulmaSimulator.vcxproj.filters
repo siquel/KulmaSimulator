@@ -300,6 +300,12 @@
     <ClCompile Include="src\collision_listener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\component\interaction.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\component\pool_interaction.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\simulator.h">
@@ -547,6 +553,12 @@
     </ClInclude>
     <ClInclude Include="include\collision_listener.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\interaction.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\pool_interaction.h">
+      <Filter>Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

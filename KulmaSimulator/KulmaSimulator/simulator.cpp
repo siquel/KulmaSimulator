@@ -9,6 +9,10 @@ Simulator::Simulator()
 Simulator::~Simulator() {}
 
 void Simulator::update(float tpf) {
+	while (!pendingActions.empty()) {
+		pendingActions.front()();
+		pendingActions.pop();
+	}
 	stateManager.update(tpf);
 }
 void Simulator::draw() {
@@ -22,4 +26,8 @@ void Simulator::initialize() {
 
 Camera& Simulator::getCamera() {
 	return camera;
+}
+
+void Simulator::doNextFrame(std::function<void() > action) {
+	pendingActions.push(action);
 }

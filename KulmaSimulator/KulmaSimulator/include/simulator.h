@@ -4,11 +4,12 @@
 #include "engine/game.h"
 #include "spritebatch.h"
 #include "engine\camera.h"
-
+#include <queue>
 class Simulator : public Game  {
 private:
 	Camera camera;
 	SpriteBatch spriteBatch;
+	std::queue<std::function<void()>> pendingActions;
 	Simulator();
 	~Simulator();
 
@@ -23,6 +24,7 @@ public:
 	void draw();
 	void initialize();
 	Camera& getCamera();
+	void doNextFrame(std::function<void() > action);
 };
 
 
