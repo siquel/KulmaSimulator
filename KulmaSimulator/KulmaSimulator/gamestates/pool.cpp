@@ -27,6 +27,8 @@ void PoolState::draw(SpriteBatch& sb) {
 
 void PoolState::onInitialize() {
 	ContentManager& content = Simulator::getInstance().getContent();
+
+	EntityBuilder::buildKulma(entities, world);
 	Entity* poolTable = EntityBuilder::buildPoolTable(world);
 	Entity** balls = EntityBuilder::buildPooBallTriangle(world);
 	entities.addEntity(poolTable);

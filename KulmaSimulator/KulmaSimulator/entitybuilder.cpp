@@ -218,10 +218,10 @@ Entity* EntityBuilder::buildKulma(EntityManager& entityManager, World& world) {
 	Entity* table = buildStandardPoolTable(world, glm::vec3(width - 3.f, 0.f, height - 6.f), 90.f, glm::vec3(0.f, 1.f, 0.f));
 	entities.push_back(table);
 
-	Entity* door = new Entity;
+	/*Entity* door = new Entity;
 	door->addComponent(new Transform);
 	door->addComponent(new MeshRenderer(content.load<Mesh>("mesh\\counter\\counter")));
-	entities.push_back(door);
+	entities.push_back(door);*/
 
 	for (size_t i = 1; i <= 4; ++i) {
 		entities.push_back(createTableGroup(world, glm::vec3(width - 2.5f * i, 0.f, height - 1.3f), 90.f, glm::vec3(0, 1, 0)));
