@@ -35,6 +35,8 @@ public:
 	void addTrigger(ITrigger*);
 	const std::string& getName() const;
 	~Mapping();
+	std::vector<ITrigger*>& getTriggers();
+	ITrigger* getTrigger(size_t i);
 };
 
 class InputListener;
@@ -55,6 +57,7 @@ public:
 	~InputManager();
 	// creates new binding for keys, there should be at least one key
 	void bind(std::string name, InputEvent args, int numTriggers, ...);
+	void unbind(const std::string& name);
 	// checks if the binding name has any mappings on it
 	bool hasMapping(std::string name);
 	

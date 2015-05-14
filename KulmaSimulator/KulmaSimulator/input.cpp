@@ -87,6 +87,20 @@ const std::vector<std::string>& InputManager::getMappingNames(SDL_Keycode key) c
 	return bindings.at(key);
 }
 
+void InputManager::unbind(const std::string& name) {
+	// there isnt mapping
+	if (!mappings.count(name)) return;
+
+	Mapping* mapping = mappings[name];
+	for (size_t i = 0; i < mapping->getTriggers().size(); ++i) {
+		ITrigger* triger = mapping->getTrigger(i);
+		std::vector<std::string>& names = bindings[triger->triggerHash()];
+		names.erase(std::find(names.begin(), names.end(), name));
+	}
+	mappings.erase(name);
+	delete mapping;
+}
+
 Mapping::Mapping(std::string name, InputEvent event) : name(name), event(event) {
 	
 }
@@ -104,6 +118,14 @@ const std::string& Mapping::getName() const {
 
 void Mapping::addTrigger(ITrigger* trigger) {
 	triggers.push_back(trigger);
+}
+
+std::vector<ITrigger*>& Mapping::getTriggers() {
+	return triggers;
+}
+
+ITrigger* Mapping::getTrigger(size_t i) {
+	return triggers[i];
 }
 
 
